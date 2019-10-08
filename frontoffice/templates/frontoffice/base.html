@@ -2,6 +2,9 @@
 
 {% load staticfiles %}
 {% load catalog_extras %}
+{% load tools_extras %}
+
+{% load_config %}
 
 <html lang="en">
 <head>
@@ -25,6 +28,8 @@
    <!-- Main CSS -->
    <link rel="stylesheet" href="{% static 'frontoffice/css/base.css' %}">
 
+   <link rel="shortcut icon" type="image/png" href="/static/frontoffice/img/favicon.ico"/>
+
    {% block head %}{% endblock %}
 
 </head>
@@ -37,26 +42,26 @@
 
       <ul class="navbar-nav mr-auto">
          <li class="nav-item">
-            <a class="nav-link" href="/">Nouveautés</a>
+            <a class="nav-link btn" href="{% url 'fo-shop' %}?selection=new">Nouveautés</a>
          </li>
 
-         {% get_categories %}
+         {% load_categories %}
          {% for category in categories %}
          <li class="nav-item">
-            <a class="nav-link" href="{% url 'fo-shop' %}?category={{ category.name }}">{{ category.label }}</a>
+            <a class="nav-link btn" href="{% url 'fo-shop' %}?categories={{ category.name }}">{{ category.label }}</a>
          </li>
          {% endfor %}
       </ul>
 
       <form class="form-inline">
          {% if user.is_anonymous %}
-            <a class="nav-link" href="{% url 'login' %}">Sign in</a>
-            <a class="nav-link" href="{% url 'join' %}">Join</a>
+            <a class="nav-link btn" href="{% url 'login' %}">Sign in</a>
+            <a class="nav-link btn" href="{% url 'join' %}">Join</a>
          {% else %}
 
             {% if user.is_superuser %}
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Vendor</a>
+               <a class="dropdown-toggle nav-link btn" data-toggle="dropdown" href="#">Vendor</a>
                <ul class="dropdown-menu dropdown-menu-right">
                   <li><a class="nav-link" href="{% url 'bo-home' %}">Backoffice</a></li>
                   <li><a class="nav-link" href="/admin/">Admin</a></li>
@@ -65,7 +70,7 @@
             {% endif %}
 
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Profile</a>
+               <a class="dropdown-toggle nav-link btn" data-toggle="dropdown" href="#">Profile</a>
                <ul class="dropdown-menu dropdown-menu-right">
                   <li><a class="nav-link" href="/">Account</a></li>
                   <li><a class="nav-link" href="/">My orders</a></li>
@@ -121,7 +126,13 @@
             <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
          </ul>
          <form class="form-inline">
-            <span class="nav-link">© 2019 Shipan</span>
+         <div class="navbar-nav">
+         <div class="navbar-item">
+            <label class="nav-link">
+               © 2019 Shipan&nbsp;<span {% if user.is_superuser %}title="{{ config.VERSION.VersionFull }}"{% endif %}>v{{ config.VERSION.Version }}</span>
+            </label>
+         </div>
+         </div>
          </form>
       </nav>
    </footer>

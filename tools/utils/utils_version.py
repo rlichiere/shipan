@@ -41,3 +41,11 @@ class Version(object):
    @property
    def Version(self):
       return '%s.%s.%s' % (self._major, self._minor, self._build)
+
+   @property
+   def Revision(self):
+      return '%s %s' % (self._level, self._revision)
+
+   @property
+   def VersionFull(self):
+      return '%s %s' % (self.Version, self.Revision)

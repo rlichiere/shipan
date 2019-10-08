@@ -78,11 +78,16 @@ class ProductColouringAdmin(admin.ModelAdmin):
       return mark_safe(', '.join(_.representation() for _ in instance.color.main_colors.all()))
 
 
+class ProductSelectionAdmin(admin.ModelAdmin):
+   list_display = ('label', 'name', )
+
+
 admin.site.register(models.ProductMainColor, ProductMainColorAdmin)
 admin.site.register(models.ProductColor, ProductColorAdmin)
 admin.site.register(models.ProductSize, ProductSizeAdmin)
 admin.site.register(models.ProductCategory, ProductCategoryAdmin)
 admin.site.register(models.ProductModel, ProductModelAdmin)
 admin.site.register(models.ProductColouring, ProductColouringAdmin)
+admin.site.register(models.ProductSelection, ProductSelectionAdmin)
 
 admin.site.add_action(admin_actions.backup_instances, 'Backup instances')

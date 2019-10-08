@@ -203,7 +203,29 @@ class ProductColouring(models.Model):
       Picture filename of this product colouring.
                               """,
                               blank=True,
+                              null=True,
                               max_length=200)
 
    class Meta:
       ordering = ['product__name', 'position']
+
+
+class ProductSelection(models.Model):
+
+   name = models.CharField(help_text="""
+      Intern name of the selection.
+                           """,
+                           unique=True,
+                           max_length=200)
+
+   label = models.CharField(help_text="""
+      Label of the selection.
+                            """,
+                            unique=True,
+                            max_length=200)
+
+   products = models.ManyToManyField(help_text="""
+      Products of this selection.
+                                     """,
+                                     to=ProductModel,
+                                     related_name='selections')

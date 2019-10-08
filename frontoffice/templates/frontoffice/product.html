@@ -7,23 +7,15 @@
 {% block page-body %}
 
 <style>
-   /* xs */
-   .shop-card {
+   .product-card {
        width: 500px;
        height: auto;
-   }
-   /* sm */
-   @media (min-width: 768px) {
-       .shop-card {
-           width: 250px;
-       }
    }
 </style>
 
 <div class="container">
    <div class="row">
-   {% for product in products %}
-      <div class="card shop-card m-3">
+      <div class="card product-card">
          {% if product.colourings.first.picture %}
          <img class="card-img-top" src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
          {% else %}
@@ -35,7 +27,7 @@
             <div class="list-group list-group-horizontal">
             <span class="small">Colors:&nbsp;</span>
             {% for colouring in product.colourings.all %}
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}"></a>
+               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}; {% if colouring.color.name == color %}border: 1px black groove{% endif %}"></a>
             {% endfor %}
             </div>
             <span class="small">
@@ -43,8 +35,6 @@
             </span>
          </div>
       </div>
-   {% empty %}
-   {% endfor %}
    </div>
 </div>
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
    'django.contrib.sessions',
    'django.contrib.messages',
    'django.contrib.staticfiles',
+   'tools.apps.ToolsConfig',
    'people.apps.PeopleConfig',
    'catalog.apps.CatalogConfig',
    'backoffice.apps.BackofficeConfig',
