@@ -132,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '%s/static/' % BASE_DIR
 
-MEDIA_ROOT = '/media/'
+MEDIA_ROOT = '%s/media/' % BASE_DIR
 MEDIA_URL = '/media/'
 
 CUSTOM_USER_MODEL = 'people.Client'
