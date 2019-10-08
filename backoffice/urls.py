@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from .views import Home
+from . import views
 
 
 urlpatterns = [
 
-   url(r'', Home.as_view(), name='bo-home'),
+   url(r'^$', views.Home.as_view(), name='bo-home'),
+   url(r'^backup/(?P<filename>.*)', views.Backup.as_view(), name='bo-backup'),
+
 ]

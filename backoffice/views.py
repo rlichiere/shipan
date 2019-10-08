@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from django.http import Http404
+from django.shortcuts import HttpResponse, redirect, reverse
+from django.views.generic import TemplateView, View
+
+from shipan import config
 
 from people.models.client import Client
 
@@ -21,3 +23,19 @@ class Home(LoginRequiredMixin, TemplateView):
       context['executor'] = self.request.user
 
       return context
+
+
+class Backup(View):
+
+   def get(self, *args, **kwargs):
+      if not self.request.user.is_superuser:
+         return redirect(reverse('fo-home'))
+
+      _fileName = kwargs['filename']
+      _filePath = '%s/%s' % (config.BACKUP_ROOT, _fileName)
+      try:
+         with open(_filePath, 'r') as _file:
+            _fileContent = _file.read()
+            return HttpResponse(_fileContent, content_type='application/json')
+      except IOError:
+         raise Http404

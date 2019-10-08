@@ -32,12 +32,14 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
    'django.contrib.admin',
+   'django.contrib.admindocs',
    'django.contrib.auth',
    'django.contrib.contenttypes',
    'django.contrib.sessions',
    'django.contrib.messages',
    'django.contrib.staticfiles',
    'people.apps.PeopleConfig',
+   'catalog.apps.CatalogConfig',
    'backoffice.apps.BackofficeConfig',
    'frontoffice.apps.FrontofficeConfig',
    'docutils',
@@ -128,10 +130,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '%s/static/' % BASE_DIR
-# STATICFILES_DIRS = [
-#    'static'
-# ]
 
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
 
 CUSTOM_USER_MODEL = 'people.Client'
 
@@ -143,7 +144,10 @@ LOGIN_REDIRECT_URL = 'fo-home'
 
 def skip_static_requests(record):
    if len(record.args) > 0:
-      if (record.args[0].find('GET /static/') >= 0) or (record.args[0].find('GET /favicon.ico ') >= 0):
+      if (record.args[0].find('GET /static/') >= 0)\
+      or (record.args[0].find('GET /favicon.ico ') >= 0)\
+      or (record.args[0].find('GET / ') >= 0)\
+      or (record.args[0].find('GET /admin/') >= 0):
          return False
    return True
 

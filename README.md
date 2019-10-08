@@ -5,6 +5,7 @@ E-commerce website
 
 * Client
 * Product
+* ProductCategory
 * Order
 
 ```

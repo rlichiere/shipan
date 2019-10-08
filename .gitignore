@@ -106,7 +106,8 @@ venv.bak/
 
 # custom
 .idea/*
-_*
+_work/*
+_backup/*
 db.sqlite3
 static/*
 *.bat

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
+
 {% load staticfiles %}
+{% load catalog_extras %}
+
 <html lang="en">
 <head>
 
@@ -27,7 +30,7 @@
 </head>
 <body>
 
-   <nav class="navbar navbar-expand fixed-top mr-3 hat">
+   <nav class="navbar navbar-expand fixed-top mr-3 hat" style="color: turquoise">
       <a class="navbar-brand" href="{% url 'fo-home' %}">
          <img src="{% static 'frontoffice/img/logo.jpg' %}" title="Shipan">
       </a>
@@ -37,9 +40,12 @@
             <a class="nav-link" href="/">Nouveautés</a>
          </li>
 
+         {% get_categories %}
+         {% for category in categories %}
          <li class="nav-item">
-            <a class="nav-link" href="/">Strings</a>
+            <a class="nav-link" href="/">{{ category.label }}</a>
          </li>
+         {% endfor %}
       </ul>
 
       <form class="form-inline">

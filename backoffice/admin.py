@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.contrib import admin
 
-# Register your models here.
+
+admin.site.index_title = 'Welcome to Shipan administration backoffice'
+admin.site.site_header = 'Shipan administration backoffice'
+admin.site.site_title = 'Shipan Admin Backoffice'

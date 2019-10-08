@@ -16,9 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.views.static import serve
 
 from people.views import join
 from people.forms import FrontAuthForm
+
+from . import settings
 
 
 urlpatterns = [
@@ -35,4 +38,6 @@ urlpatterns = [
    url('^people/', include('people.urls')),
 
    url(r'^', include('frontoffice.urls')),
+
+   url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
