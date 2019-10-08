@@ -1,0 +1,6 @@
+/* Page layout */
+#main-page-content {
+    /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
+    margin-top: 156px;      /* = navbar height */
+    margin-bottom: 0;  /* = footerHeight */
+}

@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Backoffice: Home</title>
+</head>
+
+<body>
+
+Welcome in the Backoffice.
+
+<div>
+   Last 5 clients:
+   <table>
+      <thead>
+         <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Email</th>
+            <th>Date joined</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for client in last_n_clients %}
+         <tr>
+            <td>{{ client.first_name }}</td>
+            <td>{{ client.last_name }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.date_joined }}</td>
+         </tr>
+         {% empty %}
+         <tr>
+            <td colspan="4">No users created recently</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+
+
+</body>
+</html>

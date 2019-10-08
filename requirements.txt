@@ -1,0 +1,5 @@
+Django==1.11.25
+django-widget-tweaks==1.4.1
+djangorestframework==3.9.4
+docutils
+colorlog==4.0.2
