@@ -7,7 +7,11 @@ from django.db import models
 
 class Client(User):
 
-   description = models.TextField(default='', blank=True)
+   description = models.TextField(default='',
+                                  blank=True,
+                                  help_text="""
+      Description of the client. This information can be viewed only by a vendor.
+                                  """)
 
    objects = UserManager()
 

@@ -1,6 +1,29 @@
+
+/* Main layout */
+.footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   line-height: 0;
+}
+
+.hat .navbar-nav,
+.footer .navbar-nav {
+   float:none;
+   margin:0 auto;
+   display: block;
+   text-align: center;
+}
+
+.hat .navbar-nav > li,
+.footer .navbar-nav > li {
+   display: inline-block;
+   float:none;
+}
+
 /* Page layout */
 #main-page-content {
-    /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
-    margin-top: 156px;      /* = navbar height */
-    margin-bottom: 0;  /* = footerHeight */
+   /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
+   margin-top: 156px; /* = navbar height */
+   margin-bottom: 0;  /* = footerHeight */
 }

@@ -1,19 +1,44 @@
+{% extends 'frontoffice/base.html' %}
+
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-   <meta charset="UTF-8">
-   <title>Backoffice: Home</title>
-</head>
+{% block title %}Backoffice{% endblock %}
 
-<body>
+{% block page-title %}Welcome in the Backoffice{% endblock %}
 
-Welcome in the Backoffice.
+{% block page-body %}
 
-<div>
+<div class="col-lg-6">
+   Last 5 orders:
+   <table class="table table-responsive">
+      <thead>
+         <tr>
+            <th>Order code</th>
+            <th>Client</th>
+            <th>Amount</th>
+            <th>Order date</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for order in last_n_orderss %}
+         <tr>
+            <td>{{ order.code }}</td>
+            <td>{{ order.client.get_full_name }}</td>
+            <td>{{ order.amout }}</td>
+            <td>{{ order.created_at }}</td>
+         </tr>
+         {% empty %}
+         <tr>
+            <td colspan="4">No orders created yet</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+
+<div class="col-lg-6">
    Last 5 clients:
-   <table>
+   <table class="table table-responsive">
       <thead>
          <tr>
             <th>First name</th>
@@ -32,13 +57,59 @@ Welcome in the Backoffice.
          </tr>
          {% empty %}
          <tr>
-            <td colspan="4">No users created recently</td>
+            <td colspan="4">No users created yet</td>
          </tr>
          {% endfor %}
       </tbody>
    </table>
 </div>
 
+<div class="col-lg-6">
+   Most ordered models:
+   <table class="table table-responsive">
+      <thead>
+         <tr>
+            <th>Model name</th>
+            <th>Order count</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for model in last_n_most_ordered_models %}
+         <tr>
+            <td>{{ model.name }}</td>
+            <td>{{ model.order_count }}</td>
+         </tr>
+         {% empty %}
+         <tr>
+            <td colspan="4">No models ordered yet</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
 
-</body>
-</html>
+<div class="col-lg-6">
+   Most ordered colors:
+   <table class="table table-responsive">
+      <thead>
+         <tr>
+            <th>Color name</th>
+            <th>Order count</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for color in last_n_most_ordered_colors %}
+         <tr>
+            <td>{{ color.name }}</td>
+            <td>{{ color.order_count }}</td>
+         </tr>
+         {% empty %}
+         <tr>
+            <td colspan="4">No colors ordered yet</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+
+{% endblock %}

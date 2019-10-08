@@ -28,7 +28,7 @@ urlpatterns = [
 
    url(r'^login/$', auth_views.login, {'template_name': 'people/login.html', 'authentication_form': FrontAuthForm},
        name='login'),
-   url(r'^logout/$', auth_views.logout, {'next_page': '/login'},
+   url(r'^logout/$', auth_views.logout, {'next_page': '/'},
        name='logout'),
    url(r'^join/$', join,
        name='join'),

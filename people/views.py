@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
+from django.shortcuts import render, reverse, HttpResponseRedirect
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -32,8 +32,9 @@ def join(request):
 
          return HttpResponseRedirect(reverse('fo-home'))
 
-      messages.error(request, 'An error occured while registration.')
-      return redirect(reverse('join'))
+      messages.error(request, 'An error occurred while registration.')
+
+      return render(request, 'people/join.html', {'form': form})
    else:
       form = FrontRegistrationForm(executor=_executor)
 
