@@ -43,7 +43,7 @@
          {% get_categories %}
          {% for category in categories %}
          <li class="nav-item">
-            <a class="nav-link" href="/">{{ category.label }}</a>
+            <a class="nav-link" href="{% url 'fo-shop' %}?category={{ category.name }}">{{ category.label }}</a>
          </li>
          {% endfor %}
       </ul>

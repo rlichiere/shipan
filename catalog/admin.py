@@ -56,11 +56,26 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 
 
 class ProductModelAdmin(admin.ModelAdmin):
-   list_display = ('label', 'name', )
+   list_display = ('label', 'name', 'categories_', 'main_category', )
+   list_filter = ('categories', )
+
+   @staticmethod
+   def categories_(instance):
+      return ', '.join(_.label for _ in instance.categories.all())
 
 
 class ProductColouringAdmin(admin.ModelAdmin):
-   list_display = ('product', 'position', 'color', 'picture')
+   list_display = ('product', 'position', 'color_', 'picture', 'main_colors', )
+   list_filter = ('product', 'color', )
+   readonly_fields = ('color_', 'main_colors', )
+
+   @staticmethod
+   def color_(instance):
+      return instance.color.representation()
+
+   @staticmethod
+   def main_colors(instance):
+      return mark_safe(', '.join(_.representation() for _ in instance.color.main_colors.all()))
 
 
 admin.site.register(models.ProductMainColor, ProductMainColorAdmin)

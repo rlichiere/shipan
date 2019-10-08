@@ -16,8 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.views.generic import TemplateView
 
+from . import views
+
 
 urlpatterns = [
 
-   url('^', TemplateView.as_view(template_name='frontoffice/home.html'), name='fo-home'),
+   url('^$', TemplateView.as_view(template_name='frontoffice/home.html'), name='fo-home'),
+   url('^shop/', views.ShopView.as_view(), name='fo-shop'),
+
 ]

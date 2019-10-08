@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
 from . import constants
 
 
+@python_2_unicode_compatible
 class ProductMainColor(models.Model):
 
    name = models.CharField(help_text="""
@@ -24,13 +26,21 @@ class ProductMainColor(models.Model):
                           """,
                           max_length=6)
 
+   class Meta:
+      ordering = ['label']
+
    def __str__(self):
       return self.label
 
    def representation(self):
       return mark_safe('<img style="background-color:#%s; width: 16px; height: 16px">' % self.rgb)
 
+   @property
+   def rgb_s(self):
+      return '#%s' % self.rgb
 
+
+@python_2_unicode_compatible
 class ProductColor(models.Model):
 
    name = models.CharField(help_text="""
@@ -56,12 +66,18 @@ class ProductColor(models.Model):
                                         to=ProductMainColor,
                                         related_name='colors')
 
+   class Meta:
+      ordering = ['label']
+
    def __str__(self):
       return self.label
 
    def representation(self):
       return mark_safe('<img style="background-color:#%s; width: 16px; height: 16px">' % self.rgb)
 
+   @property
+   def rgb_s(self):
+      return '#%s' % self.rgb
 
 class ProductSize(models.Model):
 
@@ -83,12 +99,14 @@ class ProductSize(models.Model):
                                   unique=True,
                                   default=1)
 
+   class Meta:
+      ordering = ['position']
+
    def __str__(self):
       return self.label
 
-   # todo: default manager sort by position
 
-
+@python_2_unicode_compatible
 class ProductCategory(models.Model):
 
    name = models.CharField(help_text="""
@@ -105,11 +123,13 @@ class ProductCategory(models.Model):
 
    class Meta:
       verbose_name_plural = 'Product categories'
+      ordering = ['label']
 
    def __str__(self):
       return self.label
 
 
+@python_2_unicode_compatible
 class ProductModel(models.Model):
 
    name = models.CharField(help_text="""
@@ -124,11 +144,11 @@ class ProductModel(models.Model):
                             unique=True,
                             max_length=200)
 
-   category = models.ManyToManyField(help_text="""
+   categories = models.ManyToManyField(help_text="""
       Categories of this model.
-                                     """,
-                                     to=ProductCategory,
-                                     related_name='productmodels')
+                                       """,
+                                       to=ProductCategory,
+                                       related_name='productmodels')
 
    main_category = models.ForeignKey(help_text="""
       Main category of the model.
@@ -157,6 +177,9 @@ class ProductModel(models.Model):
    def __str__(self):
       return self.label
 
+   class Meta:
+      ordering = ['label']
+
 
 class ProductColouring(models.Model):
 
@@ -164,7 +187,7 @@ class ProductColouring(models.Model):
       Product of this colouring.
                                """,
                                to=ProductModel,
-                               related_name='colouring')
+                               related_name='colourings')
 
    position = models.IntegerField(help_text="""
       Position of this product colouring in the product's colourings list.
@@ -179,5 +202,8 @@ class ProductColouring(models.Model):
    picture = models.CharField(help_text="""
       Picture filename of this product colouring.
                               """,
-                              null=True,
+                              blank=True,
                               max_length=200)
+
+   class Meta:
+      ordering = ['product__name', 'position']

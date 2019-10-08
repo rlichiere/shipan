@@ -1,0 +1,37 @@
+{% extends 'frontoffice/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Home{% endblock %}
+
+{% block page-body %}
+
+<div class="container">
+
+   {% for product in products %}
+      <div class="card">
+         {% if product.colourings.first.picture %}
+         <img class="card-img-top" src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
+         {% else %}
+         <img class="card-img-top" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 16px; height: 16px">
+         {% endif %}
+         <div class="card-body">
+            <h4>{{ product.label }}</h4>
+            <ul>
+            {% for colouring in product.colourings.all %}
+               <li>{{ colouring.color.rgb }}, {{ colouring.picture }}</li>
+            {% endfor %}
+            </ul>
+            <ul>
+            {% for size in product.sizes.all %}
+               <li>{{ size.label }}</li>
+            {% endfor %}
+            </ul>
+         </div>
+      </div>
+   {% empty %}
+   {% endfor %}
+
+</div>
+
+{% endblock %}

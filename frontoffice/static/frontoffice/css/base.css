@@ -1,7 +1,12 @@
 
 /* Main layout */
+html {
+  position: relative;
+  min-height: 100%;
+}
 .footer {
    position: absolute;
+   float: bottom;
    bottom: 0;
    width: 100%;
    line-height: 0;
@@ -9,7 +14,7 @@
 
 .hat .navbar-nav,
 .footer .navbar-nav {
-   float:none;
+   float: none;
    margin:0 auto;
    display: block;
    text-align: center;
@@ -18,7 +23,7 @@
 .hat .navbar-nav > li,
 .footer .navbar-nav > li {
    display: inline-block;
-   float:none;
+   float: none;
 }
 
 /* Page layout */
