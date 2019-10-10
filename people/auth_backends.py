@@ -17,7 +17,7 @@ class CustomUserModelBackend(ModelBackend):
       try:
          user = self.user_class.objects.get(username=username)
          if user.check_password(password):
-            _l.info('Authentication successfull')
+            _l.info('Authentication successful')
             return user
       except self.user_class.DoesNotExist:
          _l.info('Authentication failed')

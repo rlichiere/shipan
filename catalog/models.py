@@ -4,6 +4,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
 from . import constants
+from tools.utils import utils_price
 
 
 @python_2_unicode_compatible
@@ -27,7 +28,7 @@ class ProductMainColor(models.Model):
                           max_length=6)
 
    class Meta:
-      ordering = ['label']
+      ordering = ['name']
 
    def __str__(self):
       return self.label
@@ -67,7 +68,7 @@ class ProductColor(models.Model):
                                         related_name='colors')
 
    class Meta:
-      ordering = ['label']
+      ordering = ['name']
 
    def __str__(self):
       return self.label
@@ -79,6 +80,8 @@ class ProductColor(models.Model):
    def rgb_s(self):
       return '#%s' % self.rgb
 
+
+@python_2_unicode_compatible
 class ProductSize(models.Model):
 
    name = models.CharField(help_text="""
@@ -123,7 +126,7 @@ class ProductCategory(models.Model):
 
    class Meta:
       verbose_name_plural = 'Product categories'
-      ordering = ['label']
+      ordering = ['name']
 
    def __str__(self):
       return self.label
@@ -143,6 +146,12 @@ class ProductModel(models.Model):
                             """,
                             unique=True,
                             max_length=200)
+
+   description = models.TextField(help_text="""
+      Description of the model, shown in product detail.
+                            """,
+                                  default='',
+                                  blank=True)
 
    categories = models.ManyToManyField(help_text="""
       Categories of this model.
@@ -174,11 +183,24 @@ class ProductModel(models.Model):
                                  default=constants.PRODUCT_AVAILABILITY.DEFAULT,
                                  max_length=200)
 
+   def price_justified(self):
+      """
+      Return the ProductModel price, as str, with zero justified cents.
+
+      :return: the price of the instance, of which the cents are justified with zeros
+      :rtype: str
+      """
+      return utils_price.justified(self.price)
+
    def __str__(self):
       return self.label
 
    class Meta:
-      ordering = ['label']
+      ordering = ['name']
+
+   @property
+   def getColouringsColorNames(self):
+      return self.colourings.all().values_list('color__name', flat=True)
 
 
 class ProductColouring(models.Model):
@@ -210,6 +232,7 @@ class ProductColouring(models.Model):
       ordering = ['product__name', 'position']
 
 
+@python_2_unicode_compatible
 class ProductSelection(models.Model):
 
    name = models.CharField(help_text="""
@@ -229,3 +252,9 @@ class ProductSelection(models.Model):
                                      """,
                                      to=ProductModel,
                                      related_name='selections')
+
+   def __str__(self):
+      return self.label
+
+   class Meta:
+      ordering = ['name']

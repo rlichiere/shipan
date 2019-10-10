@@ -11,7 +11,7 @@
 
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta charset="UTF-8">
-   <title>Shipan: {% block title %}{% endblock %}</title>
+   <title>{{ config.VERSION.Project }}: {% block title %}{% endblock %}</title>
 
    <!-- Latest compiled and minified CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -22,67 +22,86 @@
    <!-- jQuery library -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
    <!-- Latest compiled JavaScript -->
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
    <!-- Main CSS -->
    <link rel="stylesheet" href="{% static 'frontoffice/css/base.css' %}">
 
-   <link rel="shortcut icon" type="image/png" href="/static/frontoffice/img/favicon.ico"/>
+   <!-- Zoomify -->
+   <!-- https://github.com/indrimuska/zoomify -->
+   <script src="{% static 'frontoffice/js/vendor/zoomify/dist/zoomify.min.js' %}"></script>
+   <link rel="stylesheet" href="{% static 'frontoffice/css/vendor/zoomify/dist/zoomify.min.css' %}">
+
+   <link rel="shortcut icon" type="image/png" href="{% static 'frontoffice/img/favicon.ico' %}"/>
+
+   <style>
+      .navbar {
+         background-color: white;
+         border-bottom: 1px rebeccapurple groove;
+      }
+   </style>
 
    {% block head %}{% endblock %}
 
 </head>
 <body>
 
-   <nav class="navbar navbar-expand fixed-top mr-3 hat" style="color: turquoise">
+   <nav class="navbar navbar-expand fixed-top pr-3 hat">
       <a class="navbar-brand" href="{% url 'fo-home' %}">
-         <img src="{% static 'frontoffice/img/logo.jpg' %}" title="Shipan">
+         <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">
       </a>
 
       <ul class="navbar-nav mr-auto">
          <li class="nav-item">
-            <a class="nav-link btn" href="{% url 'fo-shop' %}?selection=new">Nouveautés</a>
+            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection=new">Nouveautés</a>
          </li>
 
          {% load_categories %}
          {% for category in categories %}
          <li class="nav-item">
-            <a class="nav-link btn" href="{% url 'fo-shop' %}?categories={{ category.name }}">{{ category.label }}</a>
+            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?categories={{ category.name }}">{{ category.label }}</a>
          </li>
          {% endfor %}
+
+         <li class="nav-item">
+            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}">Autumn / Winter</a>
+         </li>
       </ul>
 
       <form class="form-inline">
          {% if user.is_anonymous %}
-            <a class="nav-link btn" href="{% url 'login' %}">Sign in</a>
-            <a class="nav-link btn" href="{% url 'join' %}">Join</a>
+            <a class="nav-link btn btn-light" href="{% url 'login' %}">Sign in</a>
+            <a class="nav-link btn btn-light" href="{% url 'join' %}">Join</a>
          {% else %}
 
             {% if user.is_superuser %}
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn" data-toggle="dropdown" href="#">Vendor</a>
-               <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a class="nav-link" href="{% url 'bo-home' %}">Backoffice</a></li>
-                  <li><a class="nav-link" href="/admin/">Admin</a></li>
+               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">Vendor</a>
+               <ul class="dropdown-menu dropdown-menu-right py-0">
+                  <li><a class="nav-link btn-light" href="{% url 'bo-home' %}">Backoffice</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'admin:index' %}">Admin</a></li>
                </ul>
             </div>
             {% endif %}
 
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn" data-toggle="dropdown" href="#">Profile</a>
-               <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a class="nav-link" href="/">Account</a></li>
-                  <li><a class="nav-link" href="/">My orders</a></li>
-                  <li><a class="nav-link" href="/">My wishlist</a></li>
-                  <li><a class="nav-link" href="{% url 'logout' %}">Sign out</a></li>
+               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">Profile</a>
+               <ul class="dropdown-menu dropdown-menu-right py-0">
+                  <li><a class="nav-link btn-light" href="/">Account</a></li>
+                  <li><a class="nav-link btn-light" href="/">My orders</a></li>
+                  <li><a class="nav-link btn-light" href="/">My wishlist</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'logout' %}">Sign out</a></li>
                </ul>
             </div>
          {% endif %}
       </form>
    </nav>
 
-   <div class="container" id="main-page-content">
+   <div class="container mb-5" id="main-page-content">
 
       <div class="row">
          <div class="col-lg-12">
@@ -115,10 +134,11 @@
          </div>
       </div>
    </div>
+   <div id="toto"></div>
 
    <footer class="footer">
       <nav class="navbar navbar-expand bg-dark navbar-dark">
-         <ul class="navbar-nav">
+         <ul class="navbar-nav" style="min-width: 200px">
             <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Return & refund policy</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Privacy policy</a></li>
@@ -126,16 +146,44 @@
             <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
          </ul>
          <form class="form-inline">
-         <div class="navbar-nav">
-         <div class="navbar-item">
-            <label class="nav-link">
-               © 2019 Shipan&nbsp;<span {% if user.is_superuser %}title="{{ config.VERSION.VersionFull }}"{% endif %}>v{{ config.VERSION.Version }}</span>
-            </label>
-         </div>
-         </div>
+            <div class="navbar-nav">
+               <div class="navbar-item">
+                  <label class="nav-link" style="min-width: 170px">
+                     © {{ config.VERSION.PublishYear }} {{ config.VERSION.Project }}
+                     {% if user.is_superuser %}
+                        <a href="#" class="nav-link"
+                           data-toggle="popover" data-html="true" data-placement="top"
+                           title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
+                           data-content="
+                           <p>Published on: <code>{{ config.VERSION.PublishDate }}</code></p>
+                           <p>Version code:<br />
+                           <code>{{ config.VERSION.VersionCode }}</code></p>"
+                        >
+                           {{ config.VERSION.Version }}
+                        </a>
+                     {% else %}
+                        <div title="{{ config.VERSION.VersionFull }}">{{ config.VERSION.Version }}</div>
+                     {% endif %}
+                     <!--
+                        {{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}
+                        Published on {{ config.VERSION.PublishDate }}
+                        ({{ config.VERSION.VersionCode }})
+                     -->
+                  </label>
+               </div>
+            </div>
          </form>
       </nav>
    </footer>
+
+   {% block extra_script %}{% endblock %}
+   <script>
+      $(document).ready(function() {
+
+         $('[data-toggle="popover"]').popover();
+
+      });
+   </script>
 
 </body>
 </html>

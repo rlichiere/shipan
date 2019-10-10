@@ -7,6 +7,7 @@
 {% block page-body %}
 
 <style>
+
    /* xs */
    .shop-card {
        width: 500px;
@@ -18,29 +19,44 @@
            width: 250px;
        }
    }
+
 </style>
 
 <div class="container">
    <div class="row">
    {% for product in products %}
       <div class="card shop-card m-3">
-         {% if product.colourings.first.picture %}
-         <img class="card-img-top" src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
-         {% else %}
-         <img class="card-img-top" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 16px; height: 16px">
-         {% endif %}
+         <a href="{% url 'fo-product' %}?model={{ product.name }}">
+            {% if product.colourings.first.picture %}
+               <img class="card-img-top"
+                    src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
+            {% else %}
+               <div class="card-img-top text-center" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 248px; height: 248px">
+                  <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 30%"></div>
+               </div>
+            {% endif %}
+         </a>
          <div class="card-body">
             <h4>{{ product.label }}</h4>
 
             <div class="list-group list-group-horizontal">
-            <span class="small">Colors:&nbsp;</span>
-            {% for colouring in product.colourings.all %}
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}"></a>
-            {% endfor %}
+               <span class="small text-secondary">Colors:&nbsp;</span>
+               {% for colouring in product.colourings.all %}
+                  <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}"></a>
+               {% endfor %}
             </div>
-            <span class="small">
+            <span class="list-group list-group-horizontal small text-secondary">
                Sizes: {{ product.sizes.all|join:', ' }}
             </span>
+            <div class="float-right">
+               <span class="list-group list-group-horizontal small">
+                  {% for category in product.categories.all %}
+                     {% if forloop.counter > 1 %}, {% endif %}
+                     <a href="{% url 'fo-shop' %}?categories={{ category.name }}" class="badge badge-secondary">{{ category.label }}</a>
+                  {% endfor %}
+               </span>
+            </div>
+
          </div>
       </div>
    {% empty %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
    'catalog.apps.CatalogConfig',
    'backoffice.apps.BackofficeConfig',
    'frontoffice.apps.FrontofficeConfig',
+   'api.apps.ApiConfig',
    'docutils',
    'rest_framework',
    'widget_tweaks',

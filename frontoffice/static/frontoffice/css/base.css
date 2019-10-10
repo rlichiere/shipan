@@ -1,8 +1,30 @@
+/**
+ * ShipanShop base stylesheet
+ * The base stylesheet to use in a frontoffice page.
+ * https://github.com/rlichiere/shipan
+ *
+ * (c) 2019 Remi Lichiere
+ */
+
+
+/* Bootstrap custom extensions */
+.display-5,
+.display-6 {
+   font-weight: 300;
+   line-height: 1.2;
+}
+.display-5 {
+   font-size: 2.5rem;
+}
+.display-6 {
+   font-size: 1.5rem;
+}
+
 
 /* Main layout */
 html {
-  position: relative;
-  min-height: 100%;
+   position: relative;
+   min-height: 100%;
 }
 .footer {
    position: absolute;
@@ -26,9 +48,10 @@ html {
    float: none;
 }
 
+
 /* Page layout */
 #main-page-content {
    /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
-   margin-top: 156px; /* = navbar height */
+   margin-top: 165px; /* = navbar height */
    margin-bottom: 0;  /* = footerHeight */
 }

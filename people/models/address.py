@@ -6,11 +6,14 @@ from .client import Client
 
 class Address(models.Model):
 
-   client = models.ForeignKey(to=Client,
+   client = models.ForeignKey(help_text="""
+      Client to whom this address belongs to.
+                              """,
+                              to=Client,
                               related_name='addresses')
 
    is_default = models.BooleanField(help_text="""
-       Indicates the default delivery address 
+       Indicates the default delivery address of the client. Unique <code>True</code> per client accepted.
    """)
 
    class Meta:

@@ -7,35 +7,153 @@
 {% block page-body %}
 
 <style>
-   .product-card {
-       width: 500px;
-       height: auto;
+
+   /* Boostrap custom extensions */
+   .btn-love {
+      background-color: #faf8f8;
+      border-color: hotpink;
    }
+   .btn-love > span {
+      color: hotpink;
+   }
+   .btn-love:hover {
+      background-color: lightpink;
+      border-color: red;
+   }
+   .btn-love:hover > span {
+      color: red;
+   }
+
+   /* ProductModel styles */
+   .product-picture-thumb {
+      min-width: 100px;
+      max-width: 130px;
+
+      min-height: 100px;
+      max-height: 130px;
+
+      background-size: cover;
+      background-position: center;
+      border-radius: 0;
+   }
+   .product-picture-image {
+      width: 480px;
+      max-height: 630px;
+   }
+   .product-detail > h4,
+   .product-detail > span,
+   .product-detail > div {
+      margin-bottom: 1rem; /* corresponds to the size `X-3`, as defined by bootstrap 4 */
+      margin-top: 1rem; /* corresponds to the size `X-3`, as defined by bootstrap 4 */
+   }
+
 </style>
 
-<div class="container">
-   <div class="row">
-      <div class="card product-card">
-         {% if product.colourings.first.picture %}
-         <img class="card-img-top" src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
-         {% else %}
-         <img class="card-img-top" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 16px; height: 16px">
-         {% endif %}
-         <div class="card-body">
-            <h4>{{ product.label }}</h4>
+<div class="container mx-0">
+   <div class="panel mb-5">
+      <div class="panel-body">
+         <div class="row">
 
-            <div class="list-group list-group-horizontal">
-            <span class="small">Colors:&nbsp;</span>
-            {% for colouring in product.colourings.all %}
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}; {% if colouring.color.name == color %}border: 1px black groove{% endif %}"></a>
-            {% endfor %}
+            <div class="col-md-3 col-lg-2">
+               <div class="affix">
+                  {% for colouring in product.colourings.all %}
+                     <div class="list-group-item product-picture-thumb"
+                          style="background-image: url('{% url 'media' path='products/'|add:colouring.picture %}')"></div>
+                  {% endfor %}
+               </div>
             </div>
-            <span class="small">
-               Sizes: {{ product.sizes.all|join:', ' }}
-            </span>
+
+            <div class="col-md-9 col-lg-6">
+               <div class="affix">
+                  <a class="btn" id="ProductPictureImage_btn">
+                  {% if color and color in product.getColouringsColorNames %}
+                     {% for colouring in product.colourings.all %}
+                        {% if colouring.color.name == color %}
+                           <img src="{% url 'media' path='products/'|add:colouring.picture %}" class="product-picture-image">
+                        {% endif %}
+                     {% endfor %}
+                  {% else %}
+                     <img src="{% url 'media' path='products/'|add:product.colourings.all.first.picture %}" class="btn product-picture-image">
+                  {% endif %}
+                  </a>
+               </div>
+            </div>
+
+            <div class="col-md-12 col-lg-4 product-detail">
+               <h4 class="text-body">{{ product.label }}</h4>
+               <span class="text-dark">{{ product.description }}</span>
+
+               <div>
+                  <span class="text-secondary">Color</span>
+                  <div class="btn-group">
+                     {% for colouring in product.colourings.all %}
+                        <style>
+                           .btn-outline-custom-{{ colouring.color.rgb }} {
+                              background-color: {{ colouring.color.rgb_s }};
+                              border-radius: 0;
+                              width: 55px;
+                              {% if colouring.color.name == color %}
+                              border: #BF1F2F outset;
+                              {% else %}
+                              {% endif %}
+                           }
+                        </style>
+                        <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}"
+                           class="btn btn-outline-custom-{{ colouring.color.rgb }}"
+                        >&nbsp;</a>
+                     {% endfor %}
+                  </div>
+               </div>
+
+               <div>
+                  <span class="text-secondary mr-2">Size</span>
+                  <div class="btn-group">
+                     {% for product_size in product.sizes.all %}
+                        <a href="#"
+                           class="btn btn-outline-primary {% ifequal product_size.name size.name %}active{% endifequal %}"
+                           style="border-radius: 0; width: 55px">
+                           <span class="text-dark">{{ product_size.label }}</span>
+                        </a>
+                     {% endfor %}
+                  </div>
+               </div>
+
+{#               <div class="float-right">#}
+{#                  <span class="text-secondary">Categories</span>#}
+{#                  <div class="list-group list-group-horizontal mb-3">#}
+{#                     {% for category in product.categories.all %}#}
+{#                        {% if forloop.counter > 1 %}, {% endif %}#}
+{#                        <a href="{% url 'fo-shop' %}?categories={{ category.name }}" class="badge badge-secondary">{{ category.label }}</a>#}
+{#                     {% endfor %}#}
+{#                  </div>#}
+{#               </div>#}
+
+               <div class="pt-4">
+                  <span class="text-info display-5">{{ product.price_justified }} &euro;</span>
+               </div>
+
+               <div class="pt-1">
+                  <p>
+                     <a href="#" class="btn btn-info"><span class="fas fa-shopping-basket"></span> Buy now</a>
+                     <a href="#" class="btn btn-primary"><span class="fas fa-cart-arrow-down"></span> Add to Cart</a>
+                     <a href="#" class="btn btn-light btn-love" id="loove"><span class="far fa-heart"></span></a>
+                  </p>
+               </div>
+            </div>
+
          </div>
       </div>
    </div>
 </div>
 
+{% endblock %}
+
+{% block extra_script %}
+<script>
+   $(document).ready(function() {
+
+      $('#ProductPictureImage_btn').zoomify();
+
+   });
+</script>
 {% endblock %}
