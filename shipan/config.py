@@ -19,3 +19,10 @@ VERSION = utils_version.Version(
    author_name='Remi LICHIERE',
    author_email='contact@reum.org',
 )
+
+RUNNING_ON_WINDOWS = False
+
+try:
+   from .config_custom import *
+except ImportError:
+   pass

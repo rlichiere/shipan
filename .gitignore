@@ -110,5 +110,6 @@ _work/*
 _backup/*
 db.sqlite3
 media/*
+shipan/config_custom.py
 static/*
 *.bat

@@ -35,9 +35,9 @@ urlpatterns = [
        name='logout'),
    url(r'^join/$', join,
        name='join'),
-   url('^people/', include('people.urls')),
+   url(r'^people/', include('people.urls')),
 
-   url(r'^', include('frontoffice.urls')),
+   url(r'', include('frontoffice.urls')),
 
    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
    url(r'^doc/', include('doc.urls')),

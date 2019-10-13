@@ -21,7 +21,8 @@ from . import views
 
 urlpatterns = [
 
-   url('^$', TemplateView.as_view(template_name='frontoffice/home.html'), name='fo-home'),
    url('^shop/', views.ShopView.as_view(), name='fo-shop'),
    url('^product/', views.ProductView.as_view(), name='fo-product'),
+   url('^$', TemplateView.as_view(template_name='frontoffice/home.html'), name='fo-home'),
+   url('^p/(?P<page>.*)$', views.DynamicPageView.as_view(), name='dynamic-page'),
 ]

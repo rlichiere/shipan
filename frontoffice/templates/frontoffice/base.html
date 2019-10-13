@@ -2,6 +2,7 @@
 
 {% load staticfiles %}
 {% load catalog_extras %}
+{% load frontoffice_extras %}
 {% load tools_extras %}
 
 {% load_config %}
@@ -95,6 +96,7 @@
                <ul class="dropdown-menu dropdown-menu-right py-0">
                   <li><a class="nav-link btn-light" href="{% url 'bo-home' %}">Backoffice</a></li>
                   <li><a class="nav-link btn-light" href="{% url 'admin:index' %}">Admin</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'doc-home' %}">Documentation</a></li>
                </ul>
             </div>
             {% endif %}
@@ -150,11 +152,10 @@
    <footer class="footer">
       <nav class="navbar navbar-expand bg-dark navbar-dark">
          <ul class="navbar-nav" style="min-width: 200px">
-            <li class="nav-item"><a href="#" class="nav-link">About us</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Return & refund policy</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Privacy policy</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Terms of Service</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+            {% get_flow_links footer as footer_links %}
+            {% for link in footer_links %}
+            <li class="nav-item"><a href="{% url 'dynamic-page' page='' %}?page={{ link.name }}" class="nav-link">{{ link.title }}</a></li>
+            {% endfor %}
          </ul>
          <form class="form-inline">
             <div class="navbar-nav">

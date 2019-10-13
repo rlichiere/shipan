@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
-from django.views.generic import TemplateView
-from django.shortcuts import redirect, reverse
+from django.template import loader
+from django.shortcuts import redirect, reverse, HttpResponse
+from django.utils.safestring import mark_safe
+from django.views.generic import TemplateView, View
 
 from catalog.models import ProductModel
+
+from .models import DynamicPage
 
 
 class ShopView(TemplateView):
@@ -64,3 +68,18 @@ class ProductView(TemplateView):
 
       context['product'] = self.product
       return context
+
+
+class DynamicPageView(View):
+   template_name = 'frontoffice/dynamic_page.html'
+   def get(self, *args, **kwargs):
+      _pageName = self.request.GET.get('page')
+      _dynPage = DynamicPage.objects.get(name=_pageName)
+
+      _t = loader.get_template(self.template_name)
+      context = dict()
+      context['user'] = self.request.user
+      context['page_title'] = mark_safe(_dynPage.title)
+      context['page_content'] = mark_safe(_dynPage.content)
+      _htmlPage = _t.render(context)
+      return HttpResponse(content=_htmlPage)

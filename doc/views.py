@@ -28,9 +28,14 @@ class DocHierarchy(object):
          for _fileName in _files:
             if _fileName[-3:] == '.md':
                _vRoot = _root[len(self._rootPath):]
-               _vRoot = _vRoot.replace('\\', '/')
+
+               if config.RUNNING_ON_WINDOWS:
+                  _vRoot = _vRoot.replace('\\', '/')
+                  _filePath = _root + '\\' + _fileName
+               else:
+                  _filePath = _root + '/' + _fileName
+
                _vFilePath = '/doc' + _vRoot + '/' + _fileName
-               _filePath = _root + '\\' + _fileName
                try:
                   with open(_filePath, 'r') as _file:
                      _pageTitle = _file.readline()
@@ -97,6 +102,8 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
       context = dict()
       context['config'] = config
 
+      context['user'] = self.request.user
+
       if _vpath is None:
          # home
          _homeContent = '<br /><br /><h1>Home</h1>'
@@ -108,7 +115,11 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
          context['page_is_home'] = True
       else:
          # some doc page
-         _path = r'%s\doc\%s' % (config.settings.BASE_DIR, _vpath.replace('/', '\\'))
+         if config.RUNNING_ON_WINDOWS:
+            _path = r'%s\doc\%s' % (config.settings.BASE_DIR, _vpath.replace('/', '\\'))
+         else:
+            _path = r'%s\doc\%s' % (config.settings.BASE_DIR, _vpath)
+
          _vpath = '/doc/' + _vpath
          if not docHierarchy.load_path(_vpath, _path):
 
