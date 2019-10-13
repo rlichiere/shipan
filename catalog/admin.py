@@ -65,7 +65,7 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 
 class ProductColouringAdmin(admin.ModelAdmin):
-   list_display = ('product', 'position', 'color_', 'picture', 'main_colors', )
+   list_display = ('product', 'position', 'color_', 'main_colors', )
    list_filter = ('product', 'color', )
    readonly_fields = ('color_', 'main_colors', )
 
@@ -78,6 +78,20 @@ class ProductColouringAdmin(admin.ModelAdmin):
       return mark_safe(', '.join(_.representation() for _ in instance.color.main_colors.all()))
 
 
+class ProductPictureAdmin(admin.ModelAdmin):
+   list_display = ('product_', 'color_', 'picture', 'position', )
+   list_filter = ('colouring__product__label', 'colouring__color__label', 'colouring__color__main_colors__label')
+   readonly_fields = ('product_', 'color_')
+
+   @staticmethod
+   def product_(instance):
+      return instance.colouring.product.label
+
+   @staticmethod
+   def color_(instance):
+      return instance.colouring.color.label
+
+
 class ProductSelectionAdmin(admin.ModelAdmin):
    list_display = ('label', 'name', )
 
@@ -88,6 +102,7 @@ admin.site.register(models.ProductSize, ProductSizeAdmin)
 admin.site.register(models.ProductCategory, ProductCategoryAdmin)
 admin.site.register(models.ProductModel, ProductModelAdmin)
 admin.site.register(models.ProductColouring, ProductColouringAdmin)
+admin.site.register(models.ProductPicture, ProductPictureAdmin)
 admin.site.register(models.ProductSelection, ProductSelectionAdmin)
 
 admin.site.add_action(admin_actions.backup_instances, 'Backup instances')

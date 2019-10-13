@@ -59,6 +59,8 @@ class ProductView(TemplateView):
 
       _color = self.request.GET.get('color')
       context['color'] = _color
+      _picture = self.request.GET.get('picture')
+      context['selected_picture'] = _picture
 
       context['product'] = self.product
       return context

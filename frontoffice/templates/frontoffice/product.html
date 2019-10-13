@@ -57,8 +57,25 @@
             <div class="col-md-3 col-lg-2">
                <div class="affix">
                   {% for colouring in product.colourings.all %}
-                     <div class="list-group-item product-picture-thumb"
-                          style="background-image: url('{% url 'media' path='products/'|add:colouring.picture %}')"></div>
+                     {% if color %}
+                        {% if colouring.color.name == color %}
+                           {% for picture in colouring.pictures.all %}
+                              <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}&picture={{ picture.picture }}">
+                              <div class="list-group-item product-picture-thumb"
+                                   style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
+                              </a>
+                           {% endfor %}
+                        {% endif %}
+                     {% else %}
+                        {% for picture in product.colourings.first.pictures.all %}
+                           {% if colouring == picture.colouring %}
+                           <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ product.colourings.first.color.name }}&picture={{ picture.picture }}">
+                           <div class="list-group-item product-picture-thumb"
+                                style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
+                           </a>
+                           {% endif %}
+                        {% endfor %}
+                     {% endif %}
                   {% endfor %}
                </div>
             </div>
@@ -66,14 +83,25 @@
             <div class="col-md-9 col-lg-6">
                <div class="affix">
                   <a class="btn" id="ProductPictureImage_btn">
-                  {% if color and color in product.getColouringsColorNames %}
-                     {% for colouring in product.colourings.all %}
-                        {% if colouring.color.name == color %}
-                           <img src="{% url 'media' path='products/'|add:colouring.picture %}" class="product-picture-image">
-                        {% endif %}
-                     {% endfor %}
+
+                  {% if color %}
+                     {% if color in product.getColouringsColorNames %}
+                        {% for colouring in product.colourings.all %}
+                           {% if colouring.color.name == color %}
+                              {% if selected_picture %}
+                                 {% for picture in colouring.pictures.all %}
+                                    {% if selected_picture == picture.picture %}
+                                       <img src="{% url 'media' path='products/'|add:picture.picture %}" class="product-picture-image">
+                                    {% endif %}
+                                 {% endfor %}
+                              {% else %}
+                                 <img src="{% url 'media' path='products/'|add:colouring.pictures.first.picture %}" class="btn product-picture-image">
+                              {% endif %}
+                           {% endif %}
+                        {% endfor %}
+                     {% endif %}
                   {% else %}
-                     <img src="{% url 'media' path='products/'|add:product.colourings.all.first.picture %}" class="btn product-picture-image">
+                     <img src="{% url 'media' path='products/'|add:product.colourings.first.pictures.first.picture %}" class="btn product-picture-image">
                   {% endif %}
                   </a>
                </div>

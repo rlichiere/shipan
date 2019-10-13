@@ -203,6 +203,7 @@ class ProductModel(models.Model):
       return self.colourings.all().values_list('color__name', flat=True)
 
 
+@python_2_unicode_compatible
 class ProductColouring(models.Model):
 
    product = models.ForeignKey(help_text="""
@@ -221,6 +222,20 @@ class ProductColouring(models.Model):
                              to=ProductColor,
                              related_name='productscolourings')
 
+   class Meta:
+      ordering = ['product__name', 'position']
+
+   def __str__(self):
+      return self.product.label + ' #' + self.color.label
+
+
+class ProductPicture(models.Model):
+   colouring = models.ForeignKey(help_text="""
+      ProductColouring of this picture.
+                               """,
+                               to=ProductColouring,
+                               related_name='pictures')
+
    picture = models.CharField(help_text="""
       Picture filename of this product colouring.
                               """,
@@ -228,8 +243,13 @@ class ProductColouring(models.Model):
                               null=True,
                               max_length=200)
 
+   position = models.IntegerField(help_text="""
+      Position of this product colouring in the product's colourings list.
+                                  """,
+                                  default=1)
+
    class Meta:
-      ordering = ['product__name', 'position']
+      ordering = ['colouring__product__name', 'position']
 
 
 @python_2_unicode_compatible

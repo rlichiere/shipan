@@ -27,9 +27,9 @@
    {% for product in products %}
       <div class="card shop-card m-3">
          <a href="{% url 'fo-product' %}?model={{ product.name }}">
-            {% if product.colourings.first.picture %}
+            {% if product.colourings.first.pictures.first.picture %}
                <img class="card-img-top"
-                    src="/media/products/{{ product.colourings.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
+                    src="/media/products/{{ product.colourings.first.pictures.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
             {% else %}
                <div class="card-img-top text-center" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 248px; height: 248px">
                   <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 30%"></div>
