@@ -23,7 +23,6 @@ class DocHierarchy(object):
 
    def load(self):
       _filesList = dict()
-      print ('load: self._rootPath : %s' % self._rootPath)
 
       for _root, _dirs, _files in os.walk(self._rootPath):
          for _fileName in _files:
@@ -45,7 +44,6 @@ class DocHierarchy(object):
                   'parent_path': _root,
                }
       self._hierarchyData = _filesList
-      print ('load: self._hierarchyData : %s' % self._hierarchyData)
 
    def clear(self):
       self._hierarchyData = None
