@@ -18,9 +18,9 @@ class DynamicPage(models.Model):
 
    content = models.TextField(help_text="""
       Content of the page.
-                                  """,
-                                  default='',
-                                  blank=True)
+                              """,
+                              default='',
+                              blank=True)
 
    flow = models.CharField(help_text="""
       Flow in the page.

@@ -5,6 +5,8 @@ from django.shortcuts import redirect, reverse, HttpResponse
 from django.utils.safestring import mark_safe
 from django.views.generic import TemplateView, View
 
+import markdown2
+
 from catalog.models import ProductModel
 
 from .models import DynamicPage
@@ -80,6 +82,8 @@ class DynamicPageView(View):
       context = dict()
       context['user'] = self.request.user
       context['page_title'] = mark_safe(_dynPage.title)
-      context['page_content'] = mark_safe(_dynPage.content)
+      _htmlContent = markdown2.markdown(_dynPage.content, extras=["fenced-code-blocks"])
+
+      context['page_content'] = mark_safe(_htmlContent)
       _htmlPage = _t.render(context)
       return HttpResponse(content=_htmlPage)
