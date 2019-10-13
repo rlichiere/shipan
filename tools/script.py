@@ -16,7 +16,7 @@ from django.db.models.base import ModelBase
 from django.shortcuts import get_object_or_404, HttpResponse, HttpResponseRedirect, Http404, redirect, render, reverse
 from django.views.generic import View, TemplateView
 
-from shipan import settings, config
+from shipan import settings, config, const
 
 from . import constants
 from . import logger
@@ -417,7 +417,8 @@ Tool.add(exc=exc,
 
 # settings and config
 Tool.add(settings=settings,
-         config=config)
+         config=config,
+         const=const)
 
 # tool utils
 Tool.add(utils_date=utils_date,

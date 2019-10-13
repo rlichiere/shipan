@@ -35,7 +35,7 @@ urlpatterns = [
        name='logout'),
    url(r'^join/$', join,
        name='join'),
-   url(r'^people/', include('people.urls')),
+   url(r'^', include('people.urls')),
 
    url(r'', include('frontoffice.urls')),
 

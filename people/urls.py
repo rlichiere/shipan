@@ -19,5 +19,5 @@ from .views import ClientView
 
 
 urlpatterns = [
-   url(r'^client/api/', ClientView.as_view()),
+   url(r'^client/account/', ClientView.as_view(), name='client-account'),
 ]

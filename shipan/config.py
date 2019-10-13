@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import settings
+from . import const
 
 from tools import utils_version
 
@@ -20,7 +21,12 @@ VERSION = utils_version.Version(
    author_email='contact@reum.org',
 )
 
+
+# Overloadable properties
+CLIENT_PASSWORD_CHANGE_METHOD = const.CLIENT_PASSWORD_CHANGE_METHOD.DIRECT
+
 RUNNING_ON_WINDOWS = False
+
 
 try:
    from .config_custom import *

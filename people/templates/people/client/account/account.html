@@ -1,0 +1,100 @@
+{% extends 'frontoffice/base.html' %}
+
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}My account{% endblock %}
+
+{% block page-title %}My account{% endblock %}
+
+{% block page-body %}
+
+{% if error %}
+<div class="col-lg-offset-1 col-lg-10 my-3">
+   {% include 'frontoffice/generic/card-error.html' with error=error %}
+</div>
+{% else %}
+
+<div class="col-lg-offset-1 col-lg-10 my-3">
+   <div class="card">
+      <form method="post">
+      {% csrf_token %}
+         {% render_field change_info_form.action type="hidden" %}
+         <div class="card-header">Change profile information</div>
+         <div class="card-body">
+            <div class="card-text">
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="{{ change_info_form.email.id_for_label }}">
+                        Email
+                     </label>
+                  </div>
+                  {% render_field change_info_form.email class+='form-control' placeholder="Email"%}
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="{{ change_info_form.first_name.id_for_label }}">
+                        First name
+                     </label>
+                  </div>
+                  {% render_field change_info_form.first_name class+='form-control' placeholder="First name"%}
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <label class="input-group-text" for="{{ change_info_form.last_name.id_for_label }}">
+                        Last name
+                     </label>
+                  </div>
+                  {% render_field change_info_form.last_name class+='form-control' placeholder="Last name"%}
+               </div>
+            </div>
+            <div class="card-link clearfix">
+               <div class="float-right">
+                  <button type="submit" class="btn btn-primary">Save profile</button>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+<div class="col-lg-offset-1 col-lg-10">
+   <div class="card">
+      <form method="post" action="{% url 'client-account' %}}">
+         {% csrf_token %}
+         {% render_field change_password_send_link_form.action type="hidden" %}
+         <div class="card-header">Change password</div>
+         <div class="card-body">
+         {% if config.CLIENT_PASSWORD_CHANGE_METHOD == const.CLIENT_PASSWORD_CHANGE_METHOD.DIRECT %}
+            <div class="card-text">
+               <p>
+                  Change your current password using the button below
+               </p>
+            </div>
+            <div class="card-link clearfix">
+               <div class="float-right">
+                  <a href="{% url 'client-account' %}?action=change_password" class="btn btn-primary">Change password</a>
+               </div>
+            </div>
+         {% else %}
+            <div class="card-text">
+               <p>
+                  Changing the password requires validation by email.
+               </p>
+               <p>
+                  An email will be sent to you with a password change link (check your <code>Spam</code> folder if necessary).
+               </p>
+            </div>
+            <div class="card-link clearfix">
+               <div class="float-right">
+                  <button type="submit" class="btn btn-primary">Send link</button>
+               </div>
+            </div>
+         {% endif %}
+         </div>
+      </form>
+   </div>
+</div>
+
+{% endif %}
+{% endblock %}

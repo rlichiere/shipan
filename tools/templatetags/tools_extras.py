@@ -1,7 +1,9 @@
 # -*- coding:utf-8 -*-
 from django import template
 
-from shipan import config
+from people.models.client import Client
+
+from shipan import config, const
 
 register = template.Library()
 
@@ -15,7 +17,11 @@ class Tag_load_config_Node(template.Node):
       pass
 
    def render(self, context):
+
       context['config'] = config
+      context['const'] = const
+      if not context['user'].is_anonymous:
+         context['executor'] = Client.objects.get(username=context['user'].username)
       return ''
 
 

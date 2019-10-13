@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
-
 import os
+
+from django.contrib.messages import constants as messages
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -139,6 +141,9 @@ MEDIA_URL = '/media/'
 
 CUSTOM_USER_MODEL = 'people.Client'
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 # Login Redirect
 LOGIN_URL = 'fo-home'

@@ -1,0 +1,40 @@
+{% comment %}
+   Render as card error.
+
+   Parameters:
+      - error        : <dict> .title and .detail of the error to display
+
+{% endcomment %}
+<div class="card bg-danger text-white">
+   <div class="card-header">
+      Error
+   </div>
+   <div class="card-body">
+      <div class="card-text">
+         <p>
+            A problem occurred while processing the request.
+         </p>
+         <p>
+            May be you should try again in a few seconds.
+            <br />
+            If the error persists, please do not hesitate to contact us, describing the context in which you encounter the error.
+         </p>
+      </div>
+      <div class="card-link">
+         <a href="#" class="btn btn-dark" id="errorDetailsContentBtn">Details</a>
+      </div>
+      <div class="card-text" id="errorDetailsContent" style="display: none;">
+         <pre class="text-white mt-3">{{ error.label }}</pre>
+         <pre class="text-white">{{ error.detail }}</pre>
+      </div>
+   </div>
+   <div class="card-footer">
+      Please accept our apologizes for this inconvenience.
+   </div>
+</div>
+
+<script>
+   $('#errorDetailsContentBtn').click(function() {
+      $('#errorDetailsContent').toggle();
+   });
+</script>

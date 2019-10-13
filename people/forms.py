@@ -41,3 +41,61 @@ class FrontRegistrationForm(UserCreationForm):
          user.save()
 
       return user
+
+
+class ChangeInformationForm(forms.Form):
+
+   email = forms.EmailField(label='Email',
+                            max_length=200,
+                            required=True)
+   first_name = forms.CharField(label='First name',
+                                max_length=200,
+                                required=False)
+   last_name = forms.CharField(label='Last name',
+                               max_length=200,
+                               required=False)
+   action = forms.CharField(initial='change_account_info',
+                            widget=forms.HiddenInput())
+
+   def __init__(self, executor, *args, **kwargs):
+      super(ChangeInformationForm, self).__init__(*args, **kwargs)
+      self.executor = Client.objects.get(username=executor.username)
+      self.fields['email'].initial = self.executor.email
+      self.fields['first_name'].initial = self.executor.first_name
+      self.fields['last_name'].initial = self.executor.last_name
+
+
+class SendLinkPasswordChangeForm(forms.Form):
+
+   action = forms.CharField(initial='change_password_send_link',
+                            widget=forms.HiddenInput(),
+                            required=False)
+
+   def __init__(self, executor, *args, **kwargs):
+      super(SendLinkPasswordChangeForm, self).__init__(*args, **kwargs)
+      self.executor = Client.objects.get(username=executor.username)
+
+
+class ChangePasswordForm(forms.Form):
+
+   new_password = forms.CharField(label='New password',
+                                  widget=forms.PasswordInput(),
+                                  max_length=200)
+
+   new_password_confirm = forms.CharField(label='New password confirmation',
+                                          widget=forms.PasswordInput(),
+                                          max_length=200)
+
+   action = forms.CharField(initial='change_password',
+                            widget=forms.HiddenInput())
+
+   def clean(self):
+      _cleanData = super(ChangePasswordForm, self).clean()
+
+      if _cleanData['new_password'] == '' or _cleanData['new_password_confirm'] == '':
+         raise forms.ValidationError('Password should not be empty', code='invalid')
+
+      if _cleanData['new_password'] != _cleanData['new_password_confirm']:
+         raise forms.ValidationError('Passwords are not identical', code='invalid')
+
+      return _cleanData
