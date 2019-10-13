@@ -1,0 +1,10 @@
+Thanks for downloading Shipan.
+
+To install it, make sure you have Python 2.7 or greater installed. Then run
+this command from the command prompt:
+
+    python manage.py install
+
+If you're upgrading from a previous version, you need to remove it first.
+
+For more detailed instructions, see docs/intro/install.txt.

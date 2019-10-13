@@ -1,0 +1,37 @@
+{% extends 'frontoffice/base.html' %}
+
+{% block title %}Documentation {{ page_title|safe }}{% endblock %}
+{% block page-header %}Administrator's documentation{% endblock %}
+
+{% block page-head %}
+   <a name="top"></a><!-- The "top" anchor is made to be used in documentation .md files.
+                    Example:
+                        <div align="right"><a href=#top>Top</a></div>
+                -->
+{% endblock %}
+
+{% block page-body %}
+
+{% if not page_is_home %}
+<div class="row">
+   <div class="col-lg-12">
+      <div class="nav-list">
+         <a href="{% url 'doc-home' %}" class="btn btn-sm btn-primary">Home</a>
+      </div>
+   </div>
+</div>
+<br/>
+{% endif %}
+
+<div class="row">
+   <div class="col-lg-12">
+      <div class="panel panel-default">
+         <div class="panel-body">
+            {{ page_content|safe }}
+         </div>
+      </div>
+      <div class="float-right"><a href=#top>Top</a></div>
+   </div>
+</div>
+
+{% endblock %}

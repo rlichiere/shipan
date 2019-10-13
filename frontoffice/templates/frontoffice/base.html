@@ -39,9 +39,20 @@
    <link rel="shortcut icon" type="image/png" href="{% static 'frontoffice/img/favicon.ico' %}"/>
 
    <style>
+
+      /* top navbar bottom separator */
       .navbar {
          background-color: white;
          border-bottom: 1px rebeccapurple groove;
+      }
+
+      .footer form .navbar-nav {
+         display: none;
+      }
+      @media (min-width: 880px) {
+         .footer form .navbar-nav {
+            display: flex;
+         }
       }
    </style>
 
@@ -49,7 +60,7 @@
 
 </head>
 <body>
-
+   {% block page-head %}{% endblock %}
    <nav class="navbar navbar-expand fixed-top pr-3 hat">
       <a class="navbar-brand" href="{% url 'fo-home' %}">
          <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">

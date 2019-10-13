@@ -27,7 +27,7 @@ html {
    min-height: 100%;
 }
 .footer {
-   position: absolute;
+   position: fixed;
    float: bottom;
    bottom: 0;
    width: 100%;

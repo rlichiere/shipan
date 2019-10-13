@@ -109,5 +109,6 @@ venv.bak/
 _work/*
 _backup/*
 db.sqlite3
+media/*
 static/*
 *.bat
