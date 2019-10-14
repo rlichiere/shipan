@@ -65,7 +65,7 @@
    </table>
 </div>
 
-<div class="col-lg-6">
+<div class="col-lg-4">
    Most ordered models:
    <table class="table table-responsive">
       <thead>
@@ -89,7 +89,7 @@
    </table>
 </div>
 
-<div class="col-lg-6">
+<div class="col-lg-4">
    Most ordered colors:
    <table class="table table-responsive">
       <thead>
@@ -107,6 +107,30 @@
          {% empty %}
          <tr>
             <td colspan="4">No colors ordered yet</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+
+<div class="col-lg-4">
+   Most ordered sizes:
+   <table class="table table-responsive">
+      <thead>
+         <tr>
+            <th>Size</th>
+            <th>Order count</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for size in last_n_most_ordered_sizes %}
+         <tr>
+            <td>{{ size.name }}</td>
+            <td>{{ size.order_count }}</td>
+         </tr>
+         {% empty %}
+         <tr>
+            <td colspan="4">No sizes ordered yet</td>
          </tr>
          {% endfor %}
       </tbody>

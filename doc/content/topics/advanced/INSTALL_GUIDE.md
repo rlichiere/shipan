@@ -61,7 +61,7 @@ The **Thesaurus** tool allows you to **customize Shipan traduction messages**.
 To use them on a _Windows_ operating system, you may have to install additional requirements.
 Follow the following procedure to perform this installation.
 
-#### 1. `gettext`
+#### 1. Install `gettext`
 <a name='gettext'></a>
 
 1. Download and unzip from [here](http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies/):
@@ -69,18 +69,18 @@ Follow the following procedure to perform this installation.
    * `gettext-tools-dev_0.18.1.1-2_win32`
 1. Add their `bin` folder to the `PATH` of the operating system.
 
-#### 2. `libstdc`
+#### 2. Install `libstdc`
 <a name='thesaurus'></a>
 
 1. Download `libstdc++-6.dll` from [here](https://www.dll-files.com/libstdc++-6.dll.html)
 1. Copy it to your system directory (`C:\Windows\SysWow64` or `C:\Windows\System32`)
 
-### 3. Reboot
+#### 3. Reboot
 <a name='reboot'></a>
 
 _Windows_ requires a reboot in order to considerate its `PATH` modifications.
 
-#### That's it
+#### 4. That's it
 <a name='thatsit'></a>
 
 Once `gettext` and `libstdc` are installed, you can export, customize and reimport messages.
