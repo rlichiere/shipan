@@ -23,7 +23,7 @@ Select an installation method according to your needs:
 ### Install an official release
 <a name='official'></a>
 
-The default configuration of a Shipan Release is ready-to-use and made for Production environments,
+The default configuration of a **Shipan** Release is ready-to-use and made for Production environments,
  so the installation procedure is quite simple in order to obtain a functional website:
 
 1. **Python 2.7**
@@ -32,7 +32,7 @@ The default configuration of a Shipan Release is ready-to-use and made for Produ
 
 1. **Shipan**
 
-   Download and install a release version of Shipan from its official repository:
+   Download and install the last release version of **Shipan** from its official repository:
    ```
    git clone https://github.com/rlichiere/shipan.git
    python manage.py install
@@ -41,7 +41,7 @@ The default configuration of a Shipan Release is ready-to-use and made for Produ
 ### Install the latest development version
 <a name='development'></a>
 
-The development version of Shipan should be ready-to-use, but some bugs might been encountered.
+The development version of **Shipan** should be ready-to-use, but some bugs might been encountered.
 
 Proceed the same as the [official release](#official) installation method, except for the repository, for which you must obtain the development branch:
 ```
@@ -51,7 +51,7 @@ git clone https://github.com/rlichiere/shipan.git --branch develop
 ## Advanced tools
 <a name='advanced'></a>
 
-Shipan exposes some advanced tools mainly to facilitate the maintenance operations.
+**Shipan** exposes some advanced tools mainly to facilitate the maintenance operations.
 
 ### Thesaurus
 <a name='thesaurus'></a>

@@ -1,17 +1,17 @@
 # Quick install guide
 
-Before you can use ShipanShop, you'll need to get it installed. We have a
+Before you can use **Shipan**, you'll need to get it installed. We have a
 [complete installation guide](/doc/content/topics/advanced/INSTALL_GUIDE.md) that covers all the
 possibilities; this guide will guide you to a minimal installation that'll work
 while you walk through the introduction.
 
 ## Install Python
 
-Using a Python Web framework, Shipan requires Python and Django. See
+Using a Python Web framework, **Shipan** requires Python and Django. See
 [FAQ](FAQ.md) for details. Python includes a lightweight
 database called [SQLite](https://sqlite.org/) so you won't need to set up a database just yet.
 
-Shipan is actually compatible with Python 2.7 and Django 1.11.
+**Shipan** is actually compatible with Python 2.7 and Django 1.11.
 
 You can verify that Python is installed by typing ``python`` from your shell ;
 you should see something like:
@@ -30,7 +30,7 @@ the _database installation information_ in Django documentation.
 
 ## Install Shipan
 
-You've got three options to install Shipan:
+You've got three options to install **Shipan**:
 
 * [Install an official release](/doc/content/topics/advanced/INSTALL_GUIDE.md#official). This
   is the best approach for most users.
@@ -39,19 +39,19 @@ You've got three options to install Shipan:
   This option is for enthusiasts who want
   the latest-and-greatest features and aren't afraid of running brand new code.
   You might encounter new bugs in the development version, but reporting them
-  helps the development of Shipan. Also, releases of third-party packages are
+  helps the development of **Shipan**. Also, releases of third-party packages are
   less likely to be compatible with the development version than with the
   latest stable release.
 
 ## Verifying
 
-To verify that Shipan can be seen by Python, type ``python`` from your shell.
-Then at the Python prompt, try to import Shipan:
+To verify that **Shipan** can be seen by Python, type ``python`` from your shell.
+Then at the Python prompt, try to import **Shipan**:
 
 ```
-    >>> import shipan
-    >>> print(shipan.get_version())
-    |version|
+>>> import shipan
+>>> print(shipan.get_version())
+|version|
 ```
 
 ## That's it!

@@ -1,6 +1,6 @@
 # Thesaurus
 
-The thesaurus tools allow the customization of Shipan messages.
+The thesaurus tools allow the customization of **Shipan** messages.
 
 Use the `makemessages` and `compilemessages` commands in order to **generate** and **reimport** the thesaurus files of the website.
  A `django.po` file corresponds to each language, in which you are invited to **perform the desired customizations**.

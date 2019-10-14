@@ -16,25 +16,28 @@ class Command(BaseCommand):
          Configuration can be done directly through the command parameters,
             otherwise via a command line wizard. 
       
-      2. Build potential Models migrations
+      2. Compile thesaurus (.mo) from translation files (.po)
+         > python manage.py compilemessages
+         
+      3. Build potential Models migrations
          > python manage.py makemigrations
          
-      3. Migrate Models
+      4. Migrate Models
          > python manage.py migrate
 
-      4. Create the superuser
+      5. Create the superuser
          > python manage.py createsuperuser
 
-      5. Create the potentially required cache table
+      6. Create the potentially required cache table
          > python manage.py createcachetable
 
-      6. Load the initial data of the models
+      7. Load the initial data of the models
          > python manage.py populate
 
-      7. Diagnose project
+      8. Diagnose project
          > python manage.py diagnose
 
-      8. Backup project
+      9. Backup project
          > python manage.py backup
       
       Examples:
