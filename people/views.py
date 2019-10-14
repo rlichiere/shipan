@@ -6,8 +6,6 @@ from django.utils.translation import gettext as _
 from django.shortcuts import HttpResponseRedirect, HttpResponse, redirect, render, reverse
 from django.views.generic import TemplateView
 
-from shipan import config, const
-
 from .forms import ChangePasswordForm, ChangeInformationForm, FrontRegistrationForm, SendLinkPasswordChangeForm
 from .models.client import Client
 
@@ -43,9 +41,7 @@ class ClientView(LoginRequiredMixin, TemplateView):
    def get_context_data(self, **kwargs):
       _executor = self.request.user
       context = super(ClientView, self).get_context_data(**kwargs)
-      context['executor'] = self.request.user
-      context['config'] = config
-      context['const'] = const
+      context['request'] = self.request
 
       _action = self.request.GET.get('action')
 
@@ -70,9 +66,9 @@ class ClientView(LoginRequiredMixin, TemplateView):
 
       return context
 
-   def post(self, *args, **kwargs):
+   def post(self, request, **kwargs):
       _executor = Client.objects.get(username=self.request.user.username)
-      _action = self.request.POST.get('action')
+      _action = request.POST.get('action')
 
       if _action == 'change_account_info':
          _form = ChangeInformationForm(_executor, self.request.POST)

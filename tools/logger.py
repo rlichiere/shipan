@@ -2,17 +2,20 @@
 from . import constants
 
 
-def get(method_name, executor=None, obj=None):
-
-   if not executor:
+def get(method_name, executor=None, request=None, obj=None):
+   _executor = executor
+   if not _executor:
       try:
-         executor = obj.executor
+         _executor = request.user
       except AttributeError:
-         raise ValueError('no executor nor obj.executor given')
+         try:
+            _executor = obj.executor
+         except AttributeError:
+            _executor = 'n.a.'
 
    _obj = ('%s.' % obj.__class__.__name__) if obj else ''
 
-   _prefix = '[%s] %s%s:' % (executor, _obj, method_name)
+   _prefix = '[%s] %s%s:' % (_executor, _obj, method_name)
 
    return Logger(_prefix)
 
@@ -34,6 +37,9 @@ class Logger(object):
 
    def info(self, *args, **kwargs):
       self._print(constants.LEVELS.INFO, *args, **kwargs)
+
+   def deprecate(self, *args, **kwargs):
+      self._print(constants.LEVELS.DEPRECATE, *args, **kwargs)
 
    def warning(self, *args, **kwargs):
       self._print(constants.LEVELS.WARNING, *args, **kwargs)

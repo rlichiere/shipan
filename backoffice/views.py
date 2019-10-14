@@ -6,6 +6,8 @@ from django.views.generic import TemplateView, View
 
 from shipan import config
 
+from tools import logger
+
 from people.models.client import Client
 
 
@@ -20,15 +22,14 @@ class Home(LoginRequiredMixin, TemplateView):
       _clients = _clients[max(0, _clients.count() - 5):]
       context['last_n_clients'] = _clients
 
-      context['executor'] = self.request.user
-
       return context
 
 
 class Backup(View):
 
-   def get(self, *args, **kwargs):
-      if not self.request.user.is_superuser:
+   def get(self, request, **kwargs):
+      _l = logger.get('get', request=request, obj=self)
+      if not request.user.is_superuser:
          return redirect(reverse('fo-home'))
 
       _fileName = kwargs['filename']
@@ -38,4 +39,5 @@ class Backup(View):
             _fileContent = _file.read()
             return HttpResponse(_fileContent, content_type='application/json')
       except IOError:
+         _l.error('Error while opening file : %s' % _filePath)
          raise Http404

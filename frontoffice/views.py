@@ -14,7 +14,6 @@ from .models import DynamicPage
 
 
 class ShopView(TemplateView):
-
    template_name = 'frontoffice/products.html'
 
    def get_context_data(self, **kwargs):
@@ -44,7 +43,6 @@ class ShopView(TemplateView):
 
 
 class ProductView(TemplateView):
-
    template_name = 'frontoffice/product.html'
 
    def __init__(self, *args, **kwargs):
@@ -75,13 +73,14 @@ class ProductView(TemplateView):
 
 class DynamicPageView(View):
    template_name = 'frontoffice/dynamic_page.html'
-   def get(self, *args, **kwargs):
+
+   def get(self, request, **kwargs):
       _pageName = self.request.GET.get('page')
       _dynPage = DynamicPage.objects.get(name=_pageName)
 
       _t = loader.get_template(self.template_name)
       context = dict()
-      context['executor'] = self.request.user
+      context['request'] = request
       context['page_title'] = mark_safe(_dynPage.title)
       _htmlContent = markdown2.markdown(_dynPage.content, extras=["fenced-code-blocks"])
 

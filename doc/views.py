@@ -97,13 +97,11 @@ docHierarchy = DocHierarchy(root_path=r'%s\doc' % config.settings.BASE_DIR, load
 class DocPage(utils_views.SuperuserRequiredMixin, View):
    template_name = 'doc/doc_page.html'
 
-   def get(self, *args, **kwargs):
+   def get(self, request, **kwargs):
       _vpath = kwargs.get('path', None)
 
       context = dict()
-      context['config'] = config
-
-      context['executor'] = self.request.user
+      context['request'] = request
 
       if _vpath is None:
          # home

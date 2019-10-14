@@ -29,6 +29,7 @@ class LEVELS(object):
    _levels = {
       'DEBUG': django_logger.debug,
       'INFO': django_logger.info,
+      'DEPRECATE': django_logger.warning,
       'WARNING': django_logger.warning,
       'ERROR': django_logger.error,
       'EXCEPTION': django_logger.exception,
@@ -38,6 +39,7 @@ class LEVELS(object):
    DEBUG = 'DEBUG'
    INFO = 'INFO'
    WARNING = 'WARNING'
+   DEPRECATE = 'DEPRECATE'
    ERROR = 'ERROR'
    EXCEPTION = 'EXCEPTION'
    CRITICAL = 'CRITICAL'
