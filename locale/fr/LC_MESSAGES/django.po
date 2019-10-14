@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 04:27+0200\n"
+"POT-Creation-Date: 2019-10-14 05:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,13 +35,17 @@ msgstr "Documentation"
 msgid "PAGE_DOCUMENTATION_HEADER"
 msgstr "Documentation administrateur"
 
-#: .\doc\templates\doc\doc_page.html:21
+#: .\doc\templates\doc\doc_page.html:21 .\doc\views.py:110
 msgid "PAGE_DOCUMENTATION_HOME_TITLE"
 msgstr "Accueil"
 
 #: .\doc\templates\doc\doc_page.html:35
 msgid "LINK_GO_TO_TOP_OF_PAGE"
 msgstr "Haut de page"
+
+#: .\doc\views.py:127
+msgid "ERROR_WHILE_LOADING_DOCUMENTATION_FILE"
+msgstr "Une erreur est survenue lors du chargement de la page"
 
 #: .\frontoffice\templates\frontoffice\base.html:90
 #: .\people\templates\people\login.html:7
@@ -113,19 +117,19 @@ msgstr ""
 msgid "PLEASE_ACCEPT_OUR_APOLOGIZES"
 msgstr "Nous vous prions d'accepter nos excuses"
 
-#: .\frontoffice\templates\frontoffice\product.html:116
+#: .\frontoffice\templates\frontoffice\product.html:108
 msgid "PRODUCT_DETAIL_COLOR"
 msgstr "Couleur"
 
-#: .\frontoffice\templates\frontoffice\product.html:138
+#: .\frontoffice\templates\frontoffice\product.html:130
 msgid "PRODUCT_DETAIL_SIZE"
 msgstr "Taille"
 
-#: .\frontoffice\templates\frontoffice\product.html:166
+#: .\frontoffice\templates\frontoffice\product.html:158
 msgid "BUY_NOW_BUTTON"
 msgstr "Commander"
 
-#: .\frontoffice\templates\frontoffice\product.html:167
+#: .\frontoffice\templates\frontoffice\product.html:159
 msgid "ADD_TO_CART_BUTTON"
 msgstr "Ajouter au panier"
 
@@ -136,6 +140,10 @@ msgstr "Couleurs"
 #: .\frontoffice\templates\frontoffice\products.html:50
 msgid "PRODUCT_THUMB_SIZES"
 msgstr "Tailles"
+
+#: .\frontoffice\views.py:60
+msgid "ERROR_UNKNOWN_PRODUCT"
+msgstr "Produit inconnu"
 
 #: .\people\forms.py:49
 #: .\people\templates\people\client\account\account.html:19

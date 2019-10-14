@@ -16,10 +16,10 @@ database called [SQLite](https://sqlite.org/) so you won't need to set up a data
 You can verify that Python is installed by typing ``python`` from your shell ;
 you should see something like:
 ```
-    Python 2.7.y
-    [GCC 4.x] on linux
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>>
+Python 2.7.y
+[GCC 4.x] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
 ```
 
 ## Set up a database

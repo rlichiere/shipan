@@ -5,7 +5,7 @@ import logging
 __author__  = "Remi Lichiere <contact@reum.org>"
 __status__  = "prototype"
 __version__ = "0.0.1.0"
-__date__    = "03 October 2019"
+__date__    = "14 October 2019"
 
 
 django_logger = logging.getLogger('shipan')

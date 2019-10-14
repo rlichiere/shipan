@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.template import loader
 from django.shortcuts import redirect, reverse, HttpResponse
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView, View
 
 import markdown2
@@ -56,7 +57,7 @@ class ProductView(TemplateView):
       try:
          self.product = ProductModel.objects.get(name=_filterProduct)
       except ProductModel.DoesNotExist:
-         messages.error(self.request, 'Unknown product')
+         messages.error(self.request, _('ERROR_UNKNOWN_PRODUCT'))
          return redirect(reverse('fo-home'))
       return super(ProductView, self).get(*args, **kwargs)
 

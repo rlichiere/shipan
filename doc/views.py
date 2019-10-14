@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.template import loader
 from django.views.generic import View
 from django.shortcuts import HttpResponse, redirect, reverse
+from django.utils.translation import gettext as _
 
 from shipan import config
 
@@ -106,7 +107,7 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
 
       if _vpath is None:
          # home
-         _homeContent = '<br /><br /><h1>Home</h1>'
+         _homeContent = '<br /><br /><h1>%(home)s</h1>' % {'home': _('PAGE_DOCUMENTATION_HOME_TITLE')}
          _homeContent += '<ul>'
          for _tocItem in docHierarchy.get_toc():
             _homeContent += '<li><a href="' + _tocItem['path'] + '">' + _tocItem['title'] + '</a></li>'
@@ -123,7 +124,7 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
          _vpath = '/doc/' + _vpath
          if not docHierarchy.load_path(_vpath, _path):
 
-            messages.error(self.request, message='Error while loading documentation file')
+            messages.error(self.request, message=_('ERROR_WHILE_LOADING_DOCUMENTATION_FILE'))
             return redirect(reverse('fo-home'))
 
          docHierarchy.render_path(_vpath, _path)
