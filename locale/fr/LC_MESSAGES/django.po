@@ -25,7 +25,7 @@ msgstr "Backoffice"
 
 #: .\backoffice\templates\backoffice\home.html:8
 msgid "WELCOME_IN_THE_BACKOFFICE"
-msgstr "Bienvenue dans le backoffice"
+msgstr "Backoffice du vendeur"
 
 #: .\doc\templates\doc\doc_page.html:5
 msgid "PAGE_DOCUMENTATION_INSET_PREFIX"

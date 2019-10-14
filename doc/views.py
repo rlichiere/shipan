@@ -107,7 +107,7 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
 
       if _vpath is None:
          # home
-         _homeContent = '<br /><br /><h1>%(home)s</h1>' % {'home': _('PAGE_DOCUMENTATION_HOME_TITLE')}
+         _homeContent = '<h1>%(home)s</h1>' % {'home': _('PAGE_DOCUMENTATION_HOME_TITLE')}
          _homeContent += '<ul>'
          for _tocItem in docHierarchy.get_toc():
             _homeContent += '<li><a href="' + _tocItem['path'] + '">' + _tocItem['title'] + '</a></li>'
