@@ -2,6 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext as _
 from django.shortcuts import HttpResponseRedirect, HttpResponse, redirect, render, reverse
 from django.views.generic import TemplateView
 
@@ -17,7 +18,7 @@ def join(request):
       form = FrontRegistrationForm(_executor, request.POST)
       if form.is_valid():
          form.save()
-         messages.info(request, 'Thanks for joining. You are now logged in.')
+         messages.info(request, _('THANKS_FOR_JOINING') + '.')
          _executor = authenticate(request,
                                   username=form.cleaned_data['username'],
                                   password=form.cleaned_data['password1'])
@@ -25,7 +26,7 @@ def join(request):
 
          return HttpResponseRedirect(reverse('fo-home'))
 
-      messages.error(request, 'An error occurred while registration.')
+      messages.error(request, _('AN_ERROR_OCCURRED_WHILE_REGISTRATION') + '.')
 
       return render(request, 'people/join.html', {'form': form})
    else:
@@ -42,7 +43,7 @@ class ClientView(LoginRequiredMixin, TemplateView):
    def get_context_data(self, **kwargs):
       _executor = self.request.user
       context = super(ClientView, self).get_context_data(**kwargs)
-      context['user'] = self.request.user
+      context['executor'] = self.request.user
       context['config'] = config
       context['const'] = const
 
@@ -76,24 +77,26 @@ class ClientView(LoginRequiredMixin, TemplateView):
       if _action == 'change_account_info':
          _form = ChangeInformationForm(_executor, self.request.POST)
          if not _form.is_valid():
-            messages.error(self.request, 'Error while changing profile information' % _form.errors)
+            messages.error(self.request, _('ERROR_WHILE_CHANGING_ACCOUNT_INFORMATION'))
             return HttpResponse(render(self.request, template_name=self.template_name_change_password))
          _executor.email = _form.cleaned_data['email']
          _executor.username = _form.cleaned_data['email']
          _executor.first_name = _form.cleaned_data['first_name']
          _executor.last_name = _form.cleaned_data['last_name']
          _executor.save()
-         messages.info(self.request, 'Account information saved')
+         messages.info(self.request, _('ACCOUNT_INFORMATION_SAVED'))
 
       elif _action == 'change_password_send_link':
-         messages.warning(self.request, 'Send change password link is not yet implemented. Please use CLIENT_PASSWORD_CHANGE_METHOD.DIRECT')
-         # messages.info(self.request, 'Change password link sent')
+         # Final text: Change password link sent
+         # Temp text: Send change password link is not yet implemented. Please use CLIENT_PASSWORD_CHANGE_METHOD.DIRECT
+         messages.warning(self.request, _('CHANGE_PASSWORD_LINK_SENT'))
+         # messages.info(self.request, _('CHANGE_PASSWORD_LINK_SENT'))
 
       elif _action == 'change_password':
 
          _form = ChangePasswordForm(self.request.POST)
          if not _form.is_valid():
-            messages.error(self.request, 'Error while changing password (error: %s)' % _form.errors)
+            messages.error(self.request, _('ERROR_WHILE_CHANGING_PASSWORD'))
             return HttpResponse(render(self.request, template_name=self.template_name_change_password))
 
          else:
@@ -104,9 +107,9 @@ class ClientView(LoginRequiredMixin, TemplateView):
                                      password=_form.cleaned_data['new_password'])
             login(self.request, _executor)
 
-            messages.info(self.request, 'Password changed')
+            messages.info(self.request, _('PASSWORD_CHANGED'))
 
       else:
-         messages.error(self.request, 'Unknown action : %s' % _action)
+         messages.error(self.request, _('ERROR_UNKNOWN_ACTION') % {'action': _action})
 
       return redirect(reverse('client-account'))

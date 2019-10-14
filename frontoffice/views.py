@@ -80,7 +80,7 @@ class DynamicPageView(View):
 
       _t = loader.get_template(self.template_name)
       context = dict()
-      context['user'] = self.request.user
+      context['executor'] = self.request.user
       context['page_title'] = mark_safe(_dynPage.title)
       _htmlContent = markdown2.markdown(_dynPage.content, extras=["fenced-code-blocks"])
 

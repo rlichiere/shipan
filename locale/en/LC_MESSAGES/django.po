@@ -1,0 +1,278 @@
+# Shipan English translation
+# Copyright (C) 2019 Remi LICHIERE
+# This file is distributed under the same license as the Shipan package.
+# Remi LICHIERE <contact@reum.org>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-14 04:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\backoffice\templates\backoffice\home.html:6
+#: .\frontoffice\templates\frontoffice\base.html:98
+msgid "PAGE_VENDOR_BACKOFFICE_TITLE"
+msgstr "Backoffice"
+
+#: .\backoffice\templates\backoffice\home.html:8
+msgid "WELCOME_IN_THE_BACKOFFICE"
+msgstr "Welcome in the Backoffice"
+
+#: .\doc\templates\doc\doc_page.html:5
+msgid "PAGE_DOCUMENTATION_INSET_PREFIX"
+msgstr "Documentation"
+
+#: .\doc\templates\doc\doc_page.html:6
+msgid "PAGE_DOCUMENTATION_HEADER"
+msgstr "Administrator's documentation"
+
+#: .\doc\templates\doc\doc_page.html:21
+msgid "PAGE_DOCUMENTATION_HOME_TITLE"
+msgstr "Home"
+
+#: .\doc\templates\doc\doc_page.html:35
+msgid "LINK_GO_TO_TOP_OF_PAGE"
+msgstr "Top"
+
+#: .\frontoffice\templates\frontoffice\base.html:90
+#: .\people\templates\people\login.html:7
+#: .\people\templates\people\login.html:16
+msgid "PAGE_SIGN_IN_TITLE"
+msgstr "Sign in"
+
+#: .\frontoffice\templates\frontoffice\base.html:91
+#: .\people\templates\people\join.html:7
+#: .\people\templates\people\join.html:19
+msgid "PAGE_JOIN_TITLE"
+msgstr "Join"
+
+#: .\frontoffice\templates\frontoffice\base.html:96
+msgid "MENU_VENDOR_TITLE"
+msgstr "Vendor"
+
+#: .\frontoffice\templates\frontoffice\base.html:99
+msgid "PAGE_VENDOR_ADMIN_TITLE"
+msgstr "Admin"
+
+#: .\frontoffice\templates\frontoffice\base.html:100
+msgid "PAGE_VENDOR_DOCUMENTATION_TITLE"
+msgstr "Documentation"
+
+#: .\frontoffice\templates\frontoffice\base.html:106
+msgid "MENU_CLIENT_PROFILE"
+msgstr "Profile"
+
+#: .\frontoffice\templates\frontoffice\base.html:108
+#: .\people\templates\people\client\account\account.html:7
+#: .\people\templates\people\client\account\account.html:9
+#: .\people\templates\people\client\account\account_change_password.html:7
+#: .\people\templates\people\client\account\account_change_password.html:9
+msgid "PAGE_MY_ACCOUNT_TITLE"
+msgstr "My account"
+
+#: .\frontoffice\templates\frontoffice\base.html:109
+msgid "PAGE_MY_ORDERS_TITLE"
+msgstr "My orders"
+
+#: .\frontoffice\templates\frontoffice\base.html:110
+msgid "PAGE_MY_WISHLIST_TITLE"
+msgstr "My wishlist"
+
+#: .\frontoffice\templates\frontoffice\base.html:111
+msgid "PAGE_SIGN_OUT_TITLE"
+msgstr "Sign out"
+
+#: .\frontoffice\templates\frontoffice\generic\card-error.html:11
+msgid "CARD_ERROR_HEADER_TITLE"
+msgstr "Error"
+
+#: .\frontoffice\templates\frontoffice\generic\card-error.html:16
+msgid "A_PROBLEM_OCCURRED_WHILE_PROCESSING_THE_REQUEST"
+msgstr "A problem occurred while processing the request"
+
+#: .\frontoffice\templates\frontoffice\generic\card-error.html:19
+msgid "MAY_BE_YOU_SHOULD_TRY_AGAIN_IN_A_FEW_SECONDS"
+msgstr "May be you should try again in a few seconds"
+
+#: .\frontoffice\templates\frontoffice\generic\card-error.html:21
+msgid "IF_THE_ERROR_PERSISTS_CONTACT_US_WITH_ERROR_DETAILS"
+msgstr ""
+"If the error persists, please do not hesitate to contact us, describing the "
+"context in which you encounter the error"
+
+#: .\frontoffice\templates\frontoffice\generic\card-error.html:33
+msgid "PLEASE_ACCEPT_OUR_APOLOGIZES"
+msgstr "Please accept our apologizes for this inconvenience"
+
+#: .\frontoffice\templates\frontoffice\product.html:116
+msgid "PRODUCT_DETAIL_COLOR"
+msgstr "Color"
+
+#: .\frontoffice\templates\frontoffice\product.html:138
+msgid "PRODUCT_DETAIL_SIZE"
+msgstr "Size"
+
+#: .\frontoffice\templates\frontoffice\product.html:166
+msgid "BUY_NOW_BUTTON"
+msgstr "Buy now"
+
+#: .\frontoffice\templates\frontoffice\product.html:167
+msgid "ADD_TO_CART_BUTTON"
+msgstr "Add to cart"
+
+#: .\frontoffice\templates\frontoffice\products.html:44
+msgid "PRODUCT_THUMB_COLORS"
+msgstr "Colors"
+
+#: .\frontoffice\templates\frontoffice\products.html:50
+msgid "PRODUCT_THUMB_SIZES"
+msgstr "Sizes"
+
+#: .\people\forms.py:49
+#: .\people\templates\people\client\account\account.html:19
+#: .\people\templates\people\join.html:11
+#: .\people\templates\people\login.html:11
+msgid "CLIENT_EMAIL"
+msgstr "Email"
+
+#: .\people\forms.py:52
+#: .\people\templates\people\client\account\account.html:20
+#: .\people\templates\people\join.html:12
+msgid "CLIENT_FIRST_NAME"
+msgstr "First name"
+
+#: .\people\forms.py:55
+#: .\people\templates\people\client\account\account.html:21
+#: .\people\templates\people\join.html:13
+msgid "CLIENT_LAST_NAME"
+msgstr "Last name"
+
+#: .\people\forms.py:82
+#: .\people\templates\people\client\account\account_change_password.html:19
+msgid "CLIENT_NEW_PASSWORD"
+msgstr "New password"
+
+#: .\people\forms.py:86
+#: .\people\templates\people\client\account\account_change_password.html:20
+msgid "CLIENT_NEW_PASSWORD_CONFIRMATION"
+msgstr "Password confirmation"
+
+#: .\people\forms.py:97
+msgid "PASSWORD_SHOULD_NOT_BE_EMPTY"
+msgstr "Password should not be empty"
+
+#: .\people\forms.py:100
+#: .\people\templates\people\client\account\account_change_password.html:75
+#: .\people\templates\people\client\account\account_change_password.html:79
+msgid "PASSWORDS_ARE_NOT_IDENTICAL"
+msgstr "Passwords are not identical"
+
+#: .\people\templates\people\client\account\account.html:28
+msgid "CHANGE_PROFILE_INFORMATION_HEADER_TITLE"
+msgstr "Change profile information"
+
+#: .\people\templates\people\client\account\account.html:58
+msgid "SAVE_PROFILE_BUTTON"
+msgstr "Save profile"
+
+#: .\people\templates\people\client\account\account.html:71
+#: .\people\templates\people\client\account\account_change_password.html:27
+msgid "CHANGE_PASSWORD_HEADER_TITLE"
+msgstr "Change password"
+
+#: .\people\templates\people\client\account\account.html:76
+msgid "CHANGE_YOUR_CURRENT_PASSWORD_USING_BELOW_OPTION"
+msgstr "Change your current password using the button below"
+
+#: .\people\templates\people\client\account\account.html:81
+msgid "CHANGE_PASSWORD_BUTTON"
+msgstr "Change password"
+
+#: .\people\templates\people\client\account\account.html:87
+msgid "CHANGING_THE_PASSWORD_REQUIRES_VALIDATON_BY_EMAIL"
+msgstr "Changing the password requires validation by email"
+
+#: .\people\templates\people\client\account\account.html:90
+msgid "AN_EMAIL_WILL_BE_SENT_TO_YOU_WITH_A_PASSWORD_CHANGE_LINK"
+msgstr ""
+"An email will be sent to you with a password change link (check your "
+"<code>Spam</code> folder if necessary)"
+
+#: .\people\templates\people\client\account\account.html:95
+msgid "SEND_LINK_BUTTON"
+msgstr "Send link"
+
+#: .\people\templates\people\client\account\account_change_password.html:55
+msgid "CHANGE_PASSWORD"
+msgstr "Change password"
+
+#: .\people\templates\people\join.html:14
+#: .\people\templates\people\login.html:12
+msgid "CLIENT_PASSWORD"
+msgstr "Password"
+
+#: .\people\templates\people\join.html:15
+msgid "CLIENT_PASSWORD_CONFIRMATION"
+msgstr "Password confirmation"
+
+#: .\people\templates\people\join.html:43
+msgid "JOIN_BUTTON"
+msgstr "Join"
+
+#: .\people\templates\people\login.html:28
+msgid "SIGN_IN_BUTTON"
+msgstr "Sign in"
+
+#: .\people\templates\people\login.html:31
+msgid "USERNAME_OR_PASSWORD_INCORRECT"
+msgstr "Username or password incorrect. Please "
+
+#: .\people\views.py:21
+msgid "THANKS_FOR_JOINING"
+msgstr "Thanks for joining. You are now logged in"
+
+#: .\people\views.py:29
+msgid "AN_ERROR_OCCURRED_WHILE_REGISTRATION"
+msgstr "An error occurred while registration"
+
+#: .\people\views.py:80
+msgid "ERROR_WHILE_CHANGING_ACCOUNT_INFORMATION"
+msgstr "Error while changing account information"
+
+#: .\people\views.py:87
+msgid "ACCOUNT_INFORMATION_SAVED"
+msgstr "Account information saved"
+
+#: .\people\views.py:92
+msgid "CHANGE_PASSWORD_LINK_SENT"
+msgstr ""
+"Send change password link is not yet implemented. Please use "
+"CLIENT_PASSWORD_CHANGE_METHOD.DIRECT"
+
+#: .\people\views.py:99
+msgid "ERROR_WHILE_CHANGING_PASSWORD"
+msgstr "Error while changing password"
+
+#: .\people\views.py:110
+msgid "PASSWORD_CHANGED"
+msgstr "Password changed"
+
+#: .\people\views.py:113
+msgid "ERROR_UNKNOWN_ACTION"
+msgstr "Unknown action : %(action)s"
+
+#: .\shipan\settings.py:135
+msgid "French"
+msgstr ""
+
+#: .\shipan\settings.py:136
+msgid "English"
+msgstr ""

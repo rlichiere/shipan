@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.forms.widgets import PasswordInput
+from django.utils.translation import gettext as _
 
 from .models.client import Client
 
@@ -45,13 +46,13 @@ class FrontRegistrationForm(UserCreationForm):
 
 class ChangeInformationForm(forms.Form):
 
-   email = forms.EmailField(label='Email',
+   email = forms.EmailField(label=_('CLIENT_EMAIL'),
                             max_length=200,
                             required=True)
-   first_name = forms.CharField(label='First name',
+   first_name = forms.CharField(label=_('CLIENT_FIRST_NAME'),
                                 max_length=200,
                                 required=False)
-   last_name = forms.CharField(label='Last name',
+   last_name = forms.CharField(label=_('CLIENT_LAST_NAME'),
                                max_length=200,
                                required=False)
    action = forms.CharField(initial='change_account_info',
@@ -78,11 +79,11 @@ class SendLinkPasswordChangeForm(forms.Form):
 
 class ChangePasswordForm(forms.Form):
 
-   new_password = forms.CharField(label='New password',
+   new_password = forms.CharField(label=_('CLIENT_NEW_PASSWORD'),
                                   widget=forms.PasswordInput(),
                                   max_length=200)
 
-   new_password_confirm = forms.CharField(label='New password confirmation',
+   new_password_confirm = forms.CharField(label=_('CLIENT_NEW_PASSWORD_CONFIRMATION'),
                                           widget=forms.PasswordInput(),
                                           max_length=200)
 
@@ -93,9 +94,9 @@ class ChangePasswordForm(forms.Form):
       _cleanData = super(ChangePasswordForm, self).clean()
 
       if _cleanData['new_password'] == '' or _cleanData['new_password_confirm'] == '':
-         raise forms.ValidationError('Password should not be empty', code='invalid')
+         raise forms.ValidationError(_('PASSWORD_SHOULD_NOT_BE_EMPTY'), code='invalid')
 
       if _cleanData['new_password'] != _cleanData['new_password_confirm']:
-         raise forms.ValidationError('Passwords are not identical', code='invalid')
+         raise forms.ValidationError(_('PASSWORDS_ARE_NOT_IDENTICAL'), code='invalid')
 
       return _cleanData

@@ -5,19 +5,20 @@
       - error        : <dict> .title and .detail of the error to display
 
 {% endcomment %}
+{% load i18n %}
 <div class="card bg-danger text-white">
    <div class="card-header">
-      Error
+      {% trans 'CARD_ERROR_HEADER_TITLE' %}
    </div>
    <div class="card-body">
       <div class="card-text">
          <p>
-            A problem occurred while processing the request.
+            {% trans 'A_PROBLEM_OCCURRED_WHILE_PROCESSING_THE_REQUEST' %}.
          </p>
          <p>
-            May be you should try again in a few seconds.
+            {% trans 'MAY_BE_YOU_SHOULD_TRY_AGAIN_IN_A_FEW_SECONDS' %}.
             <br />
-            If the error persists, please do not hesitate to contact us, describing the context in which you encounter the error.
+            {% trans 'IF_THE_ERROR_PERSISTS_CONTACT_US_WITH_ERROR_DETAILS' %}.
          </p>
       </div>
       <div class="card-link">
@@ -29,7 +30,7 @@
       </div>
    </div>
    <div class="card-footer">
-      Please accept our apologizes for this inconvenience.
+      {% trans 'PLEASE_ACCEPT_OUR_APOLOGIZES' %}.
    </div>
 </div>
 

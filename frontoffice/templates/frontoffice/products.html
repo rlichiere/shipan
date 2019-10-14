@@ -1,5 +1,6 @@
 {% extends 'frontoffice/base.html' %}
 
+{% load i18n %}
 {% load staticfiles %}
 
 {% block title %}Home{% endblock %}
@@ -40,13 +41,13 @@
             <h4>{{ product.label }}</h4>
 
             <div class="list-group list-group-horizontal">
-               <span class="small text-secondary">Colors:&nbsp;</span>
+               <span class="small text-secondary">{% trans 'PRODUCT_THUMB_COLORS' %}:&nbsp;</span>
                {% for colouring in product.colourings.all %}
                   <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}"></a>
                {% endfor %}
             </div>
             <span class="list-group list-group-horizontal small text-secondary">
-               Sizes: {{ product.sizes.all|join:', ' }}
+               {% trans 'PRODUCT_THUMB_SIZES' %}: {{ product.sizes.all|join:', ' }}
             </span>
             <div class="float-right">
                <span class="list-group list-group-horizontal small">

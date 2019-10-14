@@ -1,10 +1,11 @@
 {% extends 'frontoffice/base.html' %}
 
+{% load i18n %}
 {% load staticfiles %}
 
-{% block title %}Backoffice{% endblock %}
+{% block title %}{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}{% endblock %}
 
-{% block page-title %}Welcome in the Backoffice{% endblock %}
+{% block page-title %}{% trans 'WELCOME_IN_THE_BACKOFFICE' %}{% endblock %}
 
 {% block page-body %}
 

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 
+{% load i18n %}
 {% load staticfiles %}
 {% load catalog_extras %}
 {% load frontoffice_extras %}
 {% load tools_extras %}
 
-{% load_config %}
+{% load_base %}
 
 <html lang="en">
 <head>
@@ -85,29 +86,29 @@
       </ul>
 
       <form class="form-inline">
-         {% if user.is_anonymous %}
-            <a class="nav-link btn btn-light" href="{% url 'login' %}">Sign in</a>
-            <a class="nav-link btn btn-light" href="{% url 'join' %}">Join</a>
+         {% if executor.is_anonymous %}
+            <a class="nav-link btn btn-light" href="{% url 'login' %}">{% trans 'PAGE_SIGN_IN_TITLE' %}</a>
+            <a class="nav-link btn btn-light" href="{% url 'join' %}">{% trans 'PAGE_JOIN_TITLE' %}</a>
          {% else %}
 
-            {% if user.is_superuser %}
+            {% if executor.is_superuser %}
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">Vendor</a>
+               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">{% trans 'MENU_VENDOR_TITLE' %}</a>
                <ul class="dropdown-menu dropdown-menu-right py-0">
-                  <li><a class="nav-link btn-light" href="{% url 'bo-home' %}">Backoffice</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'admin:index' %}">Admin</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'doc-home' %}">Documentation</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'bo-home' %}">{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'admin:index' %}">{% trans 'PAGE_VENDOR_ADMIN_TITLE' %}</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'doc-home' %}">{% trans 'PAGE_VENDOR_DOCUMENTATION_TITLE' %}</a></li>
                </ul>
             </div>
             {% endif %}
 
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">Profile</a>
+               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">{% trans 'MENU_CLIENT_PROFILE' %}</a>
                <ul class="dropdown-menu dropdown-menu-right py-0">
-                  <li><a class="nav-link btn-light" href="{% url 'client-account' %}">Account</a></li>
-                  <li><a class="nav-link btn-light" href="/">My orders</a></li>
-                  <li><a class="nav-link btn-light" href="/">My wishlist</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'logout' %}">Sign out</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'client-account' %}">{% trans 'PAGE_MY_ACCOUNT_TITLE' %}</a></li>
+                  <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_ORDERS_TITLE' %}</a></li>
+                  <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_WISHLIST_TITLE' %}</a></li>
+                  <li><a class="nav-link btn-light" href="{% url 'logout' %}">{% trans 'PAGE_SIGN_OUT_TITLE' %}</a></li>
                </ul>
             </div>
          {% endif %}
@@ -147,7 +148,6 @@
          </div>
       </div>
    </div>
-   <div id="toto"></div>
 
    <footer class="footer">
       <nav class="navbar navbar-expand bg-dark navbar-dark">
@@ -162,7 +162,7 @@
                <div class="navbar-item">
                   <label class="nav-link" style="min-width: 170px">
                      © {{ config.VERSION.PublishYear }} {{ config.VERSION.Project }}
-                     {% if user.is_superuser %}
+                     {% if executor.is_superuser %}
                         <a href="#" class="nav-link"
                            data-toggle="popover" data-html="true" data-placement="top"
                            title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
@@ -189,10 +189,14 @@
    </footer>
 
    {% block extra_script %}{% endblock %}
+
    <script>
       $(document).ready(function() {
 
          $('[data-toggle="popover"]').popover();
+
+         /* Apply a code style to all PRE */
+         $('pre').addClass('bg-dark').addClass('text-white').addClass('text-white p-1');
 
       });
    </script>

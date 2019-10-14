@@ -102,7 +102,7 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
       context = dict()
       context['config'] = config
 
-      context['user'] = self.request.user
+      context['executor'] = self.request.user
 
       if _vpath is None:
          # home
@@ -132,7 +132,6 @@ class DocPage(utils_views.SuperuserRequiredMixin, View):
          _rendered = docHierarchy.get_rendered(_vpath)
 
 
-         context = dict()
          context['page_content'] = _rendered
       _template = loader.get_template(self.template_name)
       _htmlPage = _template.render(context)
