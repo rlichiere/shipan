@@ -1,8 +1,8 @@
 # Overview
 
-[**ShipanShop**](https://github.com/rlichiere/shipan) is a flexible e-commerce website solution.
+[**Shipan**](https://github.com/rlichiere/shipan) is a flexible e-commerce website solution.
  Built using the [Django](https://www.djangoproject.com/) framework,
- **ShipanShop** offers the functionalities to manage an **online shop** in complete autonomy:
+ **Shipan** offers the functionalities to manage an **online shop** in complete autonomy:
  **feeding articles**, taking and tracking **orders**, **customer management** and other type of features. 
 
 
@@ -74,7 +74,7 @@ Once you're happy with the quality of the website, then you're ready to open it 
 
 ## Maintenance
 
-Once opened, the **ShipanShop** will require some maintenance treatment.
+Once opened, the **Shipan** will require some maintenance treatment.
 
 * Vendor
   * season switching
@@ -95,7 +95,7 @@ Once opened, the **ShipanShop** will require some maintenance treatment.
 
 #### Upgrade to a new version 
 
-It is highly recommended to follow the **ShipanShop** upgrades.
+It is highly recommended to follow the **Shipan** upgrades.
 
 The procedures is made as fluid as possible, avoiding the compatibility breaks as much as possible.
 When this occurs to be the case, a migration tool is provided to facilitate the operation. 
@@ -122,14 +122,14 @@ In the meantime, the people concerned have to deal with what the have.
 
 ## Support
 
-To **report a security issue**, please send an email privately to the **ShipanShop** author:
+To **report a security issue**, please send an email privately to the **Shipan** author:
 ```
 from shipan import config
 config.VERSION.AuthorContact
 ```
 This gives us a chance to fix the issue and create an official release prior to the issue being made public.
 
-For **all other ShipanShop support**,
+For **all other Shipan support**,
  the primary channel is the [Repository support](https://github.com/rlichiere/shipan/projects/1) project.
  Questions, comments, issues, feature requests, and all other related discussions should take place here.
  
@@ -144,6 +144,6 @@ If you're **certain** you've comme across a bug,
 
 ## Contributing
 
-**ShipanShop** is an open source project managed using the Git control system.
+**Shipan** is an open source project managed using the Git control system.
 This repository is hosted on [GitHub](https://github.com/rlichiere/shipan),
  so contributing is as easy as forking the project and committing back your enhancements.

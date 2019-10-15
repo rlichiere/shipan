@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-import json
-
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from shipan import settings
-
-from tools import logger
+from tools.utils.utils_json import JsonFieldUtils
 
 
 @python_2_unicode_compatible
@@ -17,11 +13,10 @@ class DynamicPage(models.Model):
                            """,
                            max_length=200)
 
-   loc_title = models.CharField(help_text="""
+   loc_title = models.TextField(help_text="""
       Localized title of the page.
                                 """,
-                                default='{}',
-                                max_length=200)
+                                default=JsonFieldUtils.get_initial_content())
 
    content = models.TextField(help_text="""
       Content of the page.
@@ -47,37 +42,13 @@ class DynamicPage(models.Model):
       return self.title
 
 
-   def getTitleLocalized(self, request=None):
+   def getTitle(self, request=None):
       """
-      Return the title localized according to given request language.
+      Return the localized title, according to the given request language.
 
       :param request: request from which to retrieve the language
       :type request: WSGIRequest
       :return: the localized value
       :rtype: str
       """
-      _fieldData = self.getTitleLocalizationData(request=request)
-
-      if request is not None:
-         return _fieldData.get(request.LANGUAGE_CODE, self.getTitleDefault(data=_fieldData))
-      return self.getTitleDefault(data=_fieldData)
-
-   def getTitleDefault(self, data=None):
-      _data = data if data else self.getTitleLocalizationData()
-      return _data.get(settings.LANGUAGE_CODE, self.name)
-
-   def getTitleLocalizationData(self, request=None):
-      _l = logger.get('getTitleLocalizationData', request=request, obj=self)
-      try:
-         return json.loads(self.loc_title)
-
-      except ValueError:
-         _errLabel = 'Error while load JSON value'
-         _l.error(_errLabel)
-         return {}
-
-   @property
-   def title(self):
-      _l = logger.get('title', obj=self)
-      _l.deprecate('Should be replaced by `.getTitleLocalized()`')
-      return self.getTitleLocalized()
+      return JsonFieldUtils.get_field_value(instance=self, field='loc_title', request=request)

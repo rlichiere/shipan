@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 05:50+0200\n"
+"POT-Creation-Date: 2019-10-15 02:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: .\backoffice\templates\backoffice\home.html:6
-#: .\frontoffice\templates\frontoffice\base.html:98
+#: .\frontoffice\templates\frontoffice\base.html:107
 msgid "PAGE_VENDOR_BACKOFFICE_TITLE"
 msgstr "Backoffice"
 
@@ -34,47 +34,47 @@ msgstr "Documentation"
 msgid "PAGE_DOCUMENTATION_HEADER"
 msgstr "Administrator's documentation"
 
-#: .\doc\templates\doc\doc_page.html:21 .\doc\views.py:110
+#: .\doc\templates\doc\doc_page.html:22 .\doc\views.py:108
 msgid "PAGE_DOCUMENTATION_HOME_TITLE"
 msgstr "Home"
 
-#: .\doc\templates\doc\doc_page.html:35
+#: .\doc\templates\doc\doc_page.html:30
 msgid "LINK_GO_TO_TOP_OF_PAGE"
 msgstr "Top"
 
-#: .\doc\views.py:127
+#: .\doc\views.py:125
 msgid "ERROR_WHILE_LOADING_DOCUMENTATION_FILE"
 msgstr "Error while loading documentation file"
 
-#: .\frontoffice\templates\frontoffice\base.html:90
+#: .\frontoffice\templates\frontoffice\base.html:99
 #: .\people\templates\people\login.html:7
 #: .\people\templates\people\login.html:16
 msgid "PAGE_SIGN_IN_TITLE"
 msgstr "Sign in"
 
-#: .\frontoffice\templates\frontoffice\base.html:91
+#: .\frontoffice\templates\frontoffice\base.html:100
 #: .\people\templates\people\join.html:7
 #: .\people\templates\people\join.html:19
 msgid "PAGE_JOIN_TITLE"
 msgstr "Join"
 
-#: .\frontoffice\templates\frontoffice\base.html:96
+#: .\frontoffice\templates\frontoffice\base.html:105
 msgid "MENU_VENDOR_TITLE"
 msgstr "Vendor"
 
-#: .\frontoffice\templates\frontoffice\base.html:99
+#: .\frontoffice\templates\frontoffice\base.html:108
 msgid "PAGE_VENDOR_ADMIN_TITLE"
 msgstr "Admin"
 
-#: .\frontoffice\templates\frontoffice\base.html:100
+#: .\frontoffice\templates\frontoffice\base.html:109
 msgid "PAGE_VENDOR_DOCUMENTATION_TITLE"
 msgstr "Documentation"
 
-#: .\frontoffice\templates\frontoffice\base.html:106
+#: .\frontoffice\templates\frontoffice\base.html:115
 msgid "MENU_CLIENT_PROFILE"
 msgstr "Profile"
 
-#: .\frontoffice\templates\frontoffice\base.html:108
+#: .\frontoffice\templates\frontoffice\base.html:117
 #: .\people\templates\people\client\account\account.html:7
 #: .\people\templates\people\client\account\account.html:9
 #: .\people\templates\people\client\account\account_change_password.html:7
@@ -82,15 +82,15 @@ msgstr "Profile"
 msgid "PAGE_MY_ACCOUNT_TITLE"
 msgstr "My account"
 
-#: .\frontoffice\templates\frontoffice\base.html:109
+#: .\frontoffice\templates\frontoffice\base.html:118
 msgid "PAGE_MY_ORDERS_TITLE"
 msgstr "My orders"
 
-#: .\frontoffice\templates\frontoffice\base.html:110
+#: .\frontoffice\templates\frontoffice\base.html:119
 msgid "PAGE_MY_WISHLIST_TITLE"
 msgstr "My wishlist"
 
-#: .\frontoffice\templates\frontoffice\base.html:111
+#: .\frontoffice\templates\frontoffice\base.html:120
 msgid "PAGE_SIGN_OUT_TITLE"
 msgstr "Sign out"
 
@@ -116,105 +116,109 @@ msgstr ""
 msgid "PLEASE_ACCEPT_OUR_APOLOGIZES"
 msgstr "Please accept our apologizes for this inconvenience"
 
-#: .\frontoffice\templates\frontoffice\product.html:108
+#: .\frontoffice\templates\frontoffice\product.html:123
 msgid "PRODUCT_DETAIL_COLOR"
 msgstr "Color"
 
-#: .\frontoffice\templates\frontoffice\product.html:130
+#: .\frontoffice\templates\frontoffice\product.html:145
 msgid "PRODUCT_DETAIL_SIZE"
 msgstr "Size"
 
-#: .\frontoffice\templates\frontoffice\product.html:158
+#: .\frontoffice\templates\frontoffice\product.html:173
 msgid "BUY_NOW_BUTTON"
 msgstr "Buy now"
 
-#: .\frontoffice\templates\frontoffice\product.html:159
+#: .\frontoffice\templates\frontoffice\product.html:174
 msgid "ADD_TO_CART_BUTTON"
 msgstr "Add to cart"
 
-#: .\frontoffice\templates\frontoffice\products.html:44
+#: .\frontoffice\templates\frontoffice\products.html:55
 msgid "PRODUCT_THUMB_COLORS"
 msgstr "Colors"
 
-#: .\frontoffice\templates\frontoffice\products.html:50
+#: .\frontoffice\templates\frontoffice\products.html:62
 msgid "PRODUCT_THUMB_SIZES"
 msgstr "Sizes"
 
-#: .\frontoffice\views.py:60
+#: .\frontoffice\views.py:58
 msgid "ERROR_UNKNOWN_PRODUCT"
 msgstr "Unknown product"
 
 #: .\people\forms.py:49
-#: .\people\templates\people\client\account\account.html:19
+#: .\people\templates\people\client\account\account.html:20
 #: .\people\templates\people\join.html:11
 #: .\people\templates\people\login.html:11
 msgid "CLIENT_EMAIL"
 msgstr "Email"
 
 #: .\people\forms.py:52
-#: .\people\templates\people\client\account\account.html:20
+#: .\people\templates\people\client\account\account.html:21
 #: .\people\templates\people\join.html:12
 msgid "CLIENT_FIRST_NAME"
 msgstr "First name"
 
 #: .\people\forms.py:55
-#: .\people\templates\people\client\account\account.html:21
+#: .\people\templates\people\client\account\account.html:22
 #: .\people\templates\people\join.html:13
 msgid "CLIENT_LAST_NAME"
 msgstr "Last name"
 
-#: .\people\forms.py:82
+#: .\people\forms.py:90
 #: .\people\templates\people\client\account\account_change_password.html:19
 msgid "CLIENT_NEW_PASSWORD"
 msgstr "New password"
 
-#: .\people\forms.py:86
+#: .\people\forms.py:94
 #: .\people\templates\people\client\account\account_change_password.html:20
 msgid "CLIENT_NEW_PASSWORD_CONFIRMATION"
 msgstr "Password confirmation"
 
-#: .\people\forms.py:97
+#: .\people\forms.py:105
 msgid "PASSWORD_SHOULD_NOT_BE_EMPTY"
 msgstr "Password should not be empty"
 
-#: .\people\forms.py:100
+#: .\people\forms.py:108
 #: .\people\templates\people\client\account\account_change_password.html:75
 #: .\people\templates\people\client\account\account_change_password.html:79
 msgid "PASSWORDS_ARE_NOT_IDENTICAL"
 msgstr "Passwords are not identical"
 
-#: .\people\templates\people\client\account\account.html:28
+#: .\people\templates\people\client\account\account.html:19
+msgid "CLIENT_USERNAME"
+msgstr "Username"
+
+#: .\people\templates\people\client\account\account.html:29
 msgid "CHANGE_PROFILE_INFORMATION_HEADER_TITLE"
 msgstr "Change profile information"
 
-#: .\people\templates\people\client\account\account.html:58
+#: .\people\templates\people\client\account\account.html:76
 msgid "SAVE_PROFILE_BUTTON"
 msgstr "Save profile"
 
-#: .\people\templates\people\client\account\account.html:71
+#: .\people\templates\people\client\account\account.html:90
 #: .\people\templates\people\client\account\account_change_password.html:27
 msgid "CHANGE_PASSWORD_HEADER_TITLE"
 msgstr "Change password"
 
-#: .\people\templates\people\client\account\account.html:76
+#: .\people\templates\people\client\account\account.html:95
 msgid "CHANGE_YOUR_CURRENT_PASSWORD_USING_BELOW_OPTION"
 msgstr "Change your current password using the button below"
 
-#: .\people\templates\people\client\account\account.html:81
+#: .\people\templates\people\client\account\account.html:100
 msgid "CHANGE_PASSWORD_BUTTON"
 msgstr "Change password"
 
-#: .\people\templates\people\client\account\account.html:87
+#: .\people\templates\people\client\account\account.html:106
 msgid "CHANGING_THE_PASSWORD_REQUIRES_VALIDATON_BY_EMAIL"
 msgstr "Changing the password requires validation by email"
 
-#: .\people\templates\people\client\account\account.html:90
+#: .\people\templates\people\client\account\account.html:109
 msgid "AN_EMAIL_WILL_BE_SENT_TO_YOU_WITH_A_PASSWORD_CHANGE_LINK"
 msgstr ""
 "An email will be sent to you with a password change link (check your "
 "<code>Spam</code> folder if necessary)"
 
-#: .\people\templates\people\client\account\account.html:95
+#: .\people\templates\people\client\account\account.html:114
 msgid "SEND_LINK_BUTTON"
 msgstr "Send link"
 
@@ -243,37 +247,41 @@ msgstr "Sign in"
 msgid "USERNAME_OR_PASSWORD_INCORRECT"
 msgstr "Username or password incorrect. Please "
 
-#: .\people\views.py:21
+#: .\people\views.py:19
 msgid "THANKS_FOR_JOINING"
 msgstr "Thanks for joining. You are now logged in"
 
-#: .\people\views.py:29
+#: .\people\views.py:27
 msgid "AN_ERROR_OCCURRED_WHILE_REGISTRATION"
 msgstr "An error occurred while registration"
 
-#: .\people\views.py:80
+#: .\people\views.py:77
+msgid "CLIENT_PROFILE_UNCHANGED"
+msgstr "The profile information has not changed"
+
+#: .\people\views.py:82 .\people\views.py:96
 msgid "ERROR_WHILE_CHANGING_ACCOUNT_INFORMATION"
 msgstr "Error while changing account information"
 
-#: .\people\views.py:87
+#: .\people\views.py:108
 msgid "ACCOUNT_INFORMATION_SAVED"
-msgstr "Account information saved"
+msgstr "Profile saved"
 
-#: .\people\views.py:92
+#: .\people\views.py:113
 msgid "CHANGE_PASSWORD_LINK_SENT"
 msgstr ""
 "Send change password link is not yet implemented. Please use "
 "CLIENT_PASSWORD_CHANGE_METHOD.DIRECT"
 
-#: .\people\views.py:99
+#: .\people\views.py:120
 msgid "ERROR_WHILE_CHANGING_PASSWORD"
 msgstr "Error while changing password"
 
-#: .\people\views.py:110
+#: .\people\views.py:131
 msgid "PASSWORD_CHANGED"
 msgstr "Password changed"
 
-#: .\people\views.py:113
+#: .\people\views.py:134
 msgid "ERROR_UNKNOWN_ACTION"
 msgstr "Unknown action : %(action)s"
 

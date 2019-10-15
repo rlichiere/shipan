@@ -15,10 +15,10 @@ class CustomUserModelBackend(ModelBackend):
       self.executor = request.user
       _l = logger.get('authenticate', username, self)
       try:
-         user = self.user_class.objects.get(username=username)
-         if user.check_password(password):
+         _user = self.user_class.objects.get(username=username)
+         if _user.check_password(password):
             _l.info('Authentication successful')
-            return user
+            return _user
       except self.user_class.DoesNotExist:
          _l.info('Authentication failed')
          return None

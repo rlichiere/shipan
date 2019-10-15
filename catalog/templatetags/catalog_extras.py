@@ -19,6 +19,6 @@ class Tag_load_categories_Node(template.Node):
       return ''
 
 
-@register.tag
+@register.tag(name='load_categories')
 def load_categories(parser, params):
    return Tag_load_categories_Node()

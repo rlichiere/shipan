@@ -67,19 +67,44 @@ class ClientView(LoginRequiredMixin, TemplateView):
       return context
 
    def post(self, request, **kwargs):
-      _executor = Client.objects.get(username=self.request.user.username)
+      _executor = self.request.user.client
       _action = request.POST.get('action')
 
       if _action == 'change_account_info':
          _form = ChangeInformationForm(_executor, self.request.POST)
+
+         if not _form.has_changed():
+            messages.info(self.request, _('CLIENT_PROFILE_UNCHANGED'))
+            print('post: form unchanged')
+            return redirect(reverse('client-account'))
+
          if not _form.is_valid():
             messages.error(self.request, _('ERROR_WHILE_CHANGING_ACCOUNT_INFORMATION'))
-            return HttpResponse(render(self.request, template_name=self.template_name_change_password))
-         _executor.email = _form.cleaned_data['email']
-         _executor.username = _form.cleaned_data['email']
-         _executor.first_name = _form.cleaned_data['first_name']
-         _executor.last_name = _form.cleaned_data['last_name']
-         _executor.save()
+            print('post: error; form invalid')
+            return HttpResponse(render(self.request,
+                                       template_name=self.template_name,
+                                       context={'change_info_form': _form}))
+         _updateData = dict()
+         if 'email' in _form.changed_data:
+            _newEmail = _form.cleaned_data.get('email', '')
+            if _newEmail != '':
+               # assert that new email is not already used by another user
+
+               _others = Client.objects.exclude(id=_executor.id)
+
+               if _others.filter(email=str(_newEmail)).count() + _others.filter(email=str(_newEmail)).count() > 0:
+                  messages.error(self.request, _('ERROR_WHILE_CHANGING_ACCOUNT_INFORMATION'))
+                  return HttpResponse(render(self.request,
+                                             template_name=self.template_name,
+                                             context={'change_info_form': _form}), status=501)
+
+               # new email is available
+               _updateData['email'] = _newEmail
+
+         _updateData['first_name'] = _form.cleaned_data.get('first_name')
+         _updateData['last_name'] = _form.cleaned_data.get('last_name')
+         print('post: _updateData : %s' % _updateData)
+         _executor.update_profile(**_updateData)
          messages.info(self.request, _('ACCOUNT_INFORMATION_SAVED'))
 
       elif _action == 'change_password_send_link':

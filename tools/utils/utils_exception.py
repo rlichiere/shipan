@@ -39,7 +39,7 @@ class Exc(Exception):
    @property
    def veil(self):
       """
-      Return the veiled information of the exception.
+      Return the veiled (i.e reserved to staff members) information of the exception.
 
       Note: this information should be shown only to a superuser
 

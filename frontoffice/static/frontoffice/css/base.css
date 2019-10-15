@@ -1,5 +1,5 @@
 /**
- * ShipanShop base stylesheet
+ * Shipan base stylesheet
  * The base stylesheet to use in a frontoffice page.
  * https://github.com/rlichiere/shipan
  *
@@ -18,6 +18,11 @@
 }
 .display-6 {
    font-size: 1.5rem;
+}
+
+.xsmall {
+   font-size: 0.8em;
+   padding: .75rem 1.0rem;
 }
 
 

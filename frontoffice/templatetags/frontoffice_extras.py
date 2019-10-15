@@ -17,7 +17,7 @@ class Tag_get_flow_links_Node(template.Node):
       context[self.context_var] = [
          {
             'name': _.name,
-            'title': _.getTitleLocalized(request=context['request'])
+            'title': _.getTitle(request=context['request'])
          }
          for _ in DynamicPage.objects.filter(flow=self.flow_name)
       ]

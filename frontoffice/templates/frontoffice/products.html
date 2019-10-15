@@ -3,12 +3,21 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+   {% if selection %}
+      {{ selection|capfirst }}
+   {% elif categories %}
+      {{ categories }}
+   {% else %}
+      Shop
+   {% endif %}
+{% endblock %}
+
+{% block no-page-title %}{% endblock %}
 
 {% block page-body %}
 
 <style>
-
    /* xs */
    .shop-card {
        width: 500px;
@@ -17,52 +26,53 @@
    /* sm */
    @media (min-width: 768px) {
        .shop-card {
-           width: 250px;
+           width: 232px;
        }
+   }
+
+   .shop-card-btn-color {
+      padding: .75rem 1.0rem;
    }
 
 </style>
 
-<div class="container">
-   <div class="row">
-   {% for product in products %}
-      <div class="card shop-card m-3">
-         <a href="{% url 'fo-product' %}?model={{ product.name }}">
-            {% if product.colourings.first.pictures.first.picture %}
-               <img class="card-img-top"
-                    src="/media/products/{{ product.colourings.first.pictures.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
-            {% else %}
-               <div class="card-img-top text-center" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 248px; height: 248px">
-                  <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 30%"></div>
-               </div>
-            {% endif %}
-         </a>
-         <div class="card-body">
-            <h4>{{ product.label }}</h4>
-
-            <div class="list-group list-group-horizontal">
-               <span class="small text-secondary">{% trans 'PRODUCT_THUMB_COLORS' %}:&nbsp;</span>
-               {% for colouring in product.colourings.all %}
-                  <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" class="list-group-item small" style="background-color: {{ colouring.color.rgb_s }}"></a>
-               {% endfor %}
+{% for product in products %}
+   <div class="card shop-card mx-1 my-3">
+      <a href="{% url 'fo-product' %}?model={{ product.name }}">
+         {% if product.colourings.first.pictures.first.picture %}
+            <img class="card-img-top"
+                 src="/media/products/{{ product.colourings.first.pictures.first.picture }}" alt="{{ product.label }} : {{ product.colourings.first.color }}">
+         {% else %}
+            <div class="card-img-top text-center" style="background-color: {{ product.colourings.first.color.rgb_s }}; width: 230px; height: 230px">
+               <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 30%"></div>
             </div>
-            <span class="list-group list-group-horizontal small text-secondary">
-               {% trans 'PRODUCT_THUMB_SIZES' %}: {{ product.sizes.all|join:', ' }}
-            </span>
-            <div class="float-right">
-               <span class="list-group list-group-horizontal small">
-                  {% for category in product.categories.all %}
-                     {% if forloop.counter > 1 %}, {% endif %}
-                     <a href="{% url 'fo-shop' %}?categories={{ category.name }}" class="badge badge-secondary">{{ category.label }}</a>
-                  {% endfor %}
-               </span>
-            </div>
+         {% endif %}
+      </a>
+      <div class="card-body mx-0 px-2 py-2 text-center">
+         <h4>{{ product.label }}</h4>
 
+         <div class="list-group list-group-horizontal">
+            <span class="text-secondary">{% trans 'PRODUCT_THUMB_COLORS' %}&nbsp;</span>
+            {% for colouring in product.colourings.all %}
+               <a href="{% url 'fo-product' %}?model={{ product.name }}&amp;color={{ colouring.color.name }}"
+                  class="shop-card-btn-color list-group-item xsmall" style="background-color: {{ colouring.color.rgb_s }}"></a>
+            {% endfor %}
          </div>
+         <span class="list-group list-group-horizontal text-secondary">
+            {% trans 'PRODUCT_THUMB_SIZES' %} {{ product.sizes.all|join:', ' }}
+         </span>
+         <div class="float-right">
+            <span class="list-group list-group-horizontal">
+               {% for category in product.categories.all %}
+                  {% if forloop.counter > 1 %}, {% endif %}
+                  <a href="{% url 'fo-shop' %}?categories={{ category.name }}" class="badge badge-secondary">{{ category.label }}</a>
+               {% endfor %}
+            </span>
+         </div>
+
       </div>
-   {% empty %}
-   {% endfor %}
    </div>
-</div>
+{% empty %}
+{% endfor %}
 
 {% endblock %}

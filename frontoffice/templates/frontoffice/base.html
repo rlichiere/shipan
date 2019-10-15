@@ -41,7 +41,6 @@
    <link rel="shortcut icon" type="image/png" href="{% static 'frontoffice/img/favicon.ico' %}"/>
 
    <style>
-
       /* top navbar bottom separator */
       .navbar {
          background-color: white;
@@ -56,13 +55,23 @@
             display: flex;
          }
       }
+
+      /* force main container width in order to have 5 cards on a row */
+      #main-page-content[role="list"] {
+         max-width: 1200px;
+      }
    </style>
 
+   <!-- block head -->
    {% block head %}{% endblock %}
+   <!-- /block head -->
 
 </head>
 <body>
+   <!-- block page-head -->
    {% block page-head %}{% endblock %}
+   <!-- /block page-head -->
+
    <nav class="navbar navbar-expand fixed-top pr-3 hat">
       <a class="navbar-brand" href="{% url 'fo-home' %}">
          <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">
@@ -86,7 +95,7 @@
       </ul>
 
       <form class="form-inline">
-         {% if executor.is_anonymous %}
+         {% if not executor or executor.is_anonymous %}
             <a class="nav-link btn btn-light" href="{% url 'login' %}">{% trans 'PAGE_SIGN_IN_TITLE' %}</a>
             <a class="nav-link btn btn-light" href="{% url 'join' %}">{% trans 'PAGE_JOIN_TITLE' %}</a>
          {% else %}
@@ -115,12 +124,15 @@
       </form>
    </nav>
 
-   <div class="container mb-5" id="main-page-content">
+   <div class="container mb-5" id="main-page-content" role="list">
 
       {% block no-page-title %}
       <div class="row py-3">
          <div class="col-lg-12">
+            <!-- block page-title -->
             <h1>{% block page-title %}{% endblock %}</h1>
+            <!-- /block page-title -->
+
          </div>
       </div>
       {% endblock %}
@@ -141,12 +153,16 @@
       {% endif %}
 
       <div class="row">
+         <!-- block page-body -->
          {% block page-body %}{% endblock %}
+         <!-- /block page-body -->
       </div>
 
       <div class="row">
          <div class="col-lg-12">
+            <!-- block page-footer -->
             {% block page-footer %}{% endblock %}
+            <!-- /block page-footer -->
          </div>
       </div>
    </div>
@@ -166,7 +182,7 @@
                      © {{ config.VERSION.PublishYear }} {{ config.VERSION.Project }}
                      {% if executor.is_superuser %}
                         <a href="#" class="nav-link"
-                           data-toggle="popover" data-html="true" data-placement="top"
+                           data-toggle="popover" data-html="true" data-placement="top" data-trigger="focus"
                            title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
                            data-content="
                            <p>Published on: <code>{{ config.VERSION.PublishDate }}</code></p>
@@ -190,7 +206,9 @@
       </nav>
    </footer>
 
+   <!-- block extra_script -->
    {% block extra_script %}{% endblock %}
+   <!-- /block extra_script -->
 
    <script>
       $(document).ready(function() {

@@ -3,13 +3,15 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ product.label }}{% endblock %}
+
+{% block no-page-title %}{% endblock %}
 
 {% block page-body %}
 
 <style>
 
-   /* Boostrap custom extensions */
+   /* Bootstrap custom extensions */
    .btn-love {
       background-color: #faf8f8;
       border-color: hotpink;
@@ -39,6 +41,7 @@
    }
    .product-picture-image {
       width: 480px;
+      min-height: 350px;
       max-height: 630px;
    }
    .product-detail > h4,
@@ -50,30 +53,30 @@
 
 </style>
 
-<div class="row mx-auto mb-3 py-0">
+<div class="row mx-auto mb-3 py-2">
 
    <div class="affix">
-      {% for colouring in product.colourings.all %}
-         {% if color %}
-            {% if colouring.color.name == color %}
-               {% for picture in colouring.pictures.all %}
-                  <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}&picture={{ picture.picture }}">
-                  <div class="list-group-item product-picture-thumb rounded-0"
-                       style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
-                  </a>
-               {% endfor %}
-            {% endif %}
-         {% else %}
-            {% for picture in product.colourings.first.pictures.all %}
-               {% if colouring == picture.colouring %}
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ product.colourings.first.color.name }}&picture={{ picture.picture }}">
-               <div class="list-group-item product-picture-thumb"
+   {% for colouring in product.colourings.all %}
+      {% if color %}
+         {% if colouring.color.name == color %}
+            {% for picture in colouring.pictures.all %}
+               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}&picture={{ picture.picture }}">
+               <div class="list-group-item product-picture-thumb rounded-0"
                     style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
                </a>
-               {% endif %}
             {% endfor %}
          {% endif %}
-      {% endfor %}
+      {% else %}
+         {% for picture in product.colourings.first.pictures.all %}
+            {% if colouring == picture.colouring %}
+            <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ product.colourings.first.color.name }}&picture={{ picture.picture }}">
+            <div class="list-group-item product-picture-thumb"
+                 style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
+            </a>
+            {% endif %}
+         {% endfor %}
+      {% endif %}
+   {% endfor %}
    </div>
 
    <div class="affix">
@@ -89,53 +92,65 @@
                         {% endif %}
                      {% endfor %}
                   {% else %}
-                     <img src="{% url 'media' path='products/'|add:colouring.pictures.first.picture %}" class="btn product-picture-image">
+                     {% if colouring.pictures.count > 0 %}
+                        <img src="{% url 'media' path='products/'|add:colouring.pictures.first.picture %}" class="btn product-picture-image">
+                     {% else %}
+                        <div class="btn product-picture-image" style="background-color: {{ colouring.color.rgb_s }}">
+                           <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 25%"></div>
+                        </div>
+                     {% endif %}
                   {% endif %}
                {% endif %}
             {% endfor %}
          {% endif %}
       {% else %}
-         <img src="{% url 'media' path='products/'|add:product.colourings.first.pictures.first.picture %}" class="btn product-picture-image">
+         {% if product.colourings.first.pictures.count > 0 %}
+            <img src="{% url 'media' path='products/'|add:product.colourings.first.pictures.first.picture %}" class="btn product-picture-image">
+         {% else %}
+            <div class="btn product-picture-image" style="background-color: {{ product.colourings.first.color.rgb_s }}">
+               <div class="fas fa-camera text-muted" style="font-size: 7em; margin-top: 25%"></div>
+            </div>
+         {% endif %}
       {% endif %}
       </a>
    </div>
 
-   <div class="product-detail">
+   <div class="product-detail px-2">
       <h4 class="text-body">{{ product.label }}</h4>
       <span class="text-dark">{{ product.description }}</span>
 
       <div>
          <span class="text-secondary">{% trans 'PRODUCT_DETAIL_COLOR' %}</span>
          <div class="btn-group">
-            {% for colouring in product.colourings.all %}
-               <style>
-                  .btn-outline-custom-{{ colouring.color.rgb }} {
-                     background-color: {{ colouring.color.rgb_s }};
-                     border-radius: 0;
-                     width: 55px;
-                     {% if colouring.color.name == color %}
-                     border: #BF1F2F outset;
-                     {% else %}
-                     {% endif %}
-                  }
-               </style>
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}"
-                  class="btn btn-outline-custom-{{ colouring.color.rgb }}"
-               >&nbsp;</a>
-            {% endfor %}
+         {% for colouring in product.colourings.all %}
+            <style>
+               .{{ 'btn-outline-custom-'|add:colouring.color.rgb }} {
+                  background-color: {{ colouring.color.rgb_s }};
+                  border-radius: 0;
+                  width: 55px;
+                  {% if colouring.color.name == color %}
+                  border: #BF1F2F outset;
+                  {% else %}
+                  {% endif %}
+               }
+            </style>
+            <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}"
+               class="btn btn-outline-custom-{{ colouring.color.rgb }}"
+            >&nbsp;</a>
+         {% endfor %}
          </div>
       </div>
 
       <div>
          <span class="text-secondary mr-2">{% trans 'PRODUCT_DETAIL_SIZE' %}</span>
          <div class="btn-group">
-            {% for product_size in product.sizes.all %}
-               <a href="#"
-                  class="btn btn-outline-primary {% ifequal product_size.name size.name %}active{% endifequal %}"
-                  style="border-radius: 0; width: 55px">
-                  <span class="text-dark">{{ product_size.label }}</span>
-               </a>
-            {% endfor %}
+         {% for product_size in product.sizes.all %}
+            <a href="#"
+               class="btn btn-outline-primary {% ifequal product_size.name size.name %}active{% endifequal %}"
+               style="border-radius: 0; width: 55px">
+               <span class="text-dark">{{ product_size.label }}</span>
+            </a>
+         {% endfor %}
          </div>
       </div>
 

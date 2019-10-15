@@ -48,7 +48,7 @@ class ChangeInformationForm(forms.Form):
 
    email = forms.EmailField(label=_('CLIENT_EMAIL'),
                             max_length=200,
-                            required=True)
+                            required=False)
    first_name = forms.CharField(label=_('CLIENT_FIRST_NAME'),
                                 max_length=200,
                                 required=False)
@@ -59,9 +59,13 @@ class ChangeInformationForm(forms.Form):
                             widget=forms.HiddenInput())
 
    def __init__(self, executor, *args, **kwargs):
-      super(ChangeInformationForm, self).__init__(*args, **kwargs)
       self.executor = Client.objects.get(username=executor.username)
+      super(ChangeInformationForm, self).__init__(*args, **kwargs)
+
+      if self.executor.connects_with_email:
+         self.fields['email'].required = True
       self.fields['email'].initial = self.executor.email
+
       self.fields['first_name'].initial = self.executor.first_name
       self.fields['last_name'].initial = self.executor.last_name
 
