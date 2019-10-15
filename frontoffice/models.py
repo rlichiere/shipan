@@ -18,11 +18,10 @@ class DynamicPage(models.Model):
                                 """,
                                 default=JsonFieldUtils.get_initial_content())
 
-   content = models.TextField(help_text="""
-      Content of the page.
-                              """,
-                              default='',
-                              blank=True)
+   loc_content = models.TextField(help_text="""
+      Localized content of the page.
+                                  """,
+                                  default=JsonFieldUtils.get_initial_content())
 
    flow = models.CharField(help_text="""
       Flow in the page.
@@ -39,7 +38,7 @@ class DynamicPage(models.Model):
       ordering = ['flow_position']
 
    def __str__(self):
-      return self.title
+      return self.getTitle()
 
 
    def getTitle(self, request=None):
@@ -48,7 +47,18 @@ class DynamicPage(models.Model):
 
       :param request: request from which to retrieve the language
       :type request: WSGIRequest
-      :return: the localized value
+      :return: the localized title
       :rtype: str
       """
       return JsonFieldUtils.get_field_value(instance=self, field='loc_title', request=request)
+
+   def getContent(self, request=None):
+      """
+      Return the localized content, according to the given request language.
+
+      :param request: request from which to retrieve the language
+      :type request: WSGIRequest
+      :return: the localized content
+      :rtype: str
+      """
+      return JsonFieldUtils.get_field_value(instance=self, field='loc_content', request=request)

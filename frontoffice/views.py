@@ -82,8 +82,9 @@ class DynamicPageView(View):
       context = dict()
       context['request'] = request
       context['page_title'] = mark_safe(_dynPage.getTitle(request))
-      _htmlContent = markdown2.markdown(_dynPage.content, extras=["fenced-code-blocks"])
 
+      _htmlContent = markdown2.markdown(_dynPage.getContent(request), extras=["fenced-code-blocks"])
       context['page_content'] = mark_safe(_htmlContent)
+
       _htmlPage = _t.render(context)
       return HttpResponse(content=_htmlPage)
