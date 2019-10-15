@@ -40,7 +40,7 @@ html {
 }
 
 .hat .navbar-nav,
-.footer .navbar-nav {
+.footer > nav > .navbar-nav {
    float: none;
    margin:0 auto;
    display: block;

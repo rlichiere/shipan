@@ -3,8 +3,10 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.safestring import mark_safe
 
+from tools.utils import utils_exception, utils_price
+from tools.utils.utils_json import JsonFieldUtils
+
 from . import constants
-from tools.utils import utils_price
 
 
 @python_2_unicode_compatible
@@ -16,11 +18,11 @@ class ProductMainColor(models.Model):
                            unique=True,
                            max_length=200)
 
-   label = models.CharField(help_text="""
-      Label of the color.
-                            """,
-                            unique=True,
-                            max_length=200)
+   loc_label = models.TextField(help_text="""
+      Localized label of the color.
+                                """,
+                                default=JsonFieldUtils.get_initial_content(),
+                                verbose_name='Localized label')
 
    rgb = models.CharField(help_text="""
       RGB code of the color, as hexadecimal.
@@ -30,8 +32,31 @@ class ProductMainColor(models.Model):
    class Meta:
       ordering = ['name']
 
+
+   def getLabel(self, request=None):
+      """
+      Return the localized label, according to the given request language.
+
+      :param request: request from which to retrieve the language
+      :type request: WSGIRequest
+      :return: the localized label
+      :rtype: str
+      """
+      return JsonFieldUtils.get_field_value(instance=self, field='loc_label', request=request)
+
+
    def __str__(self):
-      return self.label
+      return self.getLabel()
+
+
+   def save(self, *args, **kwargs):
+
+      # validate JSON fields
+      for _fieldName in ['loc_label', ]:
+         if not JsonFieldUtils.field_is_valid(self, _fieldName):
+            raise utils_exception.LookupExc('JSON format error for field: %s' % _fieldName)
+
+      super(ProductMainColor, self).save(*args, **kwargs)
 
    def representation(self):
       return mark_safe('<img style="background-color:#%s; width: 16px; height: 16px">' % self.rgb)
@@ -261,11 +286,17 @@ class ProductSelection(models.Model):
                            unique=True,
                            max_length=200)
 
-   label = models.CharField(help_text="""
-      Label of the selection.
-                            """,
-                            unique=True,
-                            max_length=200)
+   loc_label = models.TextField(help_text="""
+      Localized label of the selection.
+                                """,
+                                default=JsonFieldUtils.get_initial_content(),
+                                verbose_name='Localized label')
+
+   loc_short_label = models.TextField(help_text="""
+      Localized short label of the selection.
+                                      """,
+                                      default=JsonFieldUtils.get_initial_content(),
+                                      verbose_name='Localized short label')
 
    products = models.ManyToManyField(help_text="""
       Products of this selection.
@@ -274,7 +305,29 @@ class ProductSelection(models.Model):
                                      related_name='selections')
 
    def __str__(self):
-      return self.label
+      return self.getLabel()
 
    class Meta:
       ordering = ['name']
+
+   def getLabel(self, request=None):
+      """
+      Return the localized label, according to the given request language.
+
+      :param request: request from which to retrieve the label
+      :type request: WSGIRequest
+      :return: the localized label
+      :rtype: str
+      """
+      return JsonFieldUtils.get_field_value(instance=self, field='loc_label', request=request)
+
+   def getShortLabel(self, request=None):
+      """
+      Return the localized short label, according to the given request language.
+
+      :param request: request from which to retrieve the short label
+      :type request: WSGIRequest
+      :return: the localized short label
+      :rtype: str
+      """
+      return JsonFieldUtils.get_field_value(instance=self, field='loc_short_label', request=request)

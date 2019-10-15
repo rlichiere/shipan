@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 
+from django.utils import translation
+
 from shipan import settings
 
 from .. import logger
@@ -17,7 +19,7 @@ class JsonFieldUtils(object):
       :return:
       :rtype: str
       """
-      return '{}'
+      return json.dumps({_lc[0]: "Default content for %(lang)s" % {'lang': _lc[1]} for _lc in settings.LANGUAGES})
 
    @classmethod
    def get_field_value(cls, instance, field, request=None):
@@ -85,4 +87,20 @@ class JsonFieldUtils(object):
       :rtype: str
       """
       _data = data if data else cls.get_field_data(instance, field=field)
-      return _data.get(settings.LANGUAGE_CODE, instance.name)
+
+      if _data.has_key(settings.LANGUAGE_CODE):
+         return _data[settings.LANGUAGE_CODE]
+
+      _langInfo = translation.get_language_info(settings.LANGUAGE_CODE)
+      if _data.has_key(_langInfo['code']):
+         return _data[_langInfo['code']]
+
+      return instance.name
+
+   @classmethod
+   def field_is_valid(cls, instance, field_name):
+      try:
+         json.JSONDecoder().decode(getattr(instance, field_name))
+         return True
+      except ValueError:
+         return False

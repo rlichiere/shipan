@@ -8,7 +8,7 @@ from . import models
 
 
 class ProductMainColorAdmin(admin.ModelAdmin):
-   list_display = ('label', 'representation', 'rgb', 'name', 'detailed__colors', )
+   list_display = ('label_', 'name', 'representation', 'rgb', 'detailed__colors', )
    readonly_fields = ('representation', 'detailed_colors', 'detailed__colors', )
    list_filter = ('colors', )
 
@@ -30,6 +30,10 @@ class ProductMainColorAdmin(admin.ModelAdmin):
          _html = ' '.join(['%s %s' % (_color.label, _color.representation()) for _color in _colors.all()])
       return mark_safe(_html)
 
+   @staticmethod
+   def label_(instance):
+      return instance.getLabel()
+
 
 class ProductColorAdmin(admin.ModelAdmin):
    list_display = ('label', 'representation', 'rgb', 'name', 'main__colors', )
@@ -38,12 +42,12 @@ class ProductColorAdmin(admin.ModelAdmin):
 
    @staticmethod
    def main__colors(instance):
-      _colors = instance.main_colors
-      if _colors.count() == 1:
-         _color = _colors.first()
-         _html = '%s %s' % (_color.label, _color.representation())
+      _mainColors = instance.main_colors
+      if _mainColors.count() == 1:
+         _mainColor = _mainColors.first()
+         _html = '%s %s' % (_mainColor.getLabel(), _mainColor.representation())
       else:
-         _html = ' '.join(['%s %s' % (_color.label, _color.representation()) for _color in _colors.all()])
+         _html = ' '.join(['%s %s' % (_mainColor.getLabel(), _mainColor.representation()) for _mainColor in _mainColors.all()])
       return mark_safe(_html)
 
 
@@ -80,7 +84,7 @@ class ProductColouringAdmin(admin.ModelAdmin):
 
 class ProductPictureAdmin(admin.ModelAdmin):
    list_display = ('product_', 'color_', 'picture', 'position', )
-   list_filter = ('colouring__product__label', 'colouring__color__label', 'colouring__color__main_colors__label')
+   list_filter = ('colouring__product__label', 'colouring__color__name', 'colouring__color__main_colors__name')
    readonly_fields = ('product_', 'color_')
 
    @staticmethod
@@ -93,7 +97,15 @@ class ProductPictureAdmin(admin.ModelAdmin):
 
 
 class ProductSelectionAdmin(admin.ModelAdmin):
-   list_display = ('label', 'name', )
+   list_display = ('label_', 'short_label_', 'name', )
+
+   @staticmethod
+   def label_(instance):
+      return instance.getLabel()
+
+   @staticmethod
+   def short_label_(instance):
+      return instance.getShortLabel()
 
 
 admin.site.register(models.ProductMainColor, ProductMainColorAdmin)

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+   'backoffice.apps.BackofficeConfig',
    'django.contrib.admin',
    'django.contrib.admindocs',
    'django.contrib.auth',
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
    'tools.apps.ToolsConfig',
    'people.apps.PeopleConfig',
    'catalog.apps.CatalogConfig',
-   'backoffice.apps.BackofficeConfig',
    'frontoffice.apps.FrontofficeConfig',
    'api.apps.ApiConfig',
    'docutils',

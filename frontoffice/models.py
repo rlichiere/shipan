@@ -16,12 +16,14 @@ class DynamicPage(models.Model):
    loc_title = models.TextField(help_text="""
       Localized title of the page.
                                 """,
-                                default=JsonFieldUtils.get_initial_content())
+                                default=JsonFieldUtils.get_initial_content(),
+                                verbose_name='Localized title')
 
    loc_content = models.TextField(help_text="""
       Localized content of the page.
                                   """,
-                                  default=JsonFieldUtils.get_initial_content())
+                                  default=JsonFieldUtils.get_initial_content(),
+                                  verbose_name='Localized content')
 
    flow = models.CharField(help_text="""
       Flow in the page.
