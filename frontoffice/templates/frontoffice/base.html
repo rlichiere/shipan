@@ -78,9 +78,11 @@
       </a>
 
       <ul class="navbar-nav mr-auto">
+         {% for product_selection in selection_news %}
          <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection=new">Nouveautés</a>
+            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getLabel %}</a>
          </li>
+         {% endfor %}
 
          {% load_categories %}
          {% for category in categories %}
@@ -89,9 +91,11 @@
          </li>
          {% endfor %}
 
+         {% for product_selection in selection_seasons %}
          <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}">Autumn / Winter</a>
+            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getShortLabel %}</a>
          </li>
+         {% endfor %}
       </ul>
 
       <form class="form-inline">

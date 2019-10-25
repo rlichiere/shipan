@@ -1,6 +1,7 @@
 {% extends 'frontoffice/base.html' %}
 
 {% load staticfiles %}
+{% load tools_extras %}
 
 {% block title %}Home{% endblock %}
 
@@ -23,9 +24,9 @@
 </style>
 
 <div class="container">
-<a href="{% url 'fo-shop' %}" class="btn">
+<a href="{% url 'fo-shop' %}?selection={{ selection_seasons.first.name }}" class="btn">
    <img src="{% static 'frontoffice/img/home_season_bg.jpg' %}">
-   <div class="centered">Season Autumn / Winter 2019</div>
+   <div class="centered">{% trans_db selection_seasons.first getLabel %}</div>
 </a>
 </div>
 

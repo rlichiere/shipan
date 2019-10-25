@@ -97,7 +97,7 @@ class ProductPictureAdmin(admin.ModelAdmin):
 
 
 class ProductSelectionAdmin(admin.ModelAdmin):
-   list_display = ('label_', 'short_label_', 'name', )
+   list_display = ('name', 'kind', 'label_', 'short_label_', 'start_at', 'ends_at', )
 
    @staticmethod
    def label_(instance):

@@ -286,6 +286,14 @@ class ProductSelection(models.Model):
                            unique=True,
                            max_length=200)
 
+   kind = models.CharField(help_text="""
+      Kind of the selection.
+                           """,
+                           choices=constants.PRODUCT_SELECTION_KIND.CHOICES,
+                           max_length=200,
+                           null=True,
+                           blank=True)
+
    loc_label = models.TextField(help_text="""
       Localized label of the selection.
                                 """,
@@ -303,6 +311,18 @@ class ProductSelection(models.Model):
                                      """,
                                      to=ProductModel,
                                      related_name='selections')
+
+   start_at = models.DateField(help_text="""
+      Date from which the selection is valid.
+                               """,
+                               null=True,
+                               blank=True)
+
+   ends_at = models.DateField(help_text="""
+      Date from which the selection is no longer valid.
+                              """,
+                              null=True,
+                              blank=True)
 
    def __str__(self):
       return self.getLabel()
