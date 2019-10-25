@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import HttpResponse, redirect, reverse
 from django.views.generic import TemplateView, View
@@ -7,11 +6,13 @@ from django.views.generic import TemplateView, View
 from shipan import config
 
 from tools import logger
+from tools import utils_views
+
 
 from people.models.client import Client
 
 
-class Home(LoginRequiredMixin, TemplateView):
+class Home(utils_views.StaffuserRequiredMixin, TemplateView):
 
     template_name = 'backoffice/home.html'
 

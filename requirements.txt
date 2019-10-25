@@ -4,3 +4,4 @@ djangorestframework==3.9.4
 docutils
 colorlog==4.0.2
 markdown2==2.3.5
+django-impersonate==1.4.1

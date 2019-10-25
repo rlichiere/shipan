@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'docutils',
     'rest_framework',
     'widget_tweaks',
+    'impersonate',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'impersonate.middleware.ImpersonateMiddleware',
 ]
 
 ROOT_URLCONF = 'shipan.urls'
@@ -244,3 +246,8 @@ LOGGING = {
 }
 
 DJANGO_COLORS = 'light'
+
+IMPERSONATE = {
+    'ALLOW_SUPERUSER': True,
+    'REDIRECT_FIELD_NAME': 'next',
+}

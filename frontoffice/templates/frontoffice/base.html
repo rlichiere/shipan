@@ -125,11 +125,22 @@
             {% endif %}
 
             <div class="dropdown">
-                <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown"
-                   href="#">{% trans 'MENU_CLIENT_PROFILE' %}</a>
+                <a class="dropdown-toggle nav-link btn {% if request.impersonator and request.impersonator.is_staff and request.impersonator != request.user %}btn-warning{% else %}btn-light{% endif %}"
+                   data-toggle="dropdown" href="#">
+                    {% trans 'MENU_CLIENT_PROFILE' %}
+                </a>
                 <ul class="dropdown-menu dropdown-menu-right py-0">
-                    <li><a class="nav-link btn-light"
-                           href="{% url 'client-account' %}">{% trans 'PAGE_MY_ACCOUNT_TITLE' %}</a></li>
+                    <li>
+                        {% if request.impersonator and request.impersonator.is_staff and request.impersonator != request.user %}
+                        <a class="btn btn-primary btn-sm float-right mt-1 mr-1" href="{% url 'impersonate-stop' %}?next={{ request.path }}" title="Stop impersonation of {{ request.user.get_full_name }}">
+                            <span class="fas fa-user-slash"></span>
+                        </a>
+                        {% endif %}
+
+                        <a class="nav-link btn-light" href="{% url 'client-account' %}">
+                            {% trans 'PAGE_MY_ACCOUNT_TITLE' %}
+                        </a>
+                    </li>
                     <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_ORDERS_TITLE' %}</a></li>
                     <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_WISHLIST_TITLE' %}</a></li>
                     <li><a class="nav-link btn-light" href="{% url 'logout' %}">{% trans 'PAGE_SIGN_OUT_TITLE' %}</a>

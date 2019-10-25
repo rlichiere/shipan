@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^backoffice/', include('backoffice.urls')),
+    url(r'^impersonate/', include('impersonate.urls')),
 
     url(r'^login/$', auth_views.login, {'template_name': 'people/login.html', 'authentication_form': FrontAuthForm},
         name='login'),
