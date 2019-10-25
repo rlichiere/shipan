@@ -1,34 +1,41 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.db.models import QuerySet
 
 from tools import admin_actions
 
 from . import models
 
 
+
+class ColorFormatter(object):
+
+    @staticmethod
+    def render(colors):
+        """
+        Render given colors as HTML.
+
+        :param colors: color (or list of colors) to render
+        :type colors: list, Color
+        :return: list of colors formatted as safe HTML
+        """
+        if type(colors) is QuerySet:
+            _html = ', '.join(['%s %s' % (_color.representation(), _color.getLabel()) for _color in colors.all()])
+        else:
+            _html = '%s %s' % (colors.representation(), colors.getLabel())
+        return mark_safe(_html)
+
+
 class ProductMainColorAdmin(admin.ModelAdmin):
-    list_display = ('label_', 'name', 'representation', 'rgb', 'detailed__colors', )
-    readonly_fields = ('representation', 'detailed_colors', 'detailed__colors', )
+    list_display = ('label_', 'name', 'representation', 'rgb', 'detailed_colors', )
+    readonly_fields = ('representation', 'detailed_colors', )
     list_filter = ('colors', )
+    search_fields = ('loc_label', 'name', 'rgb', 'colors__loc_label', )
 
     @staticmethod
     def detailed_colors(instance):
-        _html = '<ul>'
-        for _color in instance.colors.all():
-            _html += '<li>%s</li>' % _color.label
-        _html += '</ul>'
-        return mark_safe(_html)
-
-    @staticmethod
-    def detailed__colors(instance):
-        _colors = instance.colors
-        if _colors.count() == 1:
-            _color = _colors.first()
-            _html = '%s %s' % (_color.label, _color.representation())
-        else:
-            _html = ' '.join(['%s %s' % (_color.label, _color.representation()) for _color in _colors.all()])
-        return mark_safe(_html)
+        return ColorFormatter.render(instance.colors.all())
 
     @staticmethod
     def label_(instance):
@@ -36,27 +43,24 @@ class ProductMainColorAdmin(admin.ModelAdmin):
 
 
 class ProductColorAdmin(admin.ModelAdmin):
-    list_display = ('label', 'representation', 'rgb', 'name', 'main__colors', )
+    list_display = ('getLabel', 'representation', 'rgb', 'name', 'main__colors', )
     readonly_fields = ('representation', 'main__colors', )
     list_filter = ('main_colors', )
+    search_fields = ('loc_label', 'name', 'rgb', )
 
     @staticmethod
     def main__colors(instance):
-        _mainColors = instance.main_colors
-        if _mainColors.count() == 1:
-            _mainColor = _mainColors.first()
-            _html = '%s %s' % (_mainColor.getLabel(), _mainColor.representation())
-        else:
-            _html = ' '.join(['%s %s' % (_mainColor.getLabel(), _mainColor.representation()) for _mainColor in _mainColors.all()])
-        return mark_safe(_html)
+        return ColorFormatter.render(instance.main_colors.all())
 
 
 class ProductSizeAdmin(admin.ModelAdmin):
     list_display = ('label', 'name', 'position', )
+    search_fields = ('label', 'name', )
 
 
 class ProductCategoryAdmin(admin.ModelAdmin):
     list_display = ('label', 'name', )
+    search_fields = ('label', 'name', )
 
 
 class ProductModelAdmin(admin.ModelAdmin):
@@ -73,20 +77,22 @@ class ProductColouringAdmin(admin.ModelAdmin):
     list_display = ('product', 'position', 'color_', 'main_colors', )
     list_filter = ('product', 'color', )
     readonly_fields = ('color_', 'main_colors', )
+    search_fields = ('product__label', 'product__name', 'color__loc_label', 'color__main_colors__loc_label', )
 
     @staticmethod
     def color_(instance):
-        return instance.color.representation()
+        return ColorFormatter.render(instance.color)
 
     @staticmethod
     def main_colors(instance):
-        return mark_safe(', '.join(_.representation() for _ in instance.color.main_colors.all()))
+        return ColorFormatter.render(instance.color.main_colors.all())
 
 
 class ProductPictureAdmin(admin.ModelAdmin):
     list_display = ('product_', 'color_', 'picture', 'position', )
-    list_filter = ('colouring__product__label', 'colouring__color__name', 'colouring__color__main_colors__name')
-    readonly_fields = ('product_', 'color_')
+    list_filter = ('colouring__product__label', 'colouring__color__name', 'colouring__color__main_colors__name', )
+    readonly_fields = ('product_', 'color_', )
+    search_fields = ('colouring__product__label', 'colouring__product__name', 'colouring__color__loc_label', 'picture', )
 
     @staticmethod
     def product_(instance):
@@ -94,11 +100,12 @@ class ProductPictureAdmin(admin.ModelAdmin):
 
     @staticmethod
     def color_(instance):
-        return instance.colouring.color.label
+        return ColorFormatter.render(instance.colouring.color)
 
 
 class ProductSelectionAdmin(admin.ModelAdmin):
     list_display = ('name', 'kind', 'label_', 'short_label_', 'start_at', 'ends_at', )
+    search_fields = ('name', 'kind', 'loc_label', )
 
     @staticmethod
     def label_(instance):

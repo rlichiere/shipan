@@ -75,11 +75,11 @@ class ProductColor(models.Model):
                             unique=True,
                             max_length=200)
 
-    label = models.CharField(help_text="""
-        Label of the color.
-                             """,
-                             unique=True,
-                             max_length=200)
+    loc_label = models.TextField(help_text="""
+        Localized label of the color.
+                                 """,
+                                 default=JsonFieldUtils.get_initial_content(),
+                                 verbose_name='Localized label')
 
     rgb = models.CharField(help_text="""
         RGB code of the color, as hexadecimal.
@@ -96,7 +96,18 @@ class ProductColor(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return self.label
+        return self.getLabel()
+
+    def getLabel(self, request=None):
+        """
+        Return the localized label, according to the given request language.
+
+        :param request: request from which to retrieve the language
+        :type request: WSGIRequest
+        :return: the localized label
+        :rtype: str
+        """
+        return JsonFieldUtils.get_field_value(instance=self, field='loc_label', request=request)
 
     def representation(self):
         return mark_safe('<img style="background-color:#%s; width: 16px; height: 16px">' % self.rgb)
@@ -262,7 +273,7 @@ class ProductColouring(models.Model):
         ordering = ['product__name', 'position']
 
     def __str__(self):
-        return self.product.label + ' #' + self.color.label
+        return self.product.label + ' #' + self.color.getLabel()
 
 
 class ProductPicture(models.Model):

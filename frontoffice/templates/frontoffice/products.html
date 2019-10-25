@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load staticfiles %}
 
+{% load tools_extras %}
+
 {% block title %}
    {% if selection %}
       {{ selection|capfirst }}
@@ -54,7 +56,7 @@
          <div class="list-group list-group-horizontal">
             <span class="text-secondary">{% trans 'PRODUCT_THUMB_COLORS' %}&nbsp;</span>
             {% for colouring in product.colourings.all %}
-               <a href="{% url 'fo-product' %}?model={{ product.name }}&amp;color={{ colouring.color.name }}"
+               <a href="{% url 'fo-product' %}?model={{ product.name }}&amp;color={{ colouring.color.name }}" title="{% trans_db colouring.color getLabel %}"
                   class="shop-card-btn-color list-group-item xsmall" style="background-color: {{ colouring.color.rgb_s }}"></a>
             {% endfor %}
          </div>

@@ -64,7 +64,7 @@
             {% for picture in colouring.pictures.all %}
                <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}&picture={{ picture.picture }}">
                <div class="list-group-item product-picture-thumb rounded-0"
-                    style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
+                    style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}'); {% if forloop.counter == 1 %}margin-top: 0.850rem{% endif %}"></div>
                </a>
             {% endfor %}
          {% endif %}
@@ -73,7 +73,7 @@
             {% if colouring == picture.colouring %}
             <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ product.colourings.first.color.name }}&picture={{ picture.picture }}">
             <div class="list-group-item product-picture-thumb"
-                 style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}')"></div>
+                 style="background-image: url('{% url 'media' path='products/'|add:picture.picture %}'); {% if forloop.counter == 1 %}margin-top: 0.850rem{% endif %}"></div>
             </a>
             {% endif %}
          {% endfor %}
@@ -136,7 +136,7 @@
                   {% endif %}
                }
             </style>
-            <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}"
+            <a href="{% url 'fo-product' %}?model={{ product.name }}&color={{ colouring.color.name }}" title="{% trans_db colouring.color getLabel %}"
                class="btn btn-outline-custom-{{ colouring.color.rgb }}"
             >&nbsp;</a>
          {% endfor %}
