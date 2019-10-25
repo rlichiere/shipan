@@ -13,31 +13,31 @@ from people.models.client import Client
 
 class Home(LoginRequiredMixin, TemplateView):
 
-   template_name = 'backoffice/home.html'
+    template_name = 'backoffice/home.html'
 
-   def get_context_data(self, **kwargs):
-      context = super(Home, self).get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
 
-      _clients = Client.objects.all()
-      _clients = _clients[max(0, _clients.count() - 5):]
-      context['last_n_clients'] = _clients
+        _clients = Client.objects.all()
+        _clients = _clients[max(0, _clients.count() - 5):]
+        context['last_n_clients'] = _clients
 
-      return context
+        return context
 
 
 class Backup(View):
 
-   def get(self, request, **kwargs):
-      _l = logger.get('get', request=request, obj=self)
-      if not request.user.is_superuser:
-         return redirect(reverse('fo-home'))
+    def get(self, request, **kwargs):
+        _l = logger.get('get', request=request, obj=self)
+        if not request.user.is_superuser:
+            return redirect(reverse('fo-home'))
 
-      _fileName = kwargs['filename']
-      _filePath = '%s/%s' % (config.BACKUP_ROOT, _fileName)
-      try:
-         with open(_filePath, 'r') as _file:
-            _fileContent = _file.read()
-            return HttpResponse(_fileContent, content_type='application/json')
-      except IOError:
-         _l.error('Error while opening file : %s' % _filePath)
-         raise Http404
+        _fileName = kwargs['filename']
+        _filePath = '%s/%s' % (config.BACKUP_ROOT, _fileName)
+        try:
+            with open(_filePath, 'r') as _file:
+                _fileContent = _file.read()
+                return HttpResponse(_fileContent, content_type='application/json')
+        except IOError:
+            _l.error('Error while opening file : %s' % _filePath)
+            raise Http404

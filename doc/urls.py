@@ -19,6 +19,6 @@ from .views import DocPage
 
 
 urlpatterns = [
-   url(r'^$', DocPage.as_view(), name='doc-home'),
-   url(r'^(?P<path>[a-zA-Z0-9-_./]+)$', DocPage.as_view(), name='page'),
+    url(r'^$', DocPage.as_view(), name='doc-home'),
+    url(r'^(?P<path>[a-zA-Z0-9-_./]+)$', DocPage.as_view(), name='page'),
 ]

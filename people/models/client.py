@@ -6,44 +6,40 @@ from tools import utils_exception
 
 
 class Client(User):
+    description = models.TextField(help_text="""
+        Description of the client. This information can be viewed only by a vendor.
+                                   """,
+                                   default='',
+                                   blank=True)
 
-   description = models.TextField(help_text="""
-      Description of the client. This information can be viewed only by a vendor.
-                                  """,
-                                  default='',
-                                  blank=True)
+    objects = UserManager()
 
-   objects = UserManager()
+    class Meta:
+        verbose_name = 'Client'
 
-   class Meta:
-      verbose_name = 'Client'
+    def save(self, *args, **kwargs):
 
+        if self.id is not None:
+            # prohibits the update
+            raise utils_exception.ApplicationExc('`Client.save` forbidden. You should use only Client.update_profile.')
 
-   def save(self, *args, **kwargs):
+        super(Client, self).save(*args, **kwargs)
 
-      if self.id is not None:
-         # prohibits the update
-         raise utils_exception.ApplicationExc('`Client.save()` forbidden. You should use only Client.update_profile().')
+    def update_profile(self, email=None, first_name=None, last_name=None):
+        if email:
+            self.email = email
 
-      super(Client, self).save(*args, **kwargs)
+            if self.connects_with_email:
+                self.username = email
 
+        if first_name:
+            self.first_name = first_name
 
-   def update_profile(self, email=None, first_name=None, last_name=None):
-      if email:
-         self.email = email
+        if last_name:
+            self.last_name = last_name
 
-         if self.connects_with_email:
-            self.username = email
+        super(Client, self).save()
 
-      if first_name:
-         self.first_name = first_name
-
-      if last_name:
-         self.last_name = last_name
-
-      super(Client, self).save()
-
-
-   @property
-   def connects_with_email(self):
-      return self.username == self.email
+    @property
+    def connects_with_email(self):
+        return self.username == self.email

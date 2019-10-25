@@ -8,59 +8,59 @@ from tools.utils.utils_json import JsonFieldUtils
 @python_2_unicode_compatible
 class DynamicPage(models.Model):
 
-   name = models.CharField(help_text="""
+    name = models.CharField(help_text="""
       Intern name of the page.
                            """,
-                           max_length=200)
+                            max_length=200)
 
-   loc_title = models.TextField(help_text="""
+    loc_title = models.TextField(help_text="""
       Localized title of the page.
                                 """,
-                                default=JsonFieldUtils.get_initial_content(),
-                                verbose_name='Localized title')
+                                 default=JsonFieldUtils.get_initial_content(),
+                                 verbose_name='Localized title')
 
-   loc_content = models.TextField(help_text="""
+    loc_content = models.TextField(help_text="""
       Localized content of the page.
                                   """,
-                                  default=JsonFieldUtils.get_initial_content(),
-                                  verbose_name='Localized content')
+                                   default=JsonFieldUtils.get_initial_content(),
+                                   verbose_name='Localized content')
 
-   flow = models.CharField(help_text="""
+    flow = models.CharField(help_text="""
       Flow in the page.
                            """,
-                           choices=[('footer', 'Footer')],
-                           max_length=200)
+                            choices=[('footer', 'Footer')],
+                            max_length=200)
 
-   flow_position = models.IntegerField(help_text="""
+    flow_position = models.IntegerField(help_text="""
       Position in flow.
                                        """,
-                                       default=1)
+                                        default=1)
 
-   class Meta:
-      ordering = ['flow_position']
+    class Meta:
+        ordering = ['flow_position']
 
-   def __str__(self):
-      return self.getTitle()
+    def __str__(self):
+        return self.getTitle()
 
 
-   def getTitle(self, request=None):
-      """
-      Return the localized title, according to the given request language.
+    def getTitle(self, request=None):
+        """
+        Return the localized title, according to the given request language.
 
-      :param request: request from which to retrieve the language
-      :type request: WSGIRequest
-      :return: the localized title
-      :rtype: str
-      """
-      return JsonFieldUtils.get_field_value(instance=self, field='loc_title', request=request)
+        :param request: request from which to retrieve the language
+        :type request: WSGIRequest
+        :return: the localized title
+        :rtype: str
+        """
+        return JsonFieldUtils.get_field_value(instance=self, field='loc_title', request=request)
 
-   def getContent(self, request=None):
-      """
-      Return the localized content, according to the given request language.
+    def getContent(self, request=None):
+        """
+        Return the localized content, according to the given request language.
 
-      :param request: request from which to retrieve the language
-      :type request: WSGIRequest
-      :return: the localized content
-      :rtype: str
-      """
-      return JsonFieldUtils.get_field_value(instance=self, field='loc_content', request=request)
+        :param request: request from which to retrieve the language
+        :type request: WSGIRequest
+        :return: the localized content
+        :rtype: str
+        """
+        return JsonFieldUtils.get_field_value(instance=self, field='loc_content', request=request)

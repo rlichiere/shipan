@@ -7,18 +7,18 @@ register = template.Library()
 
 
 class Tag_load_categories_Node(template.Node):
-   """
-       This rendering Node is dedicated to the :tag:`load_categories` tag.
-   """
+    """
+         This rendering Node is dedicated to the :tag:`load_categories` tag.
+    """
 
-   def __init__(self):
-      pass
+    def __init__(self):
+        pass
 
-   def render(self, context):
-      context['categories'] = ProductCategory.objects.all()
-      return ''
+    def render(self, context):
+        context['categories'] = ProductCategory.objects.all()
+        return ''
 
 
 @register.tag(name='load_categories')
 def load_categories(parser, params):
-   return Tag_load_categories_Node()
+    return Tag_load_categories_Node()

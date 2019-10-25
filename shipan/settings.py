@@ -14,10 +14,8 @@ import os
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -30,92 +28,89 @@ DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
-   'backoffice.apps.BackofficeConfig',
-   'django.contrib.admin',
-   'django.contrib.admindocs',
-   'django.contrib.auth',
-   'django.contrib.contenttypes',
-   'django.contrib.sessions',
-   'django.contrib.messages',
-   'django.contrib.staticfiles',
-   'doc.apps.DocConfig',
-   'tools.apps.ToolsConfig',
-   'people.apps.PeopleConfig',
-   'catalog.apps.CatalogConfig',
-   'frontoffice.apps.FrontofficeConfig',
-   'api.apps.ApiConfig',
-   'docutils',
-   'rest_framework',
-   'widget_tweaks',
+    'backoffice.apps.BackofficeConfig',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'doc.apps.DocConfig',
+    'tools.apps.ToolsConfig',
+    'people.apps.PeopleConfig',
+    'catalog.apps.CatalogConfig',
+    'frontoffice.apps.FrontofficeConfig',
+    'api.apps.ApiConfig',
+    'docutils',
+    'rest_framework',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
-   'django.middleware.security.SecurityMiddleware',
-   'django.contrib.sessions.middleware.SessionMiddleware',
-   'django.middleware.locale.LocaleMiddleware',
-   'django.middleware.common.CommonMiddleware',
-   'django.middleware.csrf.CsrfViewMiddleware',
-   'django.contrib.auth.middleware.AuthenticationMiddleware',
-   'django.contrib.messages.middleware.MessageMiddleware',
-   'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'shipan.urls'
 
 TEMPLATES = [
-   {
-      'BACKEND': 'django.template.backends.django.DjangoTemplates',
-      'DIRS': [],
-      'APP_DIRS': True,
-      'OPTIONS': {
-         'context_processors': [
-            'django.template.context_processors.debug',
-            'django.template.context_processors.request',
-            'django.contrib.auth.context_processors.auth',
-            'django.contrib.messages.context_processors.messages',
-         ],
-      },
-   },
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
 ]
 
 WSGI_APPLICATION = 'shipan.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-   'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-   {
-      'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-   },
-   {
-      'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-   },
-   {
-      'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-   },
-   {
-      'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-   },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 AUTHENTICATION_BACKENDS = (
-   'people.auth_backends.CustomUserModelBackend',
+    'people.auth_backends.CustomUserModelBackend',
 )
 
 # Internationalization
@@ -132,8 +127,8 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-   ('fr', _('French')),
-   ('en', _('English')),
+    ('fr', _('French')),
+    ('en', _('English')),
 ]
 
 LOCALE_PATHS = ['locale', ]
@@ -159,92 +154,93 @@ LOGIN_REDIRECT_URL = 'fo-home'
 
 
 def skip_static_requests(record):
-   if len(record.args) > 0:
-      if (record.args[0].find('GET /static/') >= 0)\
-      or (record.args[0].find('GET /favicon.ico ') >= 0)\
-      or (record.args[0].find('GET / ') >= 0)\
-      or (record.args[0].find('GET /admin/') >= 0):
-         return False
-   return True
+    if len(record.args) > 0:
+        if (record.args[0].find('GET /static/') >= 0) \
+              or (record.args[0].find('GET /favicon.ico ') >= 0) \
+              or (record.args[0].find('GET / ') >= 0) \
+              or (record.args[0].find('GET /admin/') >= 0):
+            return False
+    return True
+
 
 # Logging Settings
 LOGGING = {
-   'version': 1,
-   'disable_existing_loggers': False,
-   'filters': {
-      'skip_static_requests': {
-         '()': 'django.utils.log.CallbackFilter',
-         'callback': skip_static_requests
-      }
-   },
-   'formatters': {
-      'custom': {
-         'format': '%(levelname)s %(message)s'
-      },
-      'colored': {
-         '()': 'colorlog.ColoredFormatter',
-         'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(name)-10s%(reset)s %(message_log_color)s%(message)s",
-         'secondary_log_colors': {
-		      'message': {
-			      'ERROR':    'white,bg_red',
-			      'CRITICAL': 'white,bg_red'
-		      },
-            'levelname': {
-               'ERROR':    'white,bg_red',
-               'CRITICAL': 'white,bg_red'
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'skip_static_requests': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': skip_static_requests
+        }
+    },
+    'formatters': {
+        'custom': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'colored': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(name)-10s%(reset)s %(message_log_color)s%(message)s",
+            'secondary_log_colors': {
+                'message': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                },
+                'levelname': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                }
             }
-         }
-      },
-      'colored_sql': {
-         '()': 'colorlog.ColoredFormatter',
-         'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(duration)-10s%(reset)s %(message_log_color)s%(sql)s",
-         'secondary_log_colors': {
-		      'message': {
-			      'ERROR':    'white,bg_red',
-			      'CRITICAL': 'white,bg_red'
-		      },
-            'levelname': {
-               'ERROR':    'white,bg_red',
-               'CRITICAL': 'white,bg_red'
+        },
+        'colored_sql': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(duration)-10s%(reset)s %(message_log_color)s%(sql)s",
+            'secondary_log_colors': {
+                'message': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                },
+                'levelname': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                }
             }
-         }
-      }
-   },
-   'handlers': {
-      'console': {
-         'level': 'DEBUG',
-         'class': 'logging.StreamHandler',
-         'formatter': 'colored',
-         'filters': ['skip_static_requests'],
-      },
-      'console_sql': {
-         'level': 'DEBUG',
-         'class': 'logging.StreamHandler',
-         'formatter': 'colored_sql',
-      },
-   },
-   'loggers': {
-      # 'django': {
-      #    'handlers': ['console'],
-      #    'level': 'ERROR',
-      #    'propagate': True,
-      # },
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'colored',
+            'filters': ['skip_static_requests'],
+        },
+        'console_sql': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'colored_sql',
+        },
+    },
+    'loggers': {
+        # 'django': {
+        #    'handlers': ['console'],
+        #    'level': 'ERROR',
+        #    'propagate': True,
+        # },
 
-      # 'django.db.backends': {
-      #    'handlers': ['console_sql'],
-      #    'level': 'DEBUG',
-      #    'propagate': False,
-      # },
-      'django.server': {
-         'handlers': ['console'],
-         'level': 'DEBUG',
-         'propagate': False,
-      },
-      'shipan': {
-         'handlers': ['console'],
-         'level': os.environ.get('LOG_LEVEL', 'INFO'),
-      },
-   },
+        # 'django.db.backends': {
+        #    'handlers': ['console_sql'],
+        #    'level': 'DEBUG',
+        #    'propagate': False,
+        # },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'shipan': {
+            'handlers': ['console'],
+            'level': os.environ.get('LOG_LEVEL', 'INFO'),
+        },
+    },
 }
 
-DJANGO_COLORS='light'
+DJANGO_COLORS = 'light'

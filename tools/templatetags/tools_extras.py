@@ -12,7 +12,6 @@ from tools import logger, utils_exception
 
 from shipan import config, const, settings
 
-
 register = template.Library()
 
 
@@ -69,7 +68,6 @@ def load_base(parser, params):
 
 @register.filter(name='at')
 def at_filter(data, key):
-
     try:
         return data[key]
     except KeyError:
@@ -84,7 +82,6 @@ def at_filter(data, key):
 
 @register.tag(name='trans_db')
 def trans_db_tag(parser, params):
-
     class _Node(template.Node):
 
         def __init__(self, obj_name, property_name):
