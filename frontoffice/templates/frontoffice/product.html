@@ -3,6 +3,8 @@
 {% load i18n %}
 {% load staticfiles %}
 
+{% load tools_extras %}
+
 {% block title %}{{ product.label }}{% endblock %}
 
 {% block no-page-title %}{% endblock %}
@@ -117,7 +119,7 @@
 
    <div class="product-detail px-2">
       <h4 class="text-body">{{ product.label }}</h4>
-      <span class="text-dark">{{ product.description }}</span>
+      <span class="text-dark">{% trans_db product getDescription %}</span>
 
       <div>
          <span class="text-secondary">{% trans 'PRODUCT_DETAIL_COLOR' %}</span>

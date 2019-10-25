@@ -62,6 +62,7 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 class ProductModelAdmin(admin.ModelAdmin):
     list_display = ('label', 'name', 'categories_', 'main_category', )
     list_filter = ('categories', )
+    search_fields = ('label', 'name', 'loc_description', )
 
     @staticmethod
     def categories_(instance):

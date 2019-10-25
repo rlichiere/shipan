@@ -172,11 +172,11 @@ class ProductModel(models.Model):
                              unique=True,
                              max_length=200)
 
-    description = models.TextField(help_text="""
-        Description of the model, shown in product detail.
-                                   """,
-                                   default='',
-                                   blank=True)
+    loc_description = models.TextField(help_text="""
+        Localized description of the product model.
+                                 """,
+                                 default=JsonFieldUtils.get_initial_content(),
+                                 verbose_name='Localized description')
 
     categories = models.ManyToManyField(help_text="""
         Categories of this model.
@@ -207,6 +207,17 @@ class ProductModel(models.Model):
                                   choices=constants.PRODUCT_AVAILABILITY.CHOICES,
                                   default=constants.PRODUCT_AVAILABILITY.DEFAULT,
                                   max_length=200)
+
+    def getDescription(self, request=None):
+        """
+        Return the localized description, according to the given request language.
+
+        :param request: request from which to retrieve the language
+        :type request: WSGIRequest
+        :return: the localized description
+        :rtype: str
+        """
+        return JsonFieldUtils.get_field_value(instance=self, field='loc_description', request=request)
 
     def price_justified(self):
         """
