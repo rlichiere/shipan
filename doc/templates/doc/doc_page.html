@@ -6,10 +6,10 @@
 {% block page-header %}{% trans 'PAGE_DOCUMENTATION_HEADER' %}{% endblock %}
 
 {% block page-head %}
-   <a name="top"></a><!-- The "top" anchor is made to be used in documentation .md files.
-                    Example:
-                        <div align="right"><a href=#top>Top</a></div>
-                -->
+<a name="top"></a><!-- The "top" anchor is made to be used in documentation .md files.
+                        Example:
+                            <div align="right"><a href=#top>Top</a></div>
+                  -->
 {% endblock %}
 
 {% block no-page-title %}{% endblock %}
@@ -17,17 +17,18 @@
 {% block page-body %}
 
 {% if not page_is_home %}
-<div class="col-lg-12">
-   <div class="nav-list">
-      <a href="{% url 'doc-home' %}" class="btn btn-sm btn-primary">{% trans 'PAGE_DOCUMENTATION_HOME_TITLE' %}</a>
-   </div>
-</div>
-<br/>
+    <div class="col-lg-12">
+        <div class="nav-list">
+            <a href="{% url 'doc-home' %}"
+               class="btn btn-sm btn-primary">{% trans 'PAGE_DOCUMENTATION_HOME_TITLE' %}</a>
+        </div>
+    </div>
+    <br/>
 {% endif %}
 
 <div class="col-lg-12">
-   {{ page_content|safe }}
-   <div class="float-right"><a href=#top>{% trans 'LINK_GO_TO_TOP_OF_PAGE' %}</a></div>
+    {{ page_content|safe }}
+    <div class="float-right"><a href=#top>{% trans 'LINK_GO_TO_TOP_OF_PAGE' %}</a></div>
 </div>
 
 {% endblock %}

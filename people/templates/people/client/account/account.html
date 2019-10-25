@@ -12,7 +12,7 @@
 
 {% if error %}
 <div class="col-lg-offset-1 col-lg-10 my-3">
-   {% include 'frontoffice/generic/card-error.html' with error=error %}
+    {% include 'frontoffice/generic/card-error.html' with error=error %}
 </div>
 {% else %}
 
@@ -22,102 +22,106 @@
 {% trans 'CLIENT_LAST_NAME' as CLIENT_LAST_NAME %}
 
 <div class="col-lg-offset-1 col-lg-10 my-3">
-   <div class="card">
-      <form method="post">
-      {% csrf_token %}
-         {% render_field change_info_form.action type="hidden" %}
-         <div class="card-header">{% trans 'CHANGE_PROFILE_INFORMATION_HEADER_TITLE' %}</div>
-         <div class="card-body">
-            <div class="card-text">
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {% render_field change_info_form.action type="hidden" %}
+            <div class="card-header">{% trans 'CHANGE_PROFILE_INFORMATION_HEADER_TITLE' %}</div>
+            <div class="card-body">
+                <div class="card-text">
 
-               {% if not change_info_form.executor.connects_with_email %}
-               <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="id_username">
-                        {{ CLIENT_USERNAME }}
-                     </label>
-                  </div>
-                  <input id="id_username" type="text" value="{{ executor.username }}" placeholder="Username"
-                     class="form-control" maxlength="200" disabled="disabled">
-               </div>
-               {% endif %}
+                    {% if not change_info_form.executor.connects_with_email %}
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="id_username">
+                                    {{ CLIENT_USERNAME }}
+                                </label>
+                            </div>
+                            <input id="id_username" type="text" value="{{ executor.username }}"
+                                   placeholder="Username"
+                                   class="form-control" maxlength="200" disabled="disabled">
+                        </div>
+                    {% endif %}
 
-               <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="{{ change_info_form.email.id_for_label }}">
-                        {{ CLIENT_EMAIL }}
-                     </label>
-                  </div>
-                  {% render_field change_info_form.email class+='form-control' placeholder=CLIENT_EMAIL %}
-               </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="{{ change_info_form.email.id_for_label }}">
+                                {{ CLIENT_EMAIL }}
+                            </label>
+                        </div>
+                        {% render_field change_info_form.email class+='form-control' placeholder=CLIENT_EMAIL %}
+                    </div>
 
-               <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="{{ change_info_form.first_name.id_for_label }}">
-                        {{ CLIENT_FIRST_NAME }}
-                     </label>
-                  </div>
-                  {% render_field change_info_form.first_name class+='form-control' placeholder=CLIENT_FIRST_NAME %}
-               </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"
+                                   for="{{ change_info_form.first_name.id_for_label }}">
+                                {{ CLIENT_FIRST_NAME }}
+                            </label>
+                        </div>
+                        {% render_field change_info_form.first_name class+='form-control' placeholder=CLIENT_FIRST_NAME %}
+                    </div>
 
-               <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                     <label class="input-group-text" for="{{ change_info_form.last_name.id_for_label }}">
-                        {{ CLIENT_LAST_NAME }}
-                     </label>
-                  </div>
-                  {% render_field change_info_form.last_name class+='form-control' placeholder=CLIENT_LAST_NAME %}
-               </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="{{ change_info_form.last_name.id_for_label }}">
+                                {{ CLIENT_LAST_NAME }}
+                            </label>
+                        </div>
+                        {% render_field change_info_form.last_name class+='form-control' placeholder=CLIENT_LAST_NAME %}
+                    </div>
 
-            </div><!-- /card-text -->
+                </div><!-- /card-text -->
 
-            <div class="card-link clearfix">
-               <div class="float-right">
-                  <button type="submit" class="btn btn-primary">{% trans 'SAVE_PROFILE_BUTTON' %}</button>
-               </div>
-            </div><!-- /card-link -->
+                <div class="card-link clearfix">
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-primary">{% trans 'SAVE_PROFILE_BUTTON' %}</button>
+                    </div>
+                </div><!-- /card-link -->
 
-         </div><!-- /card-body -->
-      </form>
-   </div>
+            </div><!-- /card-body -->
+        </form>
+    </div>
 </div>
 
 <div class="col-lg-offset-1 col-lg-10">
-   <div class="card">
-      <form method="post" action="{% url 'client-account' %}}">
-         {% csrf_token %}
-         {% render_field change_password_send_link_form.action type="hidden" %}
-         <div class="card-header">{% trans 'CHANGE_PASSWORD_HEADER_TITLE' %}</div>
-         <div class="card-body">
-         {% if config.CLIENT_PASSWORD_CHANGE_METHOD == const.CLIENT_PASSWORD_CHANGE_METHOD.DIRECT %}
-            <div class="card-text">
-               <p>
-                  {% trans 'CHANGE_YOUR_CURRENT_PASSWORD_USING_BELOW_OPTION' %}
-               </p>
+    <div class="card">
+        <form method="post" action="{% url 'client-account' %}}">
+            {% csrf_token %}
+            {% render_field change_password_send_link_form.action type="hidden" %}
+            <div class="card-header">{% trans 'CHANGE_PASSWORD_HEADER_TITLE' %}</div>
+            <div class="card-body">
+                {% if config.CLIENT_PASSWORD_CHANGE_METHOD == const.CLIENT_PASSWORD_CHANGE_METHOD.DIRECT %}
+                    <div class="card-text">
+                        <p>
+                            {% trans 'CHANGE_YOUR_CURRENT_PASSWORD_USING_BELOW_OPTION' %}
+                        </p>
+                    </div>
+                    <div class="card-link clearfix">
+                        <div class="float-right">
+                            <a href="{% url 'client-account' %}?action=change_password"
+                               class="btn btn-primary">{% trans 'CHANGE_PASSWORD_BUTTON' %}</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card-text">
+                        <p>
+                            {% trans 'CHANGING_THE_PASSWORD_REQUIRES_VALIDATON_BY_EMAIL' %}.
+                        </p>
+                        <p>
+                            {% trans 'AN_EMAIL_WILL_BE_SENT_TO_YOU_WITH_A_PASSWORD_CHANGE_LINK' %}.
+                        </p>
+                    </div>
+                    <div class="card-link clearfix">
+                        <div class="float-right">
+                            <button type="submit"
+                                    class="btn btn-primary">{% trans 'SEND_LINK_BUTTON' %}</button>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
-            <div class="card-link clearfix">
-               <div class="float-right">
-                  <a href="{% url 'client-account' %}?action=change_password" class="btn btn-primary">{% trans 'CHANGE_PASSWORD_BUTTON' %}</a>
-               </div>
-            </div>
-         {% else %}
-            <div class="card-text">
-               <p>
-                  {% trans 'CHANGING_THE_PASSWORD_REQUIRES_VALIDATON_BY_EMAIL' %}.
-               </p>
-               <p>
-                  {% trans 'AN_EMAIL_WILL_BE_SENT_TO_YOU_WITH_A_PASSWORD_CHANGE_LINK' %}.
-               </p>
-            </div>
-            <div class="card-link clearfix">
-               <div class="float-right">
-                  <button type="submit" class="btn btn-primary">{% trans 'SEND_LINK_BUTTON' %}</button>
-               </div>
-            </div>
-         {% endif %}
-         </div>
-      </form>
-   </div>
+        </form>
+    </div>
 </div>
 
 {% endif %}

@@ -11,219 +11,233 @@
 <html lang="en">
 <head>
 
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta charset="UTF-8">
-   <title>{{ config.VERSION.Project }}: {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>{{ config.VERSION.Project }}: {% block title %}{% endblock %}</title>
 
-   <!-- Latest compiled and minified CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-   <!-- Font Awesome Icons -->
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-   <!-- jQuery library -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-   <!-- Latest compiled JavaScript -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-   <!-- Main CSS -->
-   <link rel="stylesheet" href="{% static 'frontoffice/css/base.css' %}">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'frontoffice/css/base.css' %}">
 
-   <!-- Zoomify -->
-   <!-- https://github.com/indrimuska/zoomify -->
-   <script src="{% static 'frontoffice/js/vendor/zoomify/dist/zoomify.min.js' %}"></script>
-   <link rel="stylesheet" href="{% static 'frontoffice/css/vendor/zoomify/dist/zoomify.min.css' %}">
+    <!-- Zoomify -->
+    <!-- https://github.com/indrimuska/zoomify -->
+    <script src="{% static 'frontoffice/js/vendor/zoomify/dist/zoomify.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'frontoffice/css/vendor/zoomify/dist/zoomify.min.css' %}">
 
-   <link rel="shortcut icon" type="image/png" href="{% static 'frontoffice/img/favicon.ico' %}"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'frontoffice/img/favicon.ico' %}"/>
 
-   <style>
-      /* top navbar bottom separator */
-      .navbar {
-         background-color: white;
-         border-bottom: 1px rebeccapurple groove;
-      }
+    <style>
+        /* top navbar bottom separator */
+        .navbar {
+            background-color: white;
+            border-bottom: 1px rebeccapurple groove;
+        }
 
-      .footer form .navbar-nav {
-         display: none;
-      }
-      @media (min-width: 890px) {
-         .footer form .navbar-nav {
-            display: flex;
-         }
-      }
+        .footer form .navbar-nav {
+            display: none;
+        }
 
-      /* force main container width in order to have 5 cards on a row */
-      #main-page-content[role="list"] {
-         max-width: 1200px;
-      }
-   </style>
+        @media (min-width: 890px) {
+            .footer form .navbar-nav {
+                display: flex;
+            }
+        }
 
-   <!-- block head -->
-   {% block head %}{% endblock %}
-   <!-- /block head -->
+        /* force main container width in order to have 5 cards on a row */
+        #main-page-content[role="list"] {
+            max-width: 1200px;
+        }
+    </style>
+
+    <!-- block head -->
+    {% block head %}{% endblock %}
+    <!-- /block head -->
 
 </head>
 <body>
-   <!-- block page-head -->
-   {% block page-head %}{% endblock %}
-   <!-- /block page-head -->
+<!-- block page-head -->
+{% block page-head %}{% endblock %}
+<!-- /block page-head -->
 
-   <nav class="navbar navbar-expand fixed-top pr-3 hat">
-      <a class="navbar-brand" href="{% url 'fo-home' %}">
-         <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">
-      </a>
+<nav class="navbar navbar-expand fixed-top pr-3 hat">
+    <a class="navbar-brand" href="{% url 'fo-home' %}">
+        <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">
+    </a>
 
-      <ul class="navbar-nav mr-auto">
-         {% for product_selection in selection_news %}
-         <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getLabel %}</a>
-         </li>
-         {% endfor %}
+    <ul class="navbar-nav mr-auto">
+        {% for product_selection in selection_news %}
+            <li class="nav-item">
+                <a class="nav-link btn btn-light"
+                   href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getLabel %}</a>
+            </li>
+        {% endfor %}
 
-         {% load_categories %}
-         {% for category in categories %}
-         <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?categories={{ category.name }}">{{ category.label }}</a>
-         </li>
-         {% endfor %}
+        {% load_categories %}
+        {% for category in categories %}
+            <li class="nav-item">
+                <a class="nav-link btn btn-light"
+                   href="{% url 'fo-shop' %}?categories={{ category.name }}">{{ category.label }}</a>
+            </li>
+        {% endfor %}
 
-         {% for product_selection in selection_seasons %}
-         <li class="nav-item">
-            <a class="nav-link btn btn-light" href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getShortLabel %}</a>
-         </li>
-         {% endfor %}
-      </ul>
+        {% for product_selection in selection_seasons %}
+            <li class="nav-item">
+                <a class="nav-link btn btn-light"
+                   href="{% url 'fo-shop' %}?selection={{ product_selection.name }}">{% trans_db product_selection getShortLabel %}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
-      <form class="form-inline">
-         {% if not executor or executor.is_anonymous %}
+    <form class="form-inline">
+        {% if not executor or executor.is_anonymous %}
             <a class="nav-link btn btn-light" href="{% url 'login' %}">{% trans 'PAGE_SIGN_IN_TITLE' %}</a>
             <a class="nav-link btn btn-light" href="{% url 'join' %}">{% trans 'PAGE_JOIN_TITLE' %}</a>
-         {% else %}
+        {% else %}
 
             {% if executor.is_superuser %}
-            <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">{% trans 'MENU_VENDOR_TITLE' %}</a>
-               <ul class="dropdown-menu dropdown-menu-right py-0">
-                  <li><a class="nav-link btn-light" href="{% url 'bo-home' %}">{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'admin:index' %}">{% trans 'PAGE_VENDOR_ADMIN_TITLE' %}</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'doc-home' %}">{% trans 'PAGE_VENDOR_DOCUMENTATION_TITLE' %}</a></li>
-               </ul>
-            </div>
+                <div class="dropdown">
+                    <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown"
+                       href="#">{% trans 'MENU_VENDOR_TITLE' %}</a>
+                    <ul class="dropdown-menu dropdown-menu-right py-0">
+                        <li><a class="nav-link btn-light"
+                               href="{% url 'bo-home' %}">{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}</a></li>
+                        <li><a class="nav-link btn-light"
+                               href="{% url 'admin:index' %}">{% trans 'PAGE_VENDOR_ADMIN_TITLE' %}</a></li>
+                        <li><a class="nav-link btn-light"
+                               href="{% url 'doc-home' %}">{% trans 'PAGE_VENDOR_DOCUMENTATION_TITLE' %}</a></li>
+                    </ul>
+                </div>
             {% endif %}
 
             <div class="dropdown">
-               <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown" href="#">{% trans 'MENU_CLIENT_PROFILE' %}</a>
-               <ul class="dropdown-menu dropdown-menu-right py-0">
-                  <li><a class="nav-link btn-light" href="{% url 'client-account' %}">{% trans 'PAGE_MY_ACCOUNT_TITLE' %}</a></li>
-                  <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_ORDERS_TITLE' %}</a></li>
-                  <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_WISHLIST_TITLE' %}</a></li>
-                  <li><a class="nav-link btn-light" href="{% url 'logout' %}">{% trans 'PAGE_SIGN_OUT_TITLE' %}</a></li>
-               </ul>
+                <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown"
+                   href="#">{% trans 'MENU_CLIENT_PROFILE' %}</a>
+                <ul class="dropdown-menu dropdown-menu-right py-0">
+                    <li><a class="nav-link btn-light"
+                           href="{% url 'client-account' %}">{% trans 'PAGE_MY_ACCOUNT_TITLE' %}</a></li>
+                    <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_ORDERS_TITLE' %}</a></li>
+                    <li><a class="nav-link btn-light" href="/">{% trans 'PAGE_MY_WISHLIST_TITLE' %}</a></li>
+                    <li><a class="nav-link btn-light" href="{% url 'logout' %}">{% trans 'PAGE_SIGN_OUT_TITLE' %}</a>
+                    </li>
+                </ul>
             </div>
-         {% endif %}
-      </form>
-   </nav>
+        {% endif %}
+    </form>
+</nav>
 
-   <div class="container mb-5" id="main-page-content" role="list">
+<div class="container mb-5" id="main-page-content" role="list">
 
-      {% block no-page-title %}
-      <div class="row py-3">
-         <div class="col-lg-12">
-            <!-- block page-title -->
-            <h1>{% block page-title %}{% endblock %}</h1>
-            <!-- /block page-title -->
+    {% block no-page-title %}
+        <div class="row py-3">
+            <div class="col-lg-12">
+                <!-- block page-title -->
+                <h1>{% block page-title %}{% endblock %}</h1>
+                <!-- /block page-title -->
 
-         </div>
-      </div>
-      {% endblock %}
-
-      {% if messages %}
-      <div class="row">
-         <div class="col-lg-12">
-            <div id="alerts">
-               {% for msg in messages %}
-               <div class="alert alert-{{msg.level_tag}} alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  {{msg.message}}
-               </div>
-               {% endfor %}
             </div>
-         </div>
-      </div>
-      {% endif %}
+        </div>
+    {% endblock %}
 
-      <div class="row">
-         <!-- block page-body -->
-         {% block page-body %}{% endblock %}
-         <!-- /block page-body -->
-      </div>
+    {% if messages %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="alerts">
+                    {% for msg in messages %}
+                        <div class="alert alert-{{ msg.level_tag }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                  aria-hidden="true">&times;</span></button>
+                            {{ msg.message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-      <div class="row">
-         <div class="col-lg-12">
+    <div class="row">
+        <!-- block page-body -->
+        {% block page-body %}{% endblock %}
+        <!-- /block page-body -->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
             <!-- block page-footer -->
             {% block page-footer %}{% endblock %}
             <!-- /block page-footer -->
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
+</div>
 
-   <footer class="footer">
-      <nav class="navbar navbar-expand bg-dark navbar-dark">
-         <ul class="navbar-nav" style="min-width: 200px">
+<footer class="footer">
+    <nav class="navbar navbar-expand bg-dark navbar-dark">
+        <ul class="navbar-nav" style="min-width: 200px">
             {% get_flow_links footer as footer_links %}
             {% for link in footer_links %}
-            <li class="nav-item"><a href="{% url 'dynamic-page' page='' %}?page={{ link.name }}" class="nav-link">{{ link.title }}</a></li>
+                <li class="nav-item"><a href="{% url 'dynamic-page' page='' %}?page={{ link.name }}"
+                                        class="nav-link">{{ link.title }}</a></li>
             {% endfor %}
-         </ul>
-         <form class="form-inline">
+        </ul>
+        <form class="form-inline">
             <div class="navbar-nav">
-               <div class="navbar-item">
-                  <label class="nav-link" style="min-width: 170px">
-                     © {{ config.VERSION.PublishYear }} {{ config.VERSION.Project }}
-                     {% if executor.is_superuser %}
-                        <a href="#" class="nav-link"
-                           data-toggle="popover" data-html="true" data-placement="top" data-trigger="focus"
-                           title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
-                           data-content="
+                <div class="navbar-item">
+                    <label class="nav-link" style="min-width: 170px">
+                        © {{ config.VERSION.PublishYear }} {{ config.VERSION.Project }}
+                        {% if executor.is_superuser %}
+                            <a href="#" class="nav-link"
+                               data-toggle="popover" data-html="true" data-placement="top" data-trigger="focus"
+                               title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
+                               data-content="
                            <p>Published on: <code>{{ config.VERSION.PublishDate }}</code></p>
                            <p>Version code:<br />
                            <code>{{ config.VERSION.VersionCode }}</code></p>"
-                        >
-                           {{ config.VERSION.Version }}
-                        </a>
-                     {% else %}
-                        <div title="{{ config.VERSION.VersionFull }}">{{ config.VERSION.Version }}</div>
-                     {% endif %}
-                     <!--
+                            >
+                                {{ config.VERSION.Version }}
+                            </a>
+                        {% else %}
+                            <div title="{{ config.VERSION.VersionFull }}">{{ config.VERSION.Version }}</div>
+                        {% endif %}
+                        <!--
                         {{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}
                         Published on {{ config.VERSION.PublishDate }}
                         ({{ config.VERSION.VersionCode }})
                      -->
-                  </label>
-               </div>
+                    </label>
+                </div>
             </div>
-         </form>
-      </nav>
-   </footer>
+        </form>
+    </nav>
+</footer>
 
-   <!-- block extra_script -->
-   {% block extra_script %}{% endblock %}
-   <!-- /block extra_script -->
+<!-- block extra_script -->
+{% block extra_script %}{% endblock %}
+<!-- /block extra_script -->
 
-   <script>
-      $(document).ready(function() {
+<script>
+    $(document).ready(function () {
 
-         $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover();
 
-         /* Apply a code style to all PRE */
-         $('pre').addClass('bg-dark').addClass('text-white').addClass('text-white p-2');
+        /* Apply a code style to all PRE */
+        $('pre').addClass('bg-dark').addClass('text-white').addClass('text-white p-2');
 
-      });
-   </script>
+    });
+</script>
 
 </body>
 </html>

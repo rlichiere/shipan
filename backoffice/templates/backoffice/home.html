@@ -10,131 +10,131 @@
 {% block page-body %}
 
 <div class="col-lg-6">
-   Last 5 orders:
-   <table class="table table-responsive">
-      <thead>
-         <tr>
+    Last 5 orders:
+    <table class="table table-responsive">
+        <thead>
+        <tr>
             <th>Order code</th>
             <th>Client</th>
             <th>Amount</th>
             <th>Order date</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for order in last_n_orderss %}
-         <tr>
-            <td>{{ order.code }}</td>
-            <td>{{ order.client.get_full_name }}</td>
-            <td>{{ order.amout }}</td>
-            <td>{{ order.created_at }}</td>
-         </tr>
-         {% empty %}
-         <tr>
-            <td colspan="4">No orders created yet</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in last_n_orderss %}
+            <tr>
+                <td>{{ order.code }}</td>
+                <td>{{ order.client.get_full_name }}</td>
+                <td>{{ order.amout }}</td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No orders created yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <div class="col-lg-6">
-   Last 5 clients:
-   <table class="table table-responsive">
-      <thead>
-         <tr>
+    Last 5 clients:
+    <table class="table table-responsive">
+        <thead>
+        <tr>
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
             <th>Date joined</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for client in last_n_clients %}
-         <tr>
-            <td>{{ client.first_name }}</td>
-            <td>{{ client.last_name }}</td>
-            <td>{{ client.email }}</td>
-            <td>{{ client.date_joined }}</td>
-         </tr>
-         {% empty %}
-         <tr>
-            <td colspan="4">No users created yet</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in last_n_clients %}
+            <tr>
+                <td>{{ client.first_name }}</td>
+                <td>{{ client.last_name }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.date_joined }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No users created yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <div class="col-lg-4">
-   Most ordered models:
-   <table class="table table-responsive">
-      <thead>
-         <tr>
+    Most ordered models:
+    <table class="table table-responsive">
+        <thead>
+        <tr>
             <th>Model name</th>
             <th>Order count</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for model in last_n_most_ordered_models %}
-         <tr>
-            <td>{{ model.name }}</td>
-            <td>{{ model.order_count }}</td>
-         </tr>
-         {% empty %}
-         <tr>
-            <td colspan="4">No models ordered yet</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for model in last_n_most_ordered_models %}
+            <tr>
+                <td>{{ model.name }}</td>
+                <td>{{ model.order_count }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No models ordered yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <div class="col-lg-4">
-   Most ordered colors:
-   <table class="table table-responsive">
-      <thead>
-         <tr>
+    Most ordered colors:
+    <table class="table table-responsive">
+        <thead>
+        <tr>
             <th>Color name</th>
             <th>Order count</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for color in last_n_most_ordered_colors %}
-         <tr>
-            <td>{{ color.name }}</td>
-            <td>{{ color.order_count }}</td>
-         </tr>
-         {% empty %}
-         <tr>
-            <td colspan="4">No colors ordered yet</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for color in last_n_most_ordered_colors %}
+            <tr>
+                <td>{{ color.name }}</td>
+                <td>{{ color.order_count }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No colors ordered yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <div class="col-lg-4">
-   Most ordered sizes:
-   <table class="table table-responsive">
-      <thead>
-         <tr>
+    Most ordered sizes:
+    <table class="table table-responsive">
+        <thead>
+        <tr>
             <th>Size</th>
             <th>Order count</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for size in last_n_most_ordered_sizes %}
-         <tr>
-            <td>{{ size.name }}</td>
-            <td>{{ size.order_count }}</td>
-         </tr>
-         {% empty %}
-         <tr>
-            <td colspan="4">No sizes ordered yet</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+        </tr>
+        </thead>
+        <tbody>
+        {% for size in last_n_most_ordered_sizes %}
+            <tr>
+                <td>{{ size.name }}</td>
+                <td>{{ size.order_count }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No sizes ordered yet</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

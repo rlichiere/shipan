@@ -8,41 +8,41 @@
 
 {% block page-body %}
 
-   {% trans 'CLIENT_EMAIL' as CLIENT_EMAIL %}
-   {% trans 'CLIENT_FIRST_NAME' as CLIENT_FIRST_NAME %}
-   {% trans 'CLIENT_LAST_NAME' as CLIENT_LAST_NAME %}
-   {% trans 'CLIENT_PASSWORD' as CLIENT_PASSWORD %}
-   {% trans 'CLIENT_PASSWORD_CONFIRMATION' as CLIENT_PASSWORD_CONFIRMATION %}
+{% trans 'CLIENT_EMAIL' as CLIENT_EMAIL %}
+{% trans 'CLIENT_FIRST_NAME' as CLIENT_FIRST_NAME %}
+{% trans 'CLIENT_LAST_NAME' as CLIENT_LAST_NAME %}
+{% trans 'CLIENT_PASSWORD' as CLIENT_PASSWORD %}
+{% trans 'CLIENT_PASSWORD_CONFIRMATION' as CLIENT_PASSWORD_CONFIRMATION %}
 
-   <div class="login-panel panel panel-default col-lg-10 col-offset-1" style="transform: translateY(20%);">
-      <div class="panel-heading">
-         <h3 class="panel-title">{% trans 'PAGE_JOIN_TITLE' %}</h3>
-      </div>
-      <div class="panel-body">
-         <form role="form" method="post">
+<div class="login-panel panel panel-default col-lg-10 col-offset-1" style="transform: translateY(20%);">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans 'PAGE_JOIN_TITLE' %}</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" method="post">
             {% csrf_token %}
 
             <fieldset>
-               <div class="form-group">
-                  {% render_field form.username class+='form-control' placeholder=CLIENT_EMAIL %}
-               </div>
-               <div class="form-group input-group">
-                  {% render_field form.first_name class+='form-control' placeholder=CLIENT_FIRST_NAME %}
-                  {% render_field form.last_name class+='form-control' placeholder=CLIENT_LAST_NAME %}
-               </div>
-               <div class="form-group">
-                  {% render_field form.password1 class+='form-control' placeholder=CLIENT_PASSWORD %}
-               </div>
-               <div class="form-group">
-                  {% render_field form.password2 class+='form-control' placeholder=CLIENT_PASSWORD_CONFIRMATION %}
-               </div>
+                <div class="form-group">
+                    {% render_field form.username class+='form-control' placeholder=CLIENT_EMAIL %}
+                </div>
+                <div class="form-group input-group">
+                    {% render_field form.first_name class+='form-control' placeholder=CLIENT_FIRST_NAME %}
+                    {% render_field form.last_name class+='form-control' placeholder=CLIENT_LAST_NAME %}
+                </div>
+                <div class="form-group">
+                    {% render_field form.password1 class+='form-control' placeholder=CLIENT_PASSWORD %}
+                </div>
+                <div class="form-group">
+                    {% render_field form.password2 class+='form-control' placeholder=CLIENT_PASSWORD_CONFIRMATION %}
+                </div>
             </fieldset>
             {% if form.errors %}
                 <div style="color:red;">{{ form.errors }}</div>
             {% endif %}
             <button type="submit" class="btn btn-lg btn-primary btn-block">{% trans 'JOIN_BUTTON' %}</button>
-         </form>
-      </div>
-   </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

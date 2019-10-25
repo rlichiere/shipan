@@ -8,30 +8,31 @@
 
 {% block page-body %}
 
-   {% trans 'CLIENT_EMAIL' as CLIENT_EMAIL %}
-   {% trans 'CLIENT_PASSWORD' as CLIENT_PASSWORD %}
+{% trans 'CLIENT_EMAIL' as CLIENT_EMAIL %}
+{% trans 'CLIENT_PASSWORD' as CLIENT_PASSWORD %}
 
-   <div class="login-panel panel panel-default col-lg-6 col-offset-3" style="transform: translateY(40%);">
-      <div class="panel-heading">
-         <h3 class="panel-title">{% trans 'PAGE_SIGN_IN_TITLE' %}</h3>
-      </div>
-      <div class="panel-body">
-         <form role="form" method="post" action="{% url 'login' %}">
+<div class="login-panel panel panel-default col-lg-6 col-offset-3" style="transform: translateY(40%);">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans 'PAGE_SIGN_IN_TITLE' %}</h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <fieldset>
-               <div class="form-group">
-                  {% render_field form.username class+='form-control' placeholder=CLIENT_EMAIL %}
-               </div>
-               <div class="form-group">
-                  {% render_field form.password class+='form-control' placeholder=CLIENT_PASSWORD %}
-               </div>
-               <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'SIGN_IN_BUTTON' %}</button>
+                <div class="form-group">
+                    {% render_field form.username class+='form-control' placeholder=CLIENT_EMAIL %}
+                </div>
+                <div class="form-group">
+                    {% render_field form.password class+='form-control' placeholder=CLIENT_PASSWORD %}
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans 'SIGN_IN_BUTTON' %}</button>
             </fieldset>
             {% if form.errors %}
-                <p style="color:red;">{% trans 'USERNAME_OR_PASSWORD_INCORRECT' %}<!-- Username or password incorrect. Please try again. --></p>
+                <p style="color:red;">
+                    {% trans 'USERNAME_OR_PASSWORD_INCORRECT' %}<!-- Username or password incorrect. Please try again. --></p>
             {% endif %}
-         </form>
-      </div>
-   </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}
