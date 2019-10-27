@@ -5,3 +5,4 @@ docutils
 colorlog==4.0.2
 markdown2==2.3.5
 django-impersonate==1.4.1
+django-maintenance-mode==0.13.3

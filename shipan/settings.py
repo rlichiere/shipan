@@ -10,9 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import os
+import sys
 
 from django.contrib.messages import constants as messages
 from django.utils.translation import gettext_lazy as _
+
+from .core.exceptions import ShipanError
+from .utils_settings import SettingsLoader, SettingsLogger
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,13 +25,37 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4wurshcnjlg)sw#5+e)bi5j1z)lx26ae^m^6z1k(4@wuj8o)8v'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+
+# Load Environment Variables
+loader = SettingsLoader(prefix='shipan.settings',
+                        default_secret_key='ThisS3cr3tK3y3x@mpl3Sh0uldN3v3r!B3Us3dOnPr0ducti0n')
+
+# Initialize the logger dedicated to settings because of it slow-level position
+logger = SettingsLogger(func_name='shipan.settings', loader=loader)
+
+try:
+    loader.parse(os.environ)
+except ShipanError as e:
+    logger.print_exc(e.message, e.__class__)
+    exit(1)
+# except Exception as e:
+#     logger.print_err('Unexpected error: %s : %s' % (e.__class__.__name__, e.message))
+#     logger.print_exc(e.message, e.__class__)
+#     exit(1)
+
+DEBUG = loader.DEBUG
+LOG_LEVEL = loader.LOG_LEVEL
+LOG_SERVICES = loader.LOG_SERVICES
+SECRET_KEY = loader.SECRET_KEY
+
+
+
+# Django settings
 
 ALLOWED_HOSTS = ['*']
+
+
 
 # Application definition
 
@@ -49,6 +78,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'widget_tweaks',
     'impersonate',
+    'maintenance_mode',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +91,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
+
+    'maintenance_mode.middleware.MaintenanceModeMiddleware', # as last middleware
 ]
 
 ROOT_URLCONF = 'shipan.urls'
@@ -76,12 +108,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'maintenance_mode.context_processors.maintenance_mode',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'shipan.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -92,6 +126,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -135,20 +170,26 @@ LANGUAGES = [
 
 LOCALE_PATHS = ['locale', ]
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '%s/static/' % BASE_DIR
 
+
+# Media files (uploaded files)
+
 MEDIA_ROOT = '%s/media/' % BASE_DIR
 MEDIA_URL = '/media/'
+
 
 CUSTOM_USER_MODEL = 'people.Client'
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
 
 # Login Redirect
 LOGIN_URL = 'fo-home'
@@ -179,9 +220,9 @@ LOGGING = {
         'custom': {
             'format': '%(levelname)s %(message)s'
         },
-        'colored': {
+        'server_colored': {
             '()': 'colorlog.ColoredFormatter',
-            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(name)-10s%(reset)s %(message_log_color)s%(message)s",
+            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(name)-16s%(reset)s %(message_log_color)s%(message)s",
             'secondary_log_colors': {
                 'message': {
                     'ERROR': 'white,bg_red',
@@ -193,9 +234,24 @@ LOGGING = {
                 }
             }
         },
-        'colored_sql': {
+        'shipan_colored': {
             '()': 'colorlog.ColoredFormatter',
-            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(duration)-10s%(reset)s %(message_log_color)s%(sql)s",
+            'format': "%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(name)-16s%(reset)s %(message_log_color)s%(message)s",
+            'secondary_log_colors': {
+                'message': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                },
+                'levelname': {
+                    'ERROR': 'white,bg_red',
+                    'CRITICAL': 'white,bg_red'
+                }
+            }
+        },
+        'sql_colored': {
+            '()': 'colorlog.ColoredFormatter',
+            # 'format': '[SQL] %(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(duration)-10s%(reset)s %(message_log_color)s%(sql)s',
+            'format': '%(log_color)s%(levelname)-8s%(reset)s %(cyan)s%(duration)-10s%(reset)s',
             'secondary_log_colors': {
                 'message': {
                     'ERROR': 'white,bg_red',
@@ -209,16 +265,21 @@ LOGGING = {
         }
     },
     'handlers': {
-        'console': {
+        'server_console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'colored',
+            'formatter': 'server_colored',
             'filters': ['skip_static_requests'],
         },
-        'console_sql': {
+        'shipan_console': {
+            # 'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'shipan_colored',
+        },
+        'sql_console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'colored_sql',
+            'formatter': 'sql_colored',
         },
     },
     'loggers': {
@@ -227,27 +288,76 @@ LOGGING = {
         #    'level': 'ERROR',
         #    'propagate': True,
         # },
-
-        # 'django.db.backends': {
-        #    'handlers': ['console_sql'],
-        #    'level': 'DEBUG',
-        #    'propagate': False,
-        # },
-        'django.server': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
+        'django.db.backends': {
+            'handlers': ['sql_console'],
+            'level': LOG_LEVEL if 'SQL' in LOG_SERVICES else 'INFO',
             'propagate': False,
         },
-        'shipan': {
-            'handlers': ['console'],
-            'level': os.environ.get('LOG_LEVEL', 'INFO'),
+        'django.server': {
+            'handlers': ['server_console'],
+            'level': LOG_LEVEL if 'SERVER' in LOG_SERVICES else 'ERROR',
+            # 'propagate': False,
         },
+        'shipan': {
+            'handlers': ['shipan_console'],
+            'level': LOG_LEVEL if 'SHIPAN' in LOG_SERVICES else 'DEBUG',
+        }
     },
 }
 
+# LOGGING['loggers']['django.db.backends'] = {
+#     'handlers': ['sql_console'],
+#     'level': LOG_LEVEL if 'SQL' in LOG_SERVICES else 'INFO',
+#     'propagate': False,
+# }
+#
+# LOGGING['loggers']['django.server'] = {
+#     'handlers': ['server_console'],
+#     'level': LOG_LEVEL if 'SERVER' in LOG_SERVICES else 'ERROR',
+#     # 'propagate': False,
+# }
+#
+# LOGGING['loggers']['shipan'] = {
+#     'handlers': ['shipan_console'],
+#     'level': LOG_LEVEL if 'SHIPAN' in LOG_SERVICES else 'DEBUG',
+# }
+
+
+
 DJANGO_COLORS = 'light'
 
+
+# Impersonation
+# https://pypi.org/project/django-impersonate/
 IMPERSONATE = {
     'ALLOW_SUPERUSER': True,
     'REDIRECT_FIELD_NAME': 'next',
+}
+
+
+# Maintenance Mode
+# https://github.com/fabiocaccamo/django-maintenance-mode
+# MAINTENANCE_MODE = False
+MAINTENANCE_MODE_STATE_FILE_PATH = 'media/status/maintenance_mode_state.txt'
+MAINTENANCE_MODE_IGNORE_ADMIN_SITE = True
+# MAINTENANCE_MODE_IGNORE_ANONYMOUS = True
+# MAINTENANCE_MODE_IGNORE_VISITORS = True
+MAINTENANCE_MODE_IGNORE_STAFF = True
+MAINTENANCE_MODE_IGNORE_SUPERUSER = True
+
+
+
+SHIPAN = {
+    'DATA': {
+        'ROOT': {
+            'FOLDER': '/data',
+            'DISK_QUOTA': 64,               # mb
+            'RETENTION_PERIOD': 90          # days
+        },
+        'BACKUP': {
+            'FOLDER': '/data/backup',
+            'DISK_QUOTA': 64,               # mb
+            'RETENTION_PERIOD': 365         # days
+        },
+    },
 }

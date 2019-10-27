@@ -1,0 +1,5 @@
+Shipan root data storage
+
+Shipan features files are stored under this folder by default.
+
+To use a different root folder, customize the `DATA/ROOT/FOLDER` option in the `SHIPAN` configuration.

@@ -1,0 +1,34 @@
+{% comment %}
+
+    Render a button that allows to impersonate to the given `user` account.
+
+    Parameters:
+    - user  <User>: the user account to impersonate to
+
+    Example:
+    {% include 'tools/generic/impersonate_button.html' with user=some_user_instance %}
+
+{% endcomment %}
+{% load i18n %}
+
+{% if user.is_superuser %}
+<a href="#"
+   data-toggle="popover" data-html="true"
+   title="<h5>{% trans 'PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_TITLE' %}</h5>"
+   data-content="
+        <p>
+            {% trans 'PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_DESCRIPTION_1' %}
+        </p>
+        <p>
+            {% trans 'PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_DESCRIPTION_2' %}
+        </p>
+">
+    <div  class="btn btn-secondary disabled">
+        <span class="fas fa-user-secret"></span>
+    </div>
+</a>
+{% else %}
+<a href="/impersonate/{{ user.id }}" class="btn btn-primary">
+    <span class="fas fa-user-secret"></span>
+</a>
+{% endif %}

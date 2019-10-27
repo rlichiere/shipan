@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User, UserManager
 from django.db import models
 
+from tools import logger
 from tools import utils_exception
 
 
@@ -16,12 +17,26 @@ class Client(User):
 
     class Meta:
         verbose_name = 'Client'
+        ordering = ('first_name', 'last_name')
 
     def save(self, *args, **kwargs):
+        _l = logger.get('save', obj=self)
 
         if self.id is not None:
-            # prohibits the update
-            raise utils_exception.ApplicationExc('`Client.save` forbidden. You should use only Client.update_profile.')
+
+            # the update of email, first_name or last_name fields must be done via Client.update_profile()
+            _updateFields = kwargs.get('update_fields', None)
+            if _updateFields is not None:
+
+                if len(set(_updateFields) & {'email', 'first_name', 'last_name'}) > 0:
+                    # forbidden field found in kwargs
+                    _l.error('A forbidden call to Client.save() occurred.')
+                    _reason = 'The update of email, first_name or last_name fields must be done via Client.update_profile().'
+                    _l.error('- Reason: %s' % _reason)
+                    _l.error('- args  : %s' % str(args))
+                    _l.error('- kwargs: %s' % kwargs)
+                    raise utils_exception.ApplicationExc('`Client.save()` error. Reason: %s' % _reason)
+                _l.info('Client update allowed for field(s): %s' % ', '.join(_updateFields))
 
         super(Client, self).save(*args, **kwargs)
 

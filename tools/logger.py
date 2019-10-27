@@ -31,6 +31,9 @@ class Logger(object):
 
     """ Public """
 
+    def verbose(self, *args, **kwargs):
+        self._print(constants.LEVELS.DEBUG, *args, **kwargs)
+
     def debug(self, *args, **kwargs):
         self._print(constants.LEVELS.DEBUG, *args, **kwargs)
 
@@ -75,4 +78,9 @@ class Logger(object):
     def _print(self, level, *args, **kwargs):
         _msg = self._buildMessage(*args, **kwargs)
         _print = constants.LEVELS.getLevelMethod(level)
+
+        # _prefix = self.prefix
+        # if level == constants.LEVELS.VERBOSE and settings.LOG_LEVEL_SHIPAN == constants.LEVELS.VERBOSE:
+        #     _prefix += constants.LEVELS.VERBOSE
+
         _print(' '.join([self.prefix, _msg]))

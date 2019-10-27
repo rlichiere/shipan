@@ -1,0 +1,3 @@
+Shipan backups are saved to this folder by default.
+
+To use a different folder, customize the `DATA/BACKUP/FOLDER` option in the `SHIPAN` configuration.

@@ -19,8 +19,8 @@ class Home(utils_views.StaffuserRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
 
-        _clients = Client.objects.all()
-        _clients = _clients[max(0, _clients.count() - 5):]
+        _clients = Client.objects.order_by('-date_joined')
+        _clients = _clients[:5]
         context['last_n_clients'] = _clients
 
         return context

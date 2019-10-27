@@ -74,11 +74,16 @@
 {% block page-head %}{% endblock %}
 <!-- /block page-head -->
 
+{% block page-topnav %}
 <nav class="navbar navbar-expand fixed-top pr-3 hat">
+
+    {% block page-topnav-brand %}
     <a class="navbar-brand" href="{% url 'fo-home' %}">
         <img src="{% static 'frontoffice/img/logo.jpg' %}" title="{{ config.VERSION.Project }}">
     </a>
+    {% endblock %}
 
+    {% block page-topnav-menu-main %}
     <ul class="navbar-nav mr-auto">
         {% for product_selection in selection_news %}
             <li class="nav-item">
@@ -102,7 +107,9 @@
             </li>
         {% endfor %}
     </ul>
+    {% endblock %}
 
+    {% block page-topnav-menu-right %}
     <form class="form-inline">
         {% if not executor or executor.is_anonymous %}
             <a class="nav-link btn btn-light" href="{% url 'login' %}">{% trans 'PAGE_SIGN_IN_TITLE' %}</a>
@@ -110,18 +117,56 @@
         {% else %}
 
             {% if executor.is_superuser %}
-                <div class="dropdown">
-                    <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown"
-                       href="#">{% trans 'MENU_VENDOR_TITLE' %}</a>
-                    <ul class="dropdown-menu dropdown-menu-right py-0">
-                        <li><a class="nav-link btn-light"
-                               href="{% url 'bo-home' %}">{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}</a></li>
-                        <li><a class="nav-link btn-light"
-                               href="{% url 'admin:index' %}">{% trans 'PAGE_VENDOR_ADMIN_TITLE' %}</a></li>
-                        <li><a class="nav-link btn-light"
-                               href="{% url 'doc-home' %}">{% trans 'PAGE_VENDOR_DOCUMENTATION_TITLE' %}</a></li>
-                    </ul>
-                </div>
+            <div class="dropdown">
+                <a class="dropdown-toggle nav-link btn {% if maintenance_mode %}bg-warning{% else %}btn-light{% endif %}" data-toggle="dropdown" href="#">
+                    {% trans 'MENU_ADMIN_SITESTATUS_TITLE' %}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right py-0">
+                    <li class="dropdown-header">
+                        {% trans 'MENU_ADMIN_MAINTENANCE_MODE_HEADER' %}
+                    </li>
+                    <li>
+                        {% if maintenance_mode %}
+                        <a href="#" class="btn btn-warning btn-sm float-right mt-1 mr-1"
+                             data-toggle="popover" data-trigger="hover" data-html="true"
+                             title="<h5><code>{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_503_LABEL' %}</code></h5>"
+                             data-content="{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_503_DESCRIPTION' %}">
+                            <span class="fas fa-exclamation-triangle"></span>
+                        </a>
+                        <a class="nav-link btn-primary" href="{% url 'maintenance_mode_off' %}">
+                            <span class="fas fa-toggle-off"></span>
+                            {% trans 'MENU_ADMIN_MAINTENANCE_MODE_OFF' %}
+                        </a>
+                        {% else %}
+                        <a href="#" class="btn btn-light btn-sm float-right mt-1 mr-1"
+                             data-toggle="popover" data-trigger="hover" data-html="true"
+                             title="<h5>{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_ENABLE_LABEL' %}</h5>"
+                             data-content="{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_ENABLE_DESCRIPTION' %}">
+                            <span class="fas fa-exclamation-triangle"></span>
+                        </a>
+                        <a class="nav-link btn-primary" href="{% url 'maintenance_mode_on' %}">
+                            <span class="fas fa-toggle-on"></span>
+                            {% trans 'MENU_ADMIN_MAINTENANCE_MODE_ON' %}
+                        </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if executor.is_staff %}
+            <div class="dropdown">
+                <a class="dropdown-toggle nav-link btn btn-light" data-toggle="dropdown"
+                   href="#">{% trans 'MENU_VENDOR_TITLE' %}</a>
+                <ul class="dropdown-menu dropdown-menu-right py-0">
+                    <li><a class="nav-link btn-light"
+                           href="{% url 'bo-home' %}">{% trans 'PAGE_VENDOR_BACKOFFICE_TITLE' %}</a></li>
+                    <li><a class="nav-link btn-light"
+                           href="{% url 'admin:index' %}">{% trans 'PAGE_VENDOR_ADMIN_TITLE' %}</a></li>
+                    <li><a class="nav-link btn-light"
+                           href="{% url 'doc-home' %}">{% trans 'PAGE_VENDOR_DOCUMENTATION_TITLE' %}</a></li>
+                </ul>
+            </div>
             {% endif %}
 
             <div class="dropdown">
@@ -132,7 +177,9 @@
                 <ul class="dropdown-menu dropdown-menu-right py-0">
                     <li>
                         {% if request.impersonator and request.impersonator.is_staff and request.impersonator != request.user %}
-                        <a class="btn btn-primary btn-sm float-right mt-1 mr-1" href="{% url 'impersonate-stop' %}?next={{ request.path }}" title="Stop impersonation of {{ request.user.get_full_name }}">
+                        <a class="btn btn-primary btn-sm float-right mt-1 mr-1"
+                           href="{% url 'impersonate-stop' %}?next={{ request.path }}"
+                           title="Stop impersonation of {{ request.user.get_full_name }}">
                             <span class="fas fa-user-slash"></span>
                         </a>
                         {% endif %}
@@ -149,7 +196,9 @@
             </div>
         {% endif %}
     </form>
+    {% endblock %}
 </nav>
+{% endblock %}
 
 <div class="container mb-5" id="main-page-content" role="list">
 
@@ -159,7 +208,6 @@
                 <!-- block page-title -->
                 <h1>{% block page-title %}{% endblock %}</h1>
                 <!-- /block page-title -->
-
             </div>
         </div>
     {% endblock %}
@@ -214,8 +262,8 @@
                                data-toggle="popover" data-html="true" data-placement="top" data-trigger="focus"
                                title="{{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}"
                                data-content="
-                           <p>Published on: <code>{{ config.VERSION.PublishDate }}</code></p>
-                           <p>Version code:<br />
+                           <p>{% trans 'MAIN_SHIPAN_PUBLISHED_TEXT' %}: <code>{{ config.VERSION.PublishDate }}</code></p>
+                           <p>{% trans 'MAIN_SHIPAN_VERSION_TEXT' %}:<br />
                            <code>{{ config.VERSION.VersionCode }}</code></p>"
                             >
                                 {{ config.VERSION.Version }}
@@ -225,7 +273,7 @@
                         {% endif %}
                         <!--
                         {{ config.VERSION.Project }} v{{ config.VERSION.VersionFull }}
-                        Published on {{ config.VERSION.PublishDate }}
+                        {% trans 'MAIN_SHIPAN_PUBLISHED_TEXT' %} {{ config.VERSION.PublishDate }}
                         ({{ config.VERSION.VersionCode }})
                      -->
                     </label>

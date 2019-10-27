@@ -6,57 +6,66 @@
  * (c) 2019 Remi Lichiere
  */
 
-
 /* Bootstrap custom extensions */
 .display-5,
 .display-6 {
-   font-weight: 300;
-   line-height: 1.2;
+    font-weight: 300;
+    line-height: 1.2;
 }
+
 .display-5 {
-   font-size: 2.5rem;
+    font-size: 2.5rem;
 }
+
 .display-6 {
-   font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .xsmall {
-   font-size: 0.8em;
-   padding: .75rem 1.0rem;
+    font-size: 0.8em;
+    padding: .75rem 1.0rem;
 }
-
 
 /* Main layout */
 html {
-   position: relative;
-   min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
+
 .footer {
-   position: fixed;
-   float: bottom;
-   bottom: 0;
-   width: 100%;
-   line-height: 0;
+    position: fixed;
+    float: bottom;
+    bottom: 0;
+    width: 100%;
+    line-height: 0;
 }
 
 .hat .navbar-nav,
 .footer > nav > .navbar-nav {
-   float: none;
-   margin:0 auto;
-   display: block;
-   text-align: center;
+    float: none;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
 }
 
 .hat .navbar-nav > li,
 .footer .navbar-nav > li {
-   display: inline-block;
-   float: none;
+    display: inline-block;
+    float: none;
 }
-
 
 /* Page layout */
 #main-page-content {
-   /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
-   margin-top: 165px; /* = navbar height */
-   margin-bottom: 0;  /* = footerHeight */
+    /* PageContent must adapt to the height of navbar and footer in accordance with their respective formulas */
+    margin-top: 165px; /* = navbar height */
+    margin-bottom: 0; /* = footerHeight */
+}
+
+/* Popover */
+.popover {
+    min-width: 400px;
+}
+
+.popover-header {
+    text-align: center;
 }

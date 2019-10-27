@@ -25,6 +25,7 @@ COMMAND_EXIT_CODE = _CommandExitCodeClass()
 
 class LEVELS(object):
     _levels = {
+        # 'VERBOSE': django_logger.debug,
         'DEBUG': django_logger.debug,
         'INFO': django_logger.info,
         'DEPRECATE': django_logger.warning,
@@ -34,6 +35,7 @@ class LEVELS(object):
         'CRITICAL': django_logger.critical,
         'FATAL': django_logger.fatal,
     }
+    # VERBOSE = 'VERBOSE'
     DEBUG = 'DEBUG'
     INFO = 'INFO'
     WARNING = 'WARNING'

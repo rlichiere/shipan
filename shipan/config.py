@@ -4,7 +4,8 @@ from . import const
 
 from tools import utils_version
 
-BACKUP_ROOT = '%s/_backup' % settings.BASE_DIR
+
+BACKUP_ROOT = '%s/%s' % (settings.BASE_DIR, settings.SHIPAN['DATA']['ROOT']['FOLDER'])
 
 VERSION = utils_version.Version(
     project_name='ShipanShop',
@@ -16,7 +17,7 @@ VERSION = utils_version.Version(
     comment='',
     publish_year=2019,
     publish_month=10,
-    publish_day=14,
+    publish_day=26,
     author_name='Remi LICHIERE',
     author_email='contact@reum.org',
 )

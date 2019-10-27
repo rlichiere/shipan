@@ -32,7 +32,7 @@ def load_base(parser, params):
 
     """
     _l = logger.get('load_base')
-    _l.debug('unused params: parser: %(parser)s, param: %(params)s' % {'parser': type(parser), 'params': type(params)})
+    _l.verbose('unused params: parser: %(parser)s, param: %(params)s' % {'parser': type(parser), 'params': type(params)})
 
     class _Node(template.Node):
         def __init__(self):

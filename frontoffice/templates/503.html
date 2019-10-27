@@ -1,0 +1,54 @@
+{% extends 'frontoffice/base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_503_LABEL' %}{% endblock %}
+
+{# Hide top nav elements except the main logo #}
+{% block page-topnav-menu-main %}{% endblock %}
+{% block page-topnav-menu-right %}{% endblock %}
+
+{% block page-body %}
+<div id="MaintenanceMode_PageBody">
+    <div class="jumbotron bg-warning" >
+
+            <h1>
+                {% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_TITLE' %}
+            </h1>
+
+            <p>
+                {% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_DESCRIPTION_1' %}
+                <br />
+                {% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_DESCRIPTION_2' %}
+            </p>
+
+    </div>
+
+    <div role="main">
+        <div class="btn btn-light" role="button">
+            <div class="fas fa-caret-right" role="main"></div>
+            <div class="fas fa-caret-down" role="complementary" style="display: none;"></div>
+            {% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_SWITCH_DETAILS_LABEL' %}{% comment %}Details{% endcomment %}
+        </div>
+        <div role="contentinfo" class="mt-2" style="display: none;">
+            <pre>{% trans 'SYSTEM_STATUS_MAINTENANCE_MODE_503_LABEL' %}</pre>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+
+    $(document).ready(function() {
+
+        $('#MaintenanceMode_PageBody > div[role="main"] > div[role="button"]').click(function() {
+            $('#MaintenanceMode_PageBody > div[role="main"] > div[role="button"] > div[role="main"]').toggle();
+            $('#MaintenanceMode_PageBody > div[role="main"] > div[role="button"] > div[role="complementary"]').toggle();
+            $('#MaintenanceMode_PageBody > div[role="main"] > div[role="contentinfo"]').toggle();
+        });
+
+    });
+
+</script>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-15 02:40+0200\n"
+"POT-Creation-Date: 2019-10-26 03:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: .\backoffice\templates\backoffice\home.html:6
-#: .\frontoffice\templates\frontoffice\base.html:107
+#: .\frontoffice\templates\frontoffice\base.html:163
 msgid "PAGE_VENDOR_BACKOFFICE_TITLE"
 msgstr "Backoffice"
 
@@ -34,11 +34,11 @@ msgstr "Documentation"
 msgid "PAGE_DOCUMENTATION_HEADER"
 msgstr "Administrator's documentation"
 
-#: .\doc\templates\doc\doc_page.html:22 .\doc\views.py:108
+#: .\doc\templates\doc\doc_page.html:23 .\doc\views.py:108
 msgid "PAGE_DOCUMENTATION_HOME_TITLE"
 msgstr "Home"
 
-#: .\doc\templates\doc\doc_page.html:30
+#: .\doc\templates\doc\doc_page.html:31
 msgid "LINK_GO_TO_TOP_OF_PAGE"
 msgstr "Top"
 
@@ -46,35 +46,99 @@ msgstr "Top"
 msgid "ERROR_WHILE_LOADING_DOCUMENTATION_FILE"
 msgstr "Error while loading documentation file"
 
-#: .\frontoffice\templates\frontoffice\base.html:99
+#: .\frontoffice\templates\503.html:5 .\frontoffice\templates\503.html:35
+#: .\frontoffice\templates\frontoffice\base.html:132
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_503_LABEL"
+msgstr "503 - Service Unavailable"
+
+#: .\frontoffice\templates\503.html:16
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_TITLE"
+msgstr "Unfortunately, the site is actually under maintenance."
+
+#: .\frontoffice\templates\503.html:20
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_DESCRIPTION_1"
+msgstr "We are working hard to reopen the website as soon as possible."
+
+#: .\frontoffice\templates\503.html:22
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_DESCRIPTION_2"
+msgstr "We apologize for this inconvenience and hope to see you soon!"
+
+#: .\frontoffice\templates\503.html:31
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_PAGE_SWITCH_DETAILS_LABEL"
+msgstr "Details"
+
+#: .\frontoffice\templates\frontoffice\base.html:115
 #: .\people\templates\people\login.html:7
 #: .\people\templates\people\login.html:16
 msgid "PAGE_SIGN_IN_TITLE"
 msgstr "Sign in"
 
-#: .\frontoffice\templates\frontoffice\base.html:100
+#: .\frontoffice\templates\frontoffice\base.html:116
 #: .\people\templates\people\join.html:7
 #: .\people\templates\people\join.html:19
 msgid "PAGE_JOIN_TITLE"
 msgstr "Join"
 
-#: .\frontoffice\templates\frontoffice\base.html:105
+#: .\frontoffice\templates\frontoffice\base.html:122
+msgid "MENU_ADMIN_SITESTATUS_TITLE"
+msgstr "System status"
+
+#: .\frontoffice\templates\frontoffice\base.html:126
+msgid "MENU_ADMIN_MAINTENANCE_MODE_HEADER"
+msgstr "Maintenance mode"
+
+#: .\frontoffice\templates\frontoffice\base.html:133
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_503_DESCRIPTION"
+msgstr ""
+"<p>   The website is currently <strong>under maintenance</strong>, so it "
+"is<br />   <strong>no longer accessible to customers and visitors</strong>."
+"<br />   When this option is active, they cannot access any page of the "
+"site, being systematically redirected to the 503 error page provided for "
+"this purpose.</p><p>   Only <code>staff</code> and <code>superuser</code> "
+"users can continue to access the website, without any particular "
+"restrictions.</p><p>   This mode can only be disabled by a <code>superuser</"
+"code>.</p>"
+
+#: .\frontoffice\templates\frontoffice\base.html:138
+msgid "MENU_ADMIN_MAINTENANCE_MODE_OFF"
+msgstr "Disable"
+
+#: .\frontoffice\templates\frontoffice\base.html:143
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_ENABLE_LABEL"
+msgstr "Activate maintenance"
+
+#: .\frontoffice\templates\frontoffice\base.html:144
+msgid "SYSTEM_STATUS_MAINTENANCE_MODE_ENABLE_DESCRIPTION"
+msgstr ""
+"<p>   The maintenance mode will <strong>close the website to customers and "
+"visitors</strong>.<br />   When this option is active, they cannot access "
+"any page of the site, being systematically redirected to the 503 error page "
+"provided for this purpose.</p><p>   <code>staff</code> and <code>superuser</"
+"code> users will not be affected   and will continue to access the website "
+"without any particular restrictions.</p><p>   This mode can only be enabled/"
+"disabled by a <code>superuser</code>.</p>"
+
+#: .\frontoffice\templates\frontoffice\base.html:149
+msgid "MENU_ADMIN_MAINTENANCE_MODE_ON"
+msgstr "Enable"
+
+#: .\frontoffice\templates\frontoffice\base.html:160
 msgid "MENU_VENDOR_TITLE"
 msgstr "Vendor"
 
-#: .\frontoffice\templates\frontoffice\base.html:108
+#: .\frontoffice\templates\frontoffice\base.html:165
 msgid "PAGE_VENDOR_ADMIN_TITLE"
 msgstr "Admin"
 
-#: .\frontoffice\templates\frontoffice\base.html:109
+#: .\frontoffice\templates\frontoffice\base.html:167
 msgid "PAGE_VENDOR_DOCUMENTATION_TITLE"
 msgstr "Documentation"
 
-#: .\frontoffice\templates\frontoffice\base.html:115
+#: .\frontoffice\templates\frontoffice\base.html:175
 msgid "MENU_CLIENT_PROFILE"
 msgstr "Profile"
 
-#: .\frontoffice\templates\frontoffice\base.html:117
+#: .\frontoffice\templates\frontoffice\base.html:188
 #: .\people\templates\people\client\account\account.html:7
 #: .\people\templates\people\client\account\account.html:9
 #: .\people\templates\people\client\account\account_change_password.html:7
@@ -82,17 +146,26 @@ msgstr "Profile"
 msgid "PAGE_MY_ACCOUNT_TITLE"
 msgstr "My account"
 
-#: .\frontoffice\templates\frontoffice\base.html:118
+#: .\frontoffice\templates\frontoffice\base.html:191
 msgid "PAGE_MY_ORDERS_TITLE"
 msgstr "My orders"
 
-#: .\frontoffice\templates\frontoffice\base.html:119
+#: .\frontoffice\templates\frontoffice\base.html:192
 msgid "PAGE_MY_WISHLIST_TITLE"
 msgstr "My wishlist"
 
-#: .\frontoffice\templates\frontoffice\base.html:120
+#: .\frontoffice\templates\frontoffice\base.html:193
 msgid "PAGE_SIGN_OUT_TITLE"
 msgstr "Sign out"
+
+#: .\frontoffice\templates\frontoffice\base.html:265
+#: .\frontoffice\templates\frontoffice\base.html:276
+msgid "MAIN_SHIPAN_PUBLISHED_TEXT"
+msgstr "Published on"
+
+#: .\frontoffice\templates\frontoffice\base.html:266
+msgid "MAIN_SHIPAN_VERSION_TEXT"
+msgstr "Version code"
 
 #: .\frontoffice\templates\frontoffice\generic\card-error.html:11
 msgid "CARD_ERROR_HEADER_TITLE"
@@ -116,27 +189,27 @@ msgstr ""
 msgid "PLEASE_ACCEPT_OUR_APOLOGIZES"
 msgstr "Please accept our apologizes for this inconvenience"
 
-#: .\frontoffice\templates\frontoffice\product.html:123
+#: .\frontoffice\templates\frontoffice\product.html:136
 msgid "PRODUCT_DETAIL_COLOR"
 msgstr "Color"
 
-#: .\frontoffice\templates\frontoffice\product.html:145
+#: .\frontoffice\templates\frontoffice\product.html:159
 msgid "PRODUCT_DETAIL_SIZE"
 msgstr "Size"
 
-#: .\frontoffice\templates\frontoffice\product.html:173
+#: .\frontoffice\templates\frontoffice\product.html:178
 msgid "BUY_NOW_BUTTON"
 msgstr "Buy now"
 
-#: .\frontoffice\templates\frontoffice\product.html:174
+#: .\frontoffice\templates\frontoffice\product.html:180
 msgid "ADD_TO_CART_BUTTON"
 msgstr "Add to cart"
 
-#: .\frontoffice\templates\frontoffice\products.html:55
+#: .\frontoffice\templates\frontoffice\products.html:60
 msgid "PRODUCT_THUMB_COLORS"
 msgstr "Colors"
 
-#: .\frontoffice\templates\frontoffice\products.html:62
+#: .\frontoffice\templates\frontoffice\products.html:69
 msgid "PRODUCT_THUMB_SIZES"
 msgstr "Sizes"
 
@@ -163,23 +236,23 @@ msgstr "First name"
 msgid "CLIENT_LAST_NAME"
 msgstr "Last name"
 
-#: .\people\forms.py:90
+#: .\people\forms.py:86
 #: .\people\templates\people\client\account\account_change_password.html:19
 msgid "CLIENT_NEW_PASSWORD"
 msgstr "New password"
 
-#: .\people\forms.py:94
+#: .\people\forms.py:90
 #: .\people\templates\people\client\account\account_change_password.html:20
 msgid "CLIENT_NEW_PASSWORD_CONFIRMATION"
 msgstr "Password confirmation"
 
-#: .\people\forms.py:105
+#: .\people\forms.py:101
 msgid "PASSWORD_SHOULD_NOT_BE_EMPTY"
 msgstr "Password should not be empty"
 
-#: .\people\forms.py:108
-#: .\people\templates\people\client\account\account_change_password.html:75
+#: .\people\forms.py:104
 #: .\people\templates\people\client\account\account_change_password.html:79
+#: .\people\templates\people\client\account\account_change_password.html:83
 msgid "PASSWORDS_ARE_NOT_IDENTICAL"
 msgstr "Passwords are not identical"
 
@@ -191,40 +264,56 @@ msgstr "Username"
 msgid "CHANGE_PROFILE_INFORMATION_HEADER_TITLE"
 msgstr "Change profile information"
 
-#: .\people\templates\people\client\account\account.html:76
+#: .\people\templates\people\client\account\account.html:78
 msgid "SAVE_PROFILE_BUTTON"
 msgstr "Save profile"
 
-#: .\people\templates\people\client\account\account.html:90
+#: .\people\templates\people\client\account\account.html:92
 #: .\people\templates\people\client\account\account_change_password.html:27
 msgid "CHANGE_PASSWORD_HEADER_TITLE"
 msgstr "Change password"
 
-#: .\people\templates\people\client\account\account.html:95
+#: .\people\templates\people\client\account\account.html:97
 msgid "CHANGE_YOUR_CURRENT_PASSWORD_USING_BELOW_OPTION"
 msgstr "Change your current password using the button below"
 
-#: .\people\templates\people\client\account\account.html:100
+#: .\people\templates\people\client\account\account.html:103
 msgid "CHANGE_PASSWORD_BUTTON"
 msgstr "Change password"
 
-#: .\people\templates\people\client\account\account.html:106
+#: .\people\templates\people\client\account\account.html:109
 msgid "CHANGING_THE_PASSWORD_REQUIRES_VALIDATON_BY_EMAIL"
 msgstr "Changing the password requires validation by email"
 
-#: .\people\templates\people\client\account\account.html:109
+#: .\people\templates\people\client\account\account.html:112
 msgid "AN_EMAIL_WILL_BE_SENT_TO_YOU_WITH_A_PASSWORD_CHANGE_LINK"
 msgstr ""
 "An email will be sent to you with a password change link (check your "
 "<code>Spam</code> folder if necessary)"
 
-#: .\people\templates\people\client\account\account.html:114
+#: .\people\templates\people\client\account\account.html:118
 msgid "SEND_LINK_BUTTON"
 msgstr "Send link"
 
-#: .\people\templates\people\client\account\account_change_password.html:55
+#: .\people\templates\people\client\account\account_change_password.html:59
 msgid "CHANGE_PASSWORD"
 msgstr "Change password"
+
+#: .\people\templates\people\generic\impersonate_button.html:17
+msgid "PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_TITLE"
+msgstr "A superuser cannot be impersonated"
+
+#: .\people\templates\people\generic\impersonate_button.html:20
+msgid "PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_DESCRIPTION_1"
+msgstr ""
+"For obvious security reasons, it is not allowed to impersonate to a "
+"<code>superuser</code> user account."
+
+#: .\people\templates\people\generic\impersonate_button.html:23
+msgid "PEOPLE_IMPERSONATE_SUPERUSER_IS_IMPERSONABLE_DESCRIPTION_2"
+msgstr ""
+"This rule is hard-coded and no configuration options are provided to change "
+"it."
 
 #: .\people\templates\people\join.html:14
 #: .\people\templates\people\login.html:12
@@ -243,7 +332,7 @@ msgstr "Join"
 msgid "SIGN_IN_BUTTON"
 msgstr "Sign in"
 
-#: .\people\templates\people\login.html:31
+#: .\people\templates\people\login.html:32
 msgid "USERNAME_OR_PASSWORD_INCORRECT"
 msgstr "Username or password incorrect. Please "
 
@@ -285,10 +374,10 @@ msgstr "Password changed"
 msgid "ERROR_UNKNOWN_ACTION"
 msgstr "Unknown action : %(action)s"
 
-#: .\shipan\settings.py:135
+#: .\shipan\settings.py:138
 msgid "French"
 msgstr ""
 
-#: .\shipan\settings.py:136
+#: .\shipan\settings.py:139
 msgid "English"
 msgstr ""
